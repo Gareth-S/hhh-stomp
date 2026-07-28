@@ -1,0 +1,10 @@
+ Tiny Song
+
+[Verse]
+
+C      G
+Hello world
+
+| C | G |
+
+[End]

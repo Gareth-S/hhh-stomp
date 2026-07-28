@@ -1,0 +1,182 @@
+/*
+ * lyrics.css
+ *
+ * song2html stylesheet
+ *
+ * Version 0.2
+ */
+
+/*
+ * Theme colours
+ */
+
+:root {
+
+    --bg:             #1e2548;
+    --text:           #d8d6a8;
+
+    --section:        #d6c15f;
+    --section-size:   1.25em;
+
+    --chord:          #9fdc74;
+
+    --band-bg:        #7fbf7f;
+    --band-text:      #000000;
+
+    --personal-bg:    #8a3030;
+    --personal-text:  #fff080;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+/*    font-family: monospace;  */
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 1.1em;
+    line-height: 1.4;
+
+    background: var(--bg);
+    color: var(--text);
+}
+
+.chords {
+    color: var(--chord);
+    font-weight: bold;
+    white-space: pre;
+}
+
+.accidental {
+    font: inherit;
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+.song-section h2 {
+    color: var(--section);
+    font-size: var(--section-size);
+    font-weight: bold;
+}
+
+.light-theme {
+
+    --bg:            #f6f3e8;
+    --text:          #404040;
+
+    --section:       #7a6425;
+    --chord:         #2d5f2d;
+
+    --band-bg:       #b9ddb4;
+    --band-text:     #202020;
+
+    --personal-bg:   #d07c7c;
+    --personal-text: #fff8b0;
+}
+
+.dark-theme {
+
+    --bg:            #2a2d31;
+    --text:          #d5d5d5;
+
+    --section:       #e0c96b;
+    --chord:         #8fcf87;
+
+    --band-bg:       #5f875f;
+    --band-text:     #101010;
+
+    --personal-bg:   #7d4040;
+    --personal-text: #ffe080;
+}
+
+.default-theme {
+
+    --bg:            #22294b;
+    --text:          #d8d3a2;
+
+    --section:       #d9be55;
+    --chord:         #8fd26b;
+
+    --band-bg:       #6cb66c;
+    --band-text:     #101010;
+
+    --personal-bg:   #8a3030;
+    --personal-text: #fff080;
+}
+
+.band-note {
+
+    background: var(--band-bg);
+    color: var(--band-text);
+
+    padding: 0.25em 0.5em;
+
+    margin: 0.5em 0;
+}
+
+
+.personal-note {
+
+    background: var(--personal-bg);
+    color: var(--personal-text);
+
+    font-size: 0.85em;
+
+    padding: 0.2em 0.5em;
+
+    margin: 0.2em 0;
+}
+
+.chords {
+    color: var(--chord);
+    font-weight: bold;
+    white-space: pre;
+}
+
+.lyrics {
+    color: var(--text);
+    white-space: pre;
+}
+
+.chord-lyric {
+    margin-bottom: 0.5em;
+}
+
+.song-section h2 {
+    color: var(--section);
+    font-size: var(--section-size);
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+.song-title {
+    text-align: center;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.song-notes {
+    text-align: left;
+    margin-bottom: 2rem;
+    padding: 0.5em;
+    border-left: 4px solid var(--section);
+}
+
+.bar-line {
+    white-space: pre;
+    color: #bfbfbf;
+}
+
+.blank-line {
+    height: 1em;
+}
+
+#song-controls {
+
+    text-align: center;
+
+}
