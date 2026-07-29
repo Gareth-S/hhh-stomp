@@ -40,6 +40,38 @@ body {
     color: var(--text);
 }
 
+/* Outer tempo frame */
+
+#tempo-frame {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+}
+
+/* Main song container */
+
+#song-container {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    padding: 1em;
+
+}
+
+/* Application area */
+
+#app {
+
+    width: 100%;
+
+}
+
+
+
 .chords {
     color: var(--chord);
     font-weight: bold;
@@ -51,6 +83,81 @@ body {
     font-size: 1.15em;
     font-weight: bold;
 }
+
+
+/* Burger menu */
+
+#burger-menu {
+
+   position: absolute;
+
+    top: 1em;
+    left: 1em;
+
+    z-index: 1000;
+
+    background: #30343b;
+    color: #eeeeee;
+    padding: 1em;
+    border-radius: 8px;
+    width: 250px;
+    border: 1px solid #555;
+/*   margin-left: 1em;*/ 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+#burger-menu h3 {
+
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+    text-align: left;
+}
+
+
+#burger-menu a {
+
+    color: #eeeeee;
+    text-decoration: none;
+    display: block;
+    padding: 0.3em 0;
+}
+
+.theme-option {
+
+    display: block;
+    padding: 0.6em;
+    margin-bottom: 0.5em;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.default-theme-preview {
+
+    background: #20284a;
+    color: #d8c85a;
+    border: 1px solid #4fa65b;
+}
+
+.light-theme-preview {
+
+    background: #eee9dc;
+    color: #444444;
+    border: 1px solid #999999;
+}
+
+.dark-theme-preview {
+
+    background: #252525;
+    color: #dddddd;
+    border: 1px solid #777777;
+}
+
+.theme-option input {
+    display: none;
+}
+
 
 .song-section h2 {
     color: var(--section);
@@ -101,7 +208,17 @@ body {
 
     --personal-bg:   #8a3030;
     --personal-text: #fff080;
+    --link: #d8c85a         ;
+    
 }
+
+
+a {
+
+    color: var(--link);
+    text-decoration: none;
+}
+
 
 .band-note {
 
