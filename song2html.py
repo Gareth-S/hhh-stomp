@@ -5,7 +5,7 @@
 #
 # Convert a plain text chord sheet into HTML.
 #
-VERSION = "0.6"
+VERSION = "0.7-burger button"
 
 
 
@@ -214,6 +214,8 @@ def render_header(f, song):
     print("            </nav>", file=f)
     print(file=f)
 
+    render_burger_menu(f)
+
 
     print("        </header>", file=f)
     print(file=f)
@@ -235,6 +237,44 @@ def render_header(f, song):
 #    print(f"        <h1 class=\"song-title\">{song.title}</h1>", file=f)
 #    print("    </header>", file=f)
 #    print(file=f)
+
+def render_burger_menu(f):
+
+    print('            <nav id="burger-menu">', file=f)
+    print(file=f)
+
+    print('                <div class="menu-section">', file=f)
+    print('                    <h3>Theme</h3>', file=f)
+    print(file=f)
+
+    print('                    <label><input type="radio" name="theme" id="theme-default" checked> Default</label>', file=f)
+    print('                    <label><input type="radio" name="theme" id="theme-light"> Light</label>', file=f)
+    print('                    <label><input type="radio" name="theme" id="theme-dark"> Dark</label>', file=f)
+
+    print('                </div>', file=f)
+    print(file=f)
+
+    print('                <div class="menu-section">', file=f)
+    print('                    <h3>Options</h3>', file=f)
+
+    print('                    <label><input type="checkbox" id="invert-theme"> Invert Colours</label>', file=f)
+    print('                    <label><input type="checkbox" id="big-tempo"> Big Tempo</label>', file=f)
+
+    print('                </div>', file=f)
+    print(file=f)
+
+    print('                <div class="menu-section">', file=f)
+    print('                    <h3>links</h3>', file=f)
+
+    print('                    <a href="songlists.html">Song Lists</a>', file=f)
+    print('                    <a href="settings.html">Settings</a>', file=f)
+
+    print('                </div>', file=f)
+    print(file=f)
+
+    print('            </nav>', file=f)
+    print(file=f)
+
 
 
 def render_footer(f):
