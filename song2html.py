@@ -247,9 +247,26 @@ def render_burger_menu(f):
     print('                    <h3>Theme</h3>', file=f)
     print(file=f)
 
-    print('                    <label><input type="radio" name="theme" id="theme-default" checked> Default</label>', file=f)
-    print('                    <label><input type="radio" name="theme" id="theme-light"> Light</label>', file=f)
-    print('                    <label><input type="radio" name="theme" id="theme-dark"> Dark</label>', file=f)
+#    print('                    <label><input type="radio" name="theme" id="theme-default" checked> Default</label>', file=f)
+#    print('                    <label><input type="radio" name="theme" id="theme-light"> Light</label>', file=f)
+#    print('                    <label><input type="radio" name="theme" id="theme-dark"> Dark</label>', file=f)
+
+    print('  <label class="theme-option default-theme-preview" for="theme-default">', file=f)
+    print('      <input type="radio" name="theme" id="theme-default" value="default" checked>', file=f)
+    print('      Default', file=f)
+    print('  </label>', file=f)
+
+
+    print('  <label class="theme-option light-theme-preview" for="theme-light">', file=f)
+    print('      <input type="radio" name="theme" id="theme-light" value="light">', file=f)
+    print('      Light', file=f)
+    print('    </label>', file=f)
+
+    print('  <label class="theme-option dark-theme-preview" for="theme-dark">', file=f)
+    print('      <input type="radio" name="theme" id="theme-dark" value="dark">', file=f)
+    print('      Dark', file=f)
+    print('    </label>', file=f)
+
 
     print('                </div>', file=f)
     print(file=f)
@@ -257,8 +274,20 @@ def render_burger_menu(f):
     print('                <div class="menu-section">', file=f)
     print('                    <h3>Options</h3>', file=f)
 
-    print('                    <label><input type="checkbox" id="invert-theme"> Invert Colours</label>', file=f)
-    print('                    <label><input type="checkbox" id="big-tempo"> Big Tempo</label>', file=f)
+#    print('                    <label><input type="checkbox" id="big-tempo"> Big Tempo</label>', file=f)
+
+    print('  <label class="option-toggle" for="big-tempo">', file=f)
+    print('      <input type="checkbox" name="big-tempo" id="big-tempo">', file=f)
+    print('    Big Tempo', file=f)
+    print('    </label>', file=f)
+
+#    print('                    <label><input type="checkbox" id="invert-theme"> Invert Colours</label>', file=f)
+
+    print('  <label class="option-toggle" for="invert-theme">', file=f)
+    print('      <input type="checkbox" name="invert-theme" id="invert-theme">', file=f)
+    print('        Invert Colours', file=f)
+    print('    </label>', file=f)
+
 
     print('                </div>', file=f)
     print(file=f)
@@ -409,7 +438,8 @@ def render_html(song, filename):
         print("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">", file=f)
 
         print(f"    <meta name=\"generator\" content=\"song2html\">", file=f)
-        print(f"    <meta name=\"version\" content=\"0.6\">", file=f)
+        print(f"    <meta name=\"version\" content=\"0.7bb\">", file=f)
+        print(f"    <meta name=\"description\" content=\"generate html from plain txt song files\">", file=f)
 
         print(f"    <title>{song.title}</title>", file=f)
         print("    <link rel=\"stylesheet\" href=\"../assets/lyrics.css\">", file=f)
