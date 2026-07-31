@@ -91,8 +91,8 @@ body {
 
    position: absolute;
 
-    top: 1em;
-    left: 1em;
+    top: 3em;
+    left: 7em;
 
     z-index: 1000;
 
@@ -108,10 +108,12 @@ body {
 
 #burger-menu h3 {
 
-    margin-top: 1em;
-    margin-bottom: 0.5em;
+    margin-top: 0em;
+    margin-bottom: 0.4em;
     font-size: 1.1em;
-    text-align: left;
+    text-align: left;    
+    padding: 0.2em 1em;
+
 }
 
 
@@ -122,6 +124,7 @@ body {
     display: block;
     padding: 0.3em 0;
 }
+
 
 .theme-option {
 
@@ -246,12 +249,12 @@ a {
 .chords {
     color: var(--chord);
     font-weight: bold;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .lyrics {
     color: var(--text);
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .chord-lyric {
@@ -270,10 +273,63 @@ header {
     margin-bottom: 2rem;
 }
 
+#navbar {
+
+    display: flex;
+    align-items: center;
+
+    padding: 0.5em 1em;
+
+}
+
 .song-title {
+    flex: 1;
     text-align: center;
+    margin: 0;
     font-size: 1.6em;
     font-weight: bold;
+}
+
+#menu-button,
+#prev-song,
+#next-song {
+
+    font-size: 1.4em;
+    text-decoration: none;
+
+}
+
+#prev-song {
+    margin-left: 0.6em;
+}
+
+#next-song {
+    margin-left: 0.6em;
+}
+
+#footerbar {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+
+}
+
+#song-lists {
+
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+#prev-song-footer,
+#next-song-footer {
+
+    font-size: 1.4em;
+    text-decoration: none;
+
 }
 
 .song-notes {

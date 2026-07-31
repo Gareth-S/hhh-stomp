@@ -2,6 +2,9 @@
 
 [Verse]
 
+C      G      Am      F      C      G      Am      F
+One two three four five six seven eight nine ten eleven twelve...
+
 C      G
 Hello world
 
