@@ -1,10 +1,12 @@
 //
 // lyrics.js
 //
-// Version 0.1
+// Version 0.2 - wrap
 //
 // hhh-stomp
 //
+
+// Burger Bar
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -55,5 +57,162 @@ document.addEventListener("DOMContentLoaded", function () {
         closeMenu();
 
     });
+    
+// wrap
+
+createMeasureDiv();
+wrapAllBlocks();
 
 });
+
+
+// wrap
+
+
+let measure = null;
+
+ //
+// Create one hidden measuring div.
+// It is reused for every chord/lyric block.
+//
+
+function createMeasureDiv()
+{
+    measure = document.createElement("div");
+
+    measure.id = "measure";
+
+    measure.style.position = "absolute";
+    measure.style.left = "-9999px";
+    measure.style.visibility = "hidden";
+
+    document.body.appendChild(measure);
+
+//    console.log("Measure div created");
+}
+
+
+//
+// Find every chord/lyric pair on the page
+// and pass it to the wrapping engine.
+//
+
+function wrapAllBlocks()
+{
+    const blocks = document.querySelectorAll(".chord-lyric");
+
+//    console.log("Found", blocks.length, "wrapping blocks");
+
+    for (const block of blocks) {
+
+        wrapChordLyric(block);
+
+    }
+}
+
+// Wrapping engine.
+//
+// For now we only ask the browser
+// where it wants to wrap.
+
+
+function wrapChordLyric(block)
+{
+    const lyrics = block.querySelector(".lyrics");
+
+    const style = getComputedStyle(lyrics);
+
+    const browserWord =
+        browserWrapPosition(
+            lyrics.textContent,
+            style,
+            lyrics.clientWidth
+        );
+
+ //   console.log("Browser chose:", browserWord);
+        
+    if (browserWord)
+    splitBlock(block, browserWord);
+}
+
+
+// Ask the browser where it wants to wrap.
+//
+// Returns:
+//     the first word on the second line
+// or  null if everything fits.
+
+function browserWrapPosition(text, style, width)
+{
+    measure.style.font = style.font;
+    measure.style.lineHeight = style.lineHeight;
+    measure.style.letterSpacing = style.letterSpacing;
+    measure.style.wordSpacing = style.wordSpacing;
+
+    measure.style.whiteSpace = "normal";
+    measure.style.width = width + "px";
+
+    const words = text.split(" ");
+
+    let line = "";
+    let lastHeight = 0;
+
+    for (const word of words) {
+
+        line += word + " ";
+
+        measure.textContent = line;
+
+        const height = measure.offsetHeight;
+
+        if (lastHeight !== 0 && height > lastHeight) {
+
+ //           console.log("Browser wraps before:", word);
+
+            return word;
+
+        }
+
+        lastHeight = height;
+
+    }
+
+    return null;
+}
+
+
+// Split one chord/lyric block into two blocks.
+//
+// Currently this is a prototype.
+// The split word is supplied directly.
+
+
+function splitBlock(block, splitWord)
+{
+    const chords = block.querySelector(".chords").textContent;
+    const lyrics = block.querySelector(".lyrics").textContent;
+
+    const splitAt = lyrics.indexOf(splitWord);
+
+    if (splitAt < 0)
+        return;
+
+    const first = block.cloneNode(true);
+    const second = block.cloneNode(true);
+
+    first.querySelector(".lyrics").textContent =
+        lyrics.substring(0, splitAt).trimEnd();
+
+    second.querySelector(".lyrics").textContent =
+        lyrics.substring(splitAt).trimStart();
+
+    // Prototype only.
+    // Chords are split at exactly the same character position.
+    first.querySelector(".chords").textContent =
+        chords.substring(0, splitAt).trimEnd();
+
+    second.querySelector(".chords").textContent =
+        chords.substring(splitAt).trimStart();
+
+    block.replaceWith(first, second);
+}

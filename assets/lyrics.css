@@ -249,12 +249,12 @@ a {
 .chords {
     color: var(--chord);
     font-weight: bold;
-    white-space: pre-wrap;
+    white-space: pre;
 }
 
 .lyrics {
     color: var(--text);
-    white-space: pre-wrap;
+    white-space: pre;
 }
 
 .chord-lyric {
@@ -351,5 +351,32 @@ header {
 #song-controls {
 
     text-align: center;
+
+}
+
+#measure {
+
+    position: absolute;
+
+    opacity: 0.3;
+    top: 12em;
+ 
+/*  
+    top: -9999px;
+    left: 0;
+    visibility: hidden;
+    
+     width: 100%;
+   
+*/
+
+
+    white-space: normal;
+
+ 
+    font: inherit;
+
+    padding: 0;
+    margin: 0;
 
 }
