@@ -3,7 +3,7 @@
  *
  * song2html stylesheet
  *
- * Version 0.3 -burger button
+ * Version 0.4 - themes and settings
  */
 
 /*
@@ -380,3 +380,89 @@ header {
     margin: 0;
 
 }
+
+/*----------------------------------------------------------*/
+/* Settings                                                  */
+/*----------------------------------------------------------
+
+
+.text-size
+{
+    width: 100%;
+    padding: 0.5rem;
+    min-height: 3.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+*/
+
+
+
+.preview-small
+{
+    font-size: 0.8em;
+}
+
+.preview-default
+{
+    font-size: 1.0em;
+}
+
+.preview-large
+{
+    font-size: 1.3em;
+}
+
+.preview-xlarge
+{
+    font-size: 1.7em;
+}
+
+
+/*
+.settings-buttons
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1rem 0;
+}
+
+.choice-selected
+{
+ 
+
+    background: var(--bg);
+    color: var(--text);
+    
+    
+    border: 2px solid var(--chord);
+    
+}
+
+.text-size span
+{
+    display: block;
+
+    text-align: center;
+}
+
+
+.settings-table
+{
+    border-collapse: collapse;
+}
+
+.settings-table td
+{
+    padding: 0.4em 0.8em;
+}
+
+.settings-table input
+{
+    transform: scale(1.2);
+}
+
+
+*/

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings</title>
+
+    <link
+        rel="stylesheet"
+        href="assets/lyrics.css"
+    >
+
+    <script
+        src="assets/lyrics.js"
+        defer
+    ></script>
+
+</head>
+
+<body class="default-theme">
+
+    <div id="tempo-frame">
+
+        <div id="song-container">
+
+            <div id="app">
+ 
+
+
+<header>
+
+            <nav id="navbar">
+
+                <a id="menu-button" href="#">☰</a>
+                 <h1 class="song-title">Settings</h1>
+ 
+            </nav>
+            
+     
+               <nav id="burger-menu">
+
+                <div class="menu-section">
+                    <h3>Theme</h3>
+
+  <label class="theme-option default-theme-preview" for="theme-default">
+      <input type="radio" name="theme" id="theme-default" value="default" checked>
+      Default
+  </label>
+  <label class="theme-option light-theme-preview" for="theme-light">
+      <input type="radio" name="theme" id="theme-light" value="light">
+      Light
+    </label>
+  <label class="theme-option dark-theme-preview" for="theme-dark">
+      <input type="radio" name="theme" id="theme-dark" value="dark">
+      Dark
+    </label>
+                </div>
+
+                <div class="menu-section">
+                    <h3>Options</h3>
+  <label class="option-toggle" for="big-tempo">
+      <input type="checkbox" name="big-tempo" id="big-tempo">
+    Big Tempo
+    </label>
+  <label class="option-toggle" for="invert-theme">
+      <input type="checkbox" name="invert-theme" id="invert-theme">
+        Invert Colours
+    </label>
+                </div>
+
+                <div class="menu-section">
+                    <h3>links</h3>
+                    <a href="songlists.html">Song Lists</a>
+                    <a href="settings.html">Settings</a>
+                </div>
+
+            </nav>
+
+        </header>
+
+
+<main>
+
+
+    <div id="settings-help">
+
+        <!-- Future Help / About text -->
+
+    </div>
+
+    <hr>
+
+    <h2>
+
+        Text Size
+
+    </h2>
+
+   <table class="settings-table" border=0>
+
+
+<tr>
+    <td><input type="radio" name="fontsize"></td>
+    <td  class="preview-small">Small</td>
+</tr>
+
+<tr>
+    <td><input type="radio" name="fontsize" checked></td>
+    <td  class="preview-default">Default</td>
+</tr>
+
+<tr>
+    <td><input type="radio" name="fontsize"></td>
+    <td  class="preview-large">Large</td>
+</tr>
+
+<tr>
+    <td><input type="radio" name="fontsize"></td>
+    <td  class="preview-xlarge">Extra Large</td>
+</tr>
+
+</table> 
+    
+    
+    <hr>
+
+    <h2>
+
+        Display
+
+    </h2>
+
+<table class="settings-table">
+
+<tr>
+
+    <td>
+
+        <input
+            type="checkbox"
+            id="show-chords"
+            checked
+        >
+
+    </td>
+
+    <td>
+
+        Show chords
+
+    </td>
+
+</tr>
+
+
+<tr>
+
+    <td>
+
+        <input
+            type="checkbox"
+            id="show-line-numbers"
+        >
+
+    </td>
+
+    <td>
+
+        Show line numbers
+
+    </td>
+
+</tr>
+
+
+<tr>
+
+    <td>
+
+        <input
+            type="checkbox"
+            id="show-notes"
+        >
+
+    </td>
+
+    <td>
+
+        Show notes
+
+    </td>
+
+</tr>
+
+</table> 
+
+    <div id="band-members">
+
+        <!-- Filled later from band.json -->
+
+    </div>
+
+
+ <table class="settings-table">
+
+<tr>
+
+    <td>
+
+        <input
+            type="checkbox"
+            id="big-tempo"
+        >
+
+    </td>
+
+    <td>
+
+        Big Tempo
+
+    </td>
+
+</tr>
+
+</table>
+
+
+    <hr>
+
+    <div class="settings-save">
+
+        <button id="save-settings">
+
+            Save Settings
+
+        </button>
+
+    </div>
+
+</main>
+
+<footer>
+
+    Version 0.1-layout
+
+</footer>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
