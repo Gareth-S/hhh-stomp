@@ -38,9 +38,60 @@ if (showLineNumbers === "false")
 // console.log("show-chords =", showChords);
     
     
+function applyTheme(themeName)
+{
+    document.body.classList.remove(
+
+        "default-theme",
+        "light-theme",
+        "dark-theme"
+
+    );
+
+    document.body.classList.add(
+
+        themeName + "-theme"
+
+    );
+}
+    
+if (theme)
+{
+    applyTheme(theme);
+}
+
+const currentTheme = theme || "default";
+const selected = document.querySelector(
+        'input[name="theme"][value="' + currentTheme + '"]'
+    );
+
+
+if (selected)
+{
+    selected.checked = true;
+}
+    
+function saveTheme(event)
+{
+    const theme = event.target.value;
+    localStorage.setItem("theme", theme);
+    applyTheme(theme);
+}
+
+
+    
     const menuButton = document.getElementById("menu-button");
     const burgerMenu = document.getElementById("burger-menu");
+    
+    const themeButtons =
+    document.querySelectorAll('input[name="theme"]');
 
+    for (const button of themeButtons)
+    {
+        button.addEventListener("change", saveTheme);
+    }
+
+    
     if (!menuButton || !burgerMenu) {
         return;
     }

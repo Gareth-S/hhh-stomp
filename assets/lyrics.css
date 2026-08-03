@@ -490,3 +490,12 @@ header {
 {
     display: none;
 }
+
+/* invert colours
+  
+body
+{
+    filter: invert(100%);
+}
+*/
+
