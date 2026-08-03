@@ -84,6 +84,16 @@ body {
     font-weight: bold;
 }
 
+.line-number
+{
+    color: var(--line-number);
+    font-size: 0.75em;
+    font-weight: normal;
+    text-align: right;
+ 
+}
+
+
 
 /* Burger menu */
 
@@ -175,6 +185,7 @@ body {
 
     --section:       #7a6425;
     --chord:         #2d5f2d;
+    --line-number:   #909090;
 
     --band-bg:       #b9ddb4;
     --band-text:     #202020;
@@ -190,6 +201,7 @@ body {
 
     --section:       #e0c96b;
     --chord:         #8fcf87;
+    --line-number:   #707070;
 
     --band-bg:       #5f875f;
     --band-text:     #101010;
@@ -205,6 +217,7 @@ body {
 
     --section:       #d9be55;
     --chord:         #8fd26b;
+    --line-number:   #6f6f6f;
 
     --band-bg:       #6cb66c;
     --band-text:     #101010;
@@ -466,3 +479,14 @@ header {
 
 
 */
+
+
+.hide-chords .chords
+{
+    display: none;
+}
+
+.hide-line-numbers .line-number
+{
+    display: none;
+}

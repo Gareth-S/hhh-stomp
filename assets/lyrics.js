@@ -1,7 +1,7 @@
 //
 // lyrics.js
 //
-// Version 0.2 - wrap
+// Version 0.3 - theme
 //
 // hhh-stomp
 //
@@ -10,6 +10,34 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    
+//
+// Read user settings.
+//
+    
+const showChords = localStorage.getItem("show-chords");
+const showLineNumbers = localStorage.getItem("show-line-numbers");
+const theme = localStorage.getItem("theme");
+
+// console.log("show-line-numbers =", showLineNumbers);
+
+if (showChords === "false")
+{
+    document.body.classList.add("hide-chords");
+}
+
+if (showLineNumbers === "false")
+{
+    document.body.classList.add("hide-line-numbers");
+}
+
+    // Add line numbers to the page.
+    addLineNumbers();
+
+
+// console.log("show-chords =", showChords);
+    
+    
     const menuButton = document.getElementById("menu-button");
     const burgerMenu = document.getElementById("burger-menu");
 
@@ -136,6 +164,10 @@ function wrapChordLyric(block)
 }
 
 
+
+
+
+
 // Ask the browser where it wants to wrap.
 //
 // Returns:
@@ -215,4 +247,29 @@ function splitBlock(block, splitWord)
         chords.substring(splitAt).trimStart();
 
     block.replaceWith(first, second);
+}
+
+
+//
+// Add line numbers to every lyric line.
+//
+function addLineNumbers()
+{
+    const lyrics = document.querySelectorAll(".lyrics");
+
+    for (const line of lyrics)
+    {
+        const number = line.dataset.line;
+
+        if (!number)
+            continue;
+
+        const span = document.createElement("span");
+
+        span.className = "line-number";
+
+        span.textContent = number ;
+
+        line.prepend(span);
+    }
 }
