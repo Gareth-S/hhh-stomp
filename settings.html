@@ -18,13 +18,10 @@
         href="assets/lyrics.css"
     >
 
-    <script
-        src="assets/lyrics.js"
-        defer
-    ></script>
+<script defer src="assets/common.js"></script>
+<script defer src="assets/settings.js"></script>    
     
-    
-   <script src="assets/settings.js"></script>
+<!--   <script src="assets/settings.js"></script> -->
 
 
 </head>
@@ -110,28 +107,38 @@
 
    <table class="settings-table" border=0>
 
-
 <tr>
-    <td><input type="radio" name="fontsize"></td>
-    <td  class="preview-small">Small</td>
+    <td>
+        <input type="radio" name="fontsize" value="small">
+    </td>
+    <td style="font-size:0.85rem">Small</td>
 </tr>
 
 <tr>
-    <td><input type="radio" name="fontsize" checked></td>
-    <td  class="preview-default">Default</td>
+    <td>
+        <input
+            type="radio" name="fontsize" value="default" checked>
+    </td>
+    <td  style="font-size:1rem">Default</td>
 </tr>
 
 <tr>
-    <td><input type="radio" name="fontsize"></td>
-    <td  class="preview-large">Large</td>
+    <td>
+        <input
+            type="radio" name="fontsize" value="large">
+    </td>
+    <td  style="font-size:1.20rem">Large</td>
 </tr>
 
 <tr>
-    <td><input type="radio" name="fontsize"></td>
-    <td  class="preview-xlarge">Extra Large</td>
+    <td>
+        <input
+            type="radio" name="fontsize" value="xlarge">
+    </td>
+    <td  style="font-size:1.40rem">Extra Large</td>
 </tr>
-
-</table> 
+   
+    </table> 
     
     
     <hr>
@@ -183,8 +190,9 @@
     </td>
 
 </tr>
+</table>
 
-
+<table class="settings-table">
 <tr>
 
     <td>

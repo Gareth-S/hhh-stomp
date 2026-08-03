@@ -10,7 +10,14 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    
+const songContainer = document.getElementById("song-container");
+
+if (!songContainer)
+{
+    return;
+}
+
+
 //
 // Read user settings.
 //
@@ -18,6 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
 const showChords = localStorage.getItem("show-chords");
 const showLineNumbers = localStorage.getItem("show-line-numbers");
 const theme = localStorage.getItem("theme");
+const textSize = localStorage.getItem("text-size");
+
 
 // console.log("show-line-numbers =", showLineNumbers);
 
@@ -60,6 +69,11 @@ if (theme)
     applyTheme(theme);
 }
 
+applyTextSize(textSize);
+
+loadUserNotes();
+
+
 const currentTheme = theme || "default";
 const selected = document.querySelector(
         'input[name="theme"][value="' + currentTheme + '"]'
@@ -78,13 +92,33 @@ function saveTheme(event)
     applyTheme(theme);
 }
 
+function applyTextSize(size)
+{
+    if (!size)
+    {
+        size = "default";
+    }
 
+    const scale = {
+
+        small:   0.85,
+        default: 1.0,
+        large:   1.2,
+        xlarge:  1.4
+
+    };
+
+    document.documentElement.style.setProperty(
+        "--scale",
+        scale[size]
+
+    );
+}
     
     const menuButton = document.getElementById("menu-button");
     const burgerMenu = document.getElementById("burger-menu");
     
-    const themeButtons =
-    document.querySelectorAll('input[name="theme"]');
+    const themeButtons = document.querySelectorAll('input[name="theme"]');
 
     for (const button of themeButtons)
     {
@@ -324,3 +358,98 @@ function addLineNumbers()
         line.prepend(span);
     }
 }
+
+
+/*----------------------------------------------------------*/
+/* User Notes                                                */
+/*----------------------------------------------------------*/
+
+function currentSongName()
+{
+    const filename =
+        window.location.pathname
+            .split("/")
+            .pop();
+
+    return filename.replace(".html", "");
+}
+
+function enabledMembers()
+{
+    const members = [];
+
+    for (const key in localStorage)
+    {
+        if (!key.startsWith("notes-"))
+            continue;
+
+        if (localStorage.getItem(key) !== "true")
+            continue;
+
+        members.push(
+            key.replace("notes-", "")
+        );
+    }
+
+    return members;
+}
+
+function notesFilename(song, member)
+{
+    return (
+        song +
+        "." +
+        member.toLowerCase() +
+        ".json"
+    );
+}
+
+
+async function loadUserNotes()
+{
+    const song =
+        currentSongName();
+
+    const members =
+        enabledMembers();
+
+    console.log(song);
+
+    console.log(members);
+
+    for (const member of members)
+    {
+        const filename =
+            notesFilename(song, member);
+
+        console.log(filename);
+
+        try
+        {
+            const response =
+                await fetch(filename);
+
+            if (!response.ok)
+            {
+                console.log(
+                    filename +
+                    " not found"
+                );
+
+                continue;
+            }
+
+            const notes =
+                await response.json();
+
+            console.log(notes);
+        }
+
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+}
+
+
