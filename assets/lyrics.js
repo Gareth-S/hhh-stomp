@@ -334,6 +334,59 @@ function splitBlock(block, splitWord)
     block.replaceWith(first, second);
 }
 
+/*----------------------------------------------------------*/
+/* Inline User Cues                                          */
+/*----------------------------------------------------------*/
+
+function renderInlineCue(member, text, lyricLine)
+{
+    const cue =
+        document.createElement("div");
+
+    cue.className =
+        "cue user-cue inline-cue";
+
+    cue.textContent =
+        "[" + member + "] " + text;
+
+    const chordLine =
+        lyricLine.previousElementSibling;
+
+    lyricLine.parentNode.insertBefore(
+        cue,
+        lyricLine
+    );
+}
+
+function insertUserNotes(data)
+{
+    if (!data.notes)
+    {
+        return;
+    }
+
+    for (const line in data.notes)
+    {
+        const lyric =
+            document.querySelector(
+                '.lyrics[data-line="' +
+                line.replace("line-", "") +
+                '"]'
+            );
+
+        if (!lyric)
+        {
+            continue;
+        }
+
+        renderInlineCue(
+            data.user,
+            data.notes[line],
+            lyric
+        );
+    }
+}
+
 
 //
 // Add line numbers to every lyric line.
@@ -442,7 +495,10 @@ async function loadUserNotes()
             const notes =
                 await response.json();
 
-            console.log(notes);
+//            console.log(notes);
+//            insertTopNotes(notes);  
+               insertUserNotes(notes);
+         
         }
 
         catch (error)
@@ -451,5 +507,18 @@ async function loadUserNotes()
         }
     }
 }
+
+
+
+/*----------------------------------------------------------*/
+/* Note Rendering                                            */
+/*----------------------------------------------------------*/
+
+function insertTopNotes(notes)
+{
+    console.log("Insert top notes", notes);
+}
+
+
 
 
