@@ -6,6 +6,8 @@
 // Shared functions for Song2HTML
 //
 
+console.log("common.js loaded");
+
 /*----------------------------------------------------------*/
 /* Local Storage                                             */
 /*----------------------------------------------------------*/
@@ -121,6 +123,7 @@ function initialiseBurgerMenu()
 
     function closeMenu()
     {
+        console.log("closeMenu()");
         burgerMenu.hidden = true;
     }
 

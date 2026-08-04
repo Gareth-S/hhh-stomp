@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", initialiseSettings);
 function initialiseSettings()
 {
     console.log("Initialising settings");
+    initialiseBurgerMenu();
 
     document
         .getElementById("show-chords")
