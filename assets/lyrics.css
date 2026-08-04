@@ -518,3 +518,83 @@ body
     font-size: 0.75em;
     font-weight: bold;
 }
+
+/* notes */
+
+.song-notes
+{
+    margin: 0 0 1.2em 0;
+}
+
+.band-note
+{
+    display: inline-block;
+
+    background: #2f4f68;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-weight: bold;
+
+    padding: .25em .6em;
+
+    margin: .15em 0;
+
+    border-radius: .35em;
+}
+
+.user-note
+{
+    display: inline-block;
+
+    background: #59643a;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-weight: normal;
+
+    padding: .25em .6em;
+
+    margin: .15em 0;
+
+    margin-left: 1em;
+
+    border-radius: .35em;
+}
+
+.cue
+{
+    display: inline-block;
+
+    font-size: .75em;
+
+    padding: .08em .35em;
+
+    border-radius: .25em;
+
+    margin: .08em 0;
+}
+
+.band-cue
+{
+    background: #2f4f68;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.user-cue
+{
+    background: #59643a;
+
+    color: white;
+
+    font-weight: normal;
+
+    margin-left: 1em;
+}

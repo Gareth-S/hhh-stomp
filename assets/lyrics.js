@@ -534,7 +534,7 @@ function renderInlineBandCue(notes, lyric)
         document.createElement("div");
 
     cue.className =
-        "band-inline-note";
+        "cue band-cue inline-cue";
 
     cue.textContent =
         notes.join(" ");
@@ -720,12 +720,19 @@ async function loadBandNotes()
 
     try
     {
-        const response =
-            await fetch("tiny.json");
+
+            const filename =
+                currentSongName() + ".json";
+
+            const response =
+                await fetch(filename);
+    
+ //       const response =
+ //           await fetch("tiny.json");
 
         if (!response.ok)
         {
-            console.log("tiny.json not found");
+            console.log("json not found");
             return;
         }
 
@@ -745,60 +752,6 @@ async function loadBandNotes()
         console.log(error);
     }
 }
-
-
-/*
-async function loadUserNotes()
-{
-    const song =
-        currentSongName();
-
-    const members =
-        enabledMembers();
-
-    console.log(song);
-
-    console.log(members);
-
-    for (const member of members)
-    {
-        const filename =
-            notesFilename(song, member);
-
-        console.log(filename);
-
-        try
-        {
-            const response =
-                await fetch(filename);
-
-            if (!response.ok)
-            {
-                console.log(
-                    filename +
-                    " not found"
-                );
-
-                continue;
-            }
-
-            const notes =
-                await response.json();
-
-//            console.log(notes);
-//            insertTopNotes(notes);  
-               insertUserNotes(notes);
-         
-        }
-
-        catch (error)
-        {
-            console.log(error);
-        }
-    }
-}
-
-*/
 
 
 /*----------------------------------------------------------*/
