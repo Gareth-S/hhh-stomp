@@ -71,6 +71,7 @@ if (theme)
 
 applyTextSize(textSize);
 
+loadBandNotes();
 loadUserNotes();
 
 
@@ -358,7 +359,7 @@ function renderInlineCue(member, text, lyricLine)
     );
 }
 
-function insertUserNotes(data)
+function insertBandNotes(data)
 {
     if (!data.notes)
     {
@@ -388,6 +389,169 @@ function insertUserNotes(data)
 }
 
 
+/*----------------------------------------------------------*/
+/* Section Band Notes                                       */
+/*----------------------------------------------------------*/
+
+function insertSectionBandNotes(sections)
+{
+    if (!sections)
+    {
+        return;
+    }
+
+    for (const sectionId in sections)
+    {
+        const section =
+            document.getElementById(sectionId);
+
+        if (!section)
+        {
+            continue;
+        }
+
+        const heading =
+            section.querySelector("h2");
+
+        for (const note of sections[sectionId])
+        {
+            const p =
+                document.createElement("p");
+
+            p.className = "band-note";
+
+            p.textContent = note;
+
+            if (heading)
+            {
+                heading.insertAdjacentElement(
+                    "afterend",
+                    p
+                );
+            }
+            else
+            {
+                section.prepend(p);
+            }
+        }
+    }
+}
+
+/*----------------------------------------------------------*/
+/* Inline Band Notes                                        */
+/*----------------------------------------------------------*/
+
+function insertInlineBandNotes(inline)
+{
+    if (!inline)
+    {
+        return;
+    }
+
+    for (const line in inline)
+    {
+        const lyric =
+            document.querySelector(
+                '.lyrics[data-line="' +
+                line.replace("line-", "") +
+                '"]'
+            );
+
+        if (!lyric)
+        {
+            continue;
+        }
+
+        renderInlineBandCue(
+            inline[line],
+            lyric
+        );
+    }
+}
+
+/*----------------------------------------------------------*/
+/* Render Inline Band Cue                                   */
+/*----------------------------------------------------------*/
+
+function renderInlineBandCue(notes, lyric)
+{
+    const cue =
+        document.createElement("div");
+
+    cue.className =
+        "band-inline-note";
+
+    cue.textContent =
+        notes.join(" ");
+
+    lyric.parentNode.insertBefore(
+        cue,
+        lyric
+    );
+}
+
+function insertUserNotes(data)
+{
+    if (!data.notes)
+    {
+        return;
+    }
+
+    for (const line in data.notes)
+    {
+        const lyric =
+            document.querySelector(
+                '.lyrics[data-line="' +
+                line.replace("line-", "") +
+                '"]'
+            );
+
+        if (!lyric)
+        {
+            continue;
+        }
+
+        renderInlineCue(
+            data.user,
+            data.notes[line],
+            lyric
+        );
+    }
+}
+
+/*----------------------------------------------------------*/
+/* Top Band Notes                                            */
+/*----------------------------------------------------------*/
+
+function insertBandNotes(notes)
+{
+    if (!notes || notes.length === 0)
+    {
+        return;
+    }
+
+    const container =
+        document.querySelector(".song-notes");
+
+    if (!container)
+    {
+        return;
+    }
+
+    for (const note of notes)
+    {
+        const p =
+            document.createElement("p");
+
+        p.className = "band-note";
+
+        p.textContent = note;
+
+        container.appendChild(p);
+    }
+}
+
+
 //
 // Add line numbers to every lyric line.
 //
@@ -411,6 +575,142 @@ function addLineNumbers()
         line.prepend(span);
     }
 }
+
+
+/*----------------------------------------------------------*/
+/* Band Notes                                                */
+/*----------------------------------------------------------*/
+
+function currentSongName()
+{
+    const filename =
+        window.location.pathname
+            .split("/")
+            .pop();
+
+    return filename.replace(".html", "");
+}
+
+function enabledMembers()
+{
+    const members = [];
+
+    for (const key in localStorage)
+    {
+        if (!key.startsWith("notes-"))
+            continue;
+
+        if (localStorage.getItem(key) !== "true")
+            continue;
+
+        members.push(
+            key.replace("notes-", "")
+        );
+    }
+
+    return members;
+}
+
+function notesFilename(song, member)
+{
+    return (
+        song +
+        "." +
+        member.toLowerCase() +
+        ".json"
+    );
+}
+
+
+async function loadBandNotes()
+{
+    const song =
+        currentSongName();
+
+    console.log(song);
+
+    try
+    {
+        const response =
+            await fetch("tiny.json");
+
+        if (!response.ok)
+        {
+            console.log("tiny.json not found");
+            return;
+        }
+
+        const songData =
+            await response.json();
+
+        console.log(songData);
+
+        insertBandNotes(songData.songNotes);
+        insertSectionBandNotes(songData.sections);
+        insertInlineBandNotes(songData.inline);
+
+
+    }
+
+    catch (error)
+    {
+        console.log(error);
+    }
+}
+
+
+/*
+async function loadUserNotes()
+{
+    const song =
+        currentSongName();
+
+    const members =
+        enabledMembers();
+
+    console.log(song);
+
+    console.log(members);
+
+    for (const member of members)
+    {
+        const filename =
+            notesFilename(song, member);
+
+        console.log(filename);
+
+        try
+        {
+            const response =
+                await fetch(filename);
+
+            if (!response.ok)
+            {
+                console.log(
+                    filename +
+                    " not found"
+                );
+
+                continue;
+            }
+
+            const notes =
+                await response.json();
+
+//            console.log(notes);
+//            insertTopNotes(notes);  
+               insertUserNotes(notes);
+         
+        }
+
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+}
+
+*/
 
 
 /*----------------------------------------------------------*/

@@ -512,3 +512,9 @@ body
     display: block;
     margin-bottom: 0.3em;
 }
+
+.band-inline-note
+{
+    font-size: 0.75em;
+    font-weight: bold;
+}
