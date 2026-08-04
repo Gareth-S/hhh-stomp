@@ -366,7 +366,7 @@ function insertBandNotes(data)
         return;
     }
 
-    for (const line in data.notes)
+    for (const line in inline)
     {
         const lyric =
             document.querySelector(
@@ -437,6 +437,61 @@ function insertSectionBandNotes(sections)
     }
 }
 
+
+/*----------------------------------------------------------*/
+/* Section User Notes                                       */
+/*----------------------------------------------------------*/
+
+function insertSectionUserNotes(user, sections)
+{
+    if (!sections)
+    {
+        return;
+    }
+
+    for (const sectionId in sections)
+    {
+        const section =
+            document.getElementById(sectionId);
+
+        if (!section)
+        {
+            continue;
+        }
+
+        const heading =
+            section.querySelector("h2");
+
+        for (const note of sections[sectionId])
+        {
+            const p =
+                document.createElement("p");
+
+            p.className =
+                "user-note";
+
+            p.textContent =
+                "[" +
+                user +
+                "] " +
+                note;
+
+            if (heading)
+            {
+                heading.insertAdjacentElement(
+                    "afterend",
+                    p
+                );
+            }
+            else
+            {
+                section.prepend(p);
+            }
+        }
+    }
+}
+
+
 /*----------------------------------------------------------*/
 /* Inline Band Notes                                        */
 /*----------------------------------------------------------*/
@@ -490,14 +545,14 @@ function renderInlineBandCue(notes, lyric)
     );
 }
 
-function insertUserNotes(data)
+function insertUserNotes(user, inline)
 {
-    if (!data.notes)
+    if (!inline)
     {
         return;
     }
 
-    for (const line in data.notes)
+    for (const line in inline)
     {
         const lyric =
             document.querySelector(
@@ -512,8 +567,8 @@ function insertUserNotes(data)
         }
 
         renderInlineCue(
-            data.user,
-            data.notes[line],
+            user,
+            inline[line],
             lyric
         );
     }
@@ -546,6 +601,40 @@ function insertBandNotes(notes)
         p.className = "band-note";
 
         p.textContent = note;
+
+        container.appendChild(p);
+    }
+}
+
+/*----------------------------------------------------------*/
+/* Top User Notes                                            */
+/*----------------------------------------------------------*/
+
+function insertTopUserNotes(user, notes)
+{
+    if (!notes || notes.length === 0)
+    {
+        return;
+    }
+
+    const container =
+        document.querySelector(".song-notes");
+
+    if (!container)
+    {
+        return;
+    }
+
+    for (const note of notes)
+    {
+        const p =
+            document.createElement("p");
+
+        p.className =
+            "user-note";
+
+        p.textContent =
+            "[" + user + "] " + note;
 
         container.appendChild(p);
     }
@@ -648,7 +737,6 @@ async function loadBandNotes()
         insertBandNotes(songData.songNotes);
         insertSectionBandNotes(songData.sections);
         insertInlineBandNotes(songData.inline);
-
 
     }
 
@@ -797,8 +885,12 @@ async function loadUserNotes()
 
 //            console.log(notes);
 //            insertTopNotes(notes);  
-               insertUserNotes(notes);
-         
+//               insertUserNotes(notes);
+                
+            insertUserNotes(notes.user,notes.inline);
+            insertTopUserNotes(notes.user,notes.songNotes);
+            insertSectionUserNotes(notes.user,notes.sections);
+        
         }
 
         catch (error)

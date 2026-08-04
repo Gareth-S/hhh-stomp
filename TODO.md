@@ -1,14 +1,19 @@
 
 todo
 
-- HTML output
 
 
 
 
-- Convert accidentals
-- CSS refinement
 
 
-next time in python look @ bb hooks also swap L arrow and bb
+
+
+next time in python look @ bb hooks also swap L arrow and bb.
+( on bb remove both options, get basic working links ../)
+add hook for filename (top or bottom)
+remove all blank lines and add 1 between sections, 2 after top notes
+render template .json file(s)
+
+a light routine to synch files
 

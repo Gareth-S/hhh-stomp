@@ -1,9 +1,28 @@
 {
     "user": "Gareth",
 
-    "notes": {
-        "line-5": "Watch Simon.",
-        "line-18": "Breathe."
+    "songNotes": [
+        "Practice with capo on fret 2.",
+        "Remember to watch Simon for the intro."
+    ],
 
+    "sections": {
+        "section-2": [
+            "Take a breath before this verse."
+        ],
+
+        "section-5": [
+            "Watch for ritardando."
+        ]
+    },
+
+    "inline": {
+        "line-8": [
+            "Breathe."
+        ],
+
+        "line-14": [
+            "Smile at audience."
+        ]
     }
 }
