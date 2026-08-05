@@ -14,6 +14,10 @@ function initialiseSettings()
 {
     console.log("Initialising settings");
     initialiseBurgerMenu();
+    
+    initialiseTheme();
+    initialiseTextSize();
+    initialiseBeatButton();
 
     document
         .getElementById("show-chords")
@@ -39,6 +43,7 @@ function initialiseSettings()
     
     loadBand();
 
+    
 }
 
 
@@ -133,13 +138,29 @@ function saveSettings()
         
     );  
     
+/*
+    
     localStorage.setItem(
     "text-size",
     document.querySelector('input[name="fontsize"]:checked'
 
     ).value
 
+*/
+
+const size =
+    document.querySelector(
+        'input[name="fontsize"]:checked'
+    ).value;
+
+localStorage.setItem(
+    "text-size",
+    size
 );
+
+applyTextSize(size);
+
+
     
     const members =
         document.querySelectorAll("#band-members input[type='checkbox']");

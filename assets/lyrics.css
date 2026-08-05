@@ -398,6 +398,48 @@ header {
 }
 
 /*----------------------------------------------------------*/
+/* Tempo Button                                              */
+/*----------------------------------------------------------*/
+
+#tempo-button
+{
+    display: flex;
+
+    gap: .35em;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: .4em .8em;
+}
+
+.beat-led
+{
+    width: .8em;
+
+    height: .8em;
+
+    border-radius: 50%;
+
+    background: #555;
+
+    transition: background .15s ease;
+}
+
+
+.beat-led.active
+{
+    background: #00ff55;
+
+    transform: scale(1.6);
+
+    box-shadow: 0 0 .4em #00ff55;
+}
+
+
+
+/*----------------------------------------------------------*/
 /* Settings                                                  */
 /*----------------------------------------------------------
 

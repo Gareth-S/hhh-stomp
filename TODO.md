@@ -1,12 +1,14 @@
 
-todo
+todo in song2html
 
 
 
+    <script defer src="../assets/lyrics.js"></script>
+    <script defer src="../assets/common.js"></script>
 
 
 
-
+Wrap note text in <span> instead of styling <p>
 
 
 next time in python look @ bb hooks also swap L arrow and bb.

@@ -19,6 +19,7 @@
     >
 
 <script defer src="assets/common.js"></script>
+<script defer src="assets/beat.js"></script>
 <script defer src="assets/settings.js"></script>    
     
 <!--   <script src="assets/settings.js"></script> -->
@@ -86,7 +87,20 @@
             </nav>
 
         </header>
+        
+        
 
+           <div id="song-controls">
+
+                <button id="tempo-button">
+        <span class="beat-led"></span>
+        <span class="beat-led"></span>
+        <span class="beat-led"></span>
+        <span class="beat-led"></span>
+
+                </button>
+
+            </div>
 
 <main>
 
@@ -192,17 +206,18 @@
 </tr>
 </table>
 
-<table class="settings-table">
+<table class="settings-table" border="0">
 <tr>
 
     <td>
-
+<!--
         <input
             type="checkbox"
             id="show-notes"
         >
+-->
 
-    </td>
+</td>
 
     <td>
 
