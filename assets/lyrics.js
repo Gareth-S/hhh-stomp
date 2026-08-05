@@ -1,7 +1,7 @@
 //
 // lyrics.js
 //
-// Version 0.3 - theme
+// Version 0.4 -tempo
 //
 // hhh-stomp
 //
@@ -359,6 +359,11 @@ function renderInlineCue(member, text, lyricLine)
     );
 }
 
+
+/*----------------------------------------------------------*/
+/* Section Band Notes                                       */
+/*----------------------------------------------------------*/
+
 function insertBandNotes(data)
 {
     if (!data.notes)
@@ -388,10 +393,6 @@ function insertBandNotes(data)
     }
 }
 
-
-/*----------------------------------------------------------*/
-/* Section Band Notes                                       */
-/*----------------------------------------------------------*/
 
 function insertSectionBandNotes(sections)
 {
@@ -644,6 +645,7 @@ function insertTopUserNotes(user, notes)
 //
 // Add line numbers to every lyric line.
 //
+
 function addLineNumbers()
 {
     const lyrics = document.querySelectorAll(".lyrics");
@@ -835,7 +837,19 @@ async function loadUserNotes()
 
             const notes =
                 await response.json();
+                
+                
+  //tempo call
+                
+        if (notes.tempo)
+        {
+            configureBeatEngine(notes.tempo);
+        }           
 
+        startBeatEngine();
+        
+        
+        
 //            console.log(notes);
 //            insertTopNotes(notes);  
 //               insertUserNotes(notes);

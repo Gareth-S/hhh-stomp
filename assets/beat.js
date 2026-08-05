@@ -3,6 +3,8 @@
 /*----------------------------------------------------------*/
 
 let currentBeat = -1;
+let beatInterval = 1000;
+
 
 function initialiseBeatButton()
 {
@@ -18,6 +20,8 @@ function initialiseBeatButton()
         "click",
         startBeatEngine
     );
+    
+    startBeatEngine();
 
     updateBeatDisplay();
 }
@@ -68,6 +72,30 @@ function startBeatEngine()
     nextBeat();
 
     beatTimer =
-        setInterval(nextBeat, 1000);
+        setInterval(nextBeat, beatInterval);
 }
+
+function configureBeatEngine(tempo)
+{
+    if (!tempo)
+    {
+        return;
+    }
+
+    if (tempo.bpm)
+    {
+        beatInterval = 60000 / tempo.bpm;
+    }
+
+    if (tempo.countInBars)
+    {
+        countInBars = tempo.countInBars;
+    }
+
+    if (tempo.timeSignature)
+    {
+        timeSignature = tempo.timeSignature;
+    }
+}
+
 
