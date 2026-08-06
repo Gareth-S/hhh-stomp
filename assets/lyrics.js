@@ -74,6 +74,8 @@ applyTextSize(textSize);
 loadBandNotes();
 loadUserNotes();
 
+initialiseBeatButton();
+
 
 const currentTheme = theme || "default";
 const selected = document.querySelector(
