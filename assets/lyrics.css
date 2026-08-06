@@ -231,6 +231,52 @@ body {
     
 }
 
+/*----------------------------------------------------------*/
+/* Beat Engine Colours                                       */
+/*----------------------------------------------------------*/
+
+.default-theme
+{
+    --tempo-on:  #d6c85b;
+    --tempo-off: #5a5a5a;
+}
+
+.dark-theme
+{
+    --tempo-on:  #ffe45c;
+    --tempo-off: #4a4a4a;
+}
+
+.light-theme
+{
+    --tempo-on:  #1f56c8;
+    --tempo-off: #c7c7c7;
+}
+
+.beat-led
+{
+    background: var(--tempo-off);
+
+    border-radius: 50%;
+
+    transition: background .12s ease;
+}
+
+.beat-led.active
+{
+    background: var(--tempo-on);
+}
+
+.big-tempo-flash
+{
+    box-shadow:
+        inset 0 0 0 14px var(--tempo-on);
+
+    transition:
+        box-shadow .04s linear;
+}
+
+
 
 a {
 
@@ -366,7 +412,13 @@ header {
 
 #song-controls {
 
-    text-align: center;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin: .5em 0;
 
 }
 
@@ -377,16 +429,8 @@ header {
     opacity: 0.3;
     top: 12em;
  
-/*  
-    top: -9999px;
-    left: 0;
-    visibility: hidden;
+
     
-     width: 100%;
-   
-*/
-
-
     white-space: normal;
 
  
@@ -401,44 +445,78 @@ header {
 /* Tempo Button                                              */
 /*----------------------------------------------------------*/
 
+#song-controls
+{
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin: .5em 0;
+}
+
 #tempo-button
 {
     display: flex;
 
-    gap: .35em;
+    gap: .9em;
 
-    align-items: center;
+    padding: .35em 1.5em;
 
-    justify-content: center;
+    border: none;
 
-    padding: .4em .4em;
+    background: transparent;
+
+    cursor: pointer;
 }
 
 .beat-led
 {
-    width: 1em;
+    width: 1.4em;
 
-    height: 1em;
+    height: 1.4em;
 
     border-radius: 50%;
 
-    background: #555;
+    background: var(--tempo-off);
     
-    transition: background .15s ease;
-    
-   border: 1px solid #121212; 
-}
+    box-shadow:
+    inset 0 1px 2px rgba(0,0,0,.45),
+    0 1px 2px rgba(255,255,255,.12);
 
+/*   box-shadow:
+      inset 0 1px 2px rgba(0,0,0,.45);
+*/
+ 
+ 
+    transition: background .1s ease;
+}
 
 .beat-led.active
 {
-    background: #00ff55;
+    background: var(--tempo-on);
+    
+    box-shadow:
+    0 0 10px var(--tempo-on);
 
-    transform: scale(1.6);
+/*    box-shadow:
+     0 0 8px var(--tempo-on);
 
-    box-shadow: 0 0 .4em #00ff55;
+*/     
+     
 }
 
+#tempo-status
+{
+    margin-top: .25em;
+
+    font-size: .85em;
+
+    font-weight: bold;
+
+    color: var(--tempo-on);
+}
 
 
 /*----------------------------------------------------------*/
@@ -581,16 +659,5 @@ body
     font-weight: normal;
 
     margin-left: 1em;
-}
-
-
-/*----------------------------------------------------------*/
-/* Big Tempo                                                 */
-/*----------------------------------------------------------*/
-
-.big-tempo-flash
-{
-        box-shadow:
-        inset 0 0 0 10px #ffd84d;
 }
 
