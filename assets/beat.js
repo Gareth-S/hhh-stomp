@@ -85,6 +85,13 @@ function initialiseBeatButton()
     );
 
     updateBeatDisplay();
+    
+    
+    if (
+    localStorage.getItem("big-tempo") === "true"
+    )
+    { flashBigTempo(); }
+    
 }
 
 
@@ -135,7 +142,29 @@ function updateBeatDisplay()
             leds[i].classList.remove("active");
         }
     }
+
+    if (
+        localStorage.getItem("big-tempo") === "true"
+    )
+    {
+        flashBigTempo();
+    }
 }
+
+function flashBigTempo()
+{
+    document.body.classList.add(
+        "big-tempo-flash"
+    );
+
+    setTimeout(function ()
+    {
+        document.body.classList.remove(
+            "big-tempo-flash"
+        );
+    }, 120);
+}
+
 
 /*----------------------------------------------------------*/
 /* Beat Engine                                               */
@@ -165,25 +194,6 @@ let beatTimer = null;
 let currentBar = 0;
 let barsRemaining = 4;
 
-/*
-
-function startBeatEngine()
-{
-    if (beatTimer)
-    {
-        clearInterval(beatTimer);
-    }
-
-    currentBeat = -1;
-    nextBeat();
-    beatTimer = setInterval(nextBeat, beatInterval);
-        
-    currentBar = 1;
-    barsRemaining = countInBars;
-
-}
-
-*/
 
 function startBeatEngine()
 {
@@ -236,4 +246,23 @@ function clearReady()
 {
     document.getElementById("tempo-status").textContent =
         "";
+}
+
+/*----------------------------------------------------------*/
+/* Big  Tempo                                              */
+/*----------------------------------------------------------*/
+
+
+function flashBigTempo()
+{
+    document.body.classList.add(
+        "big-tempo-flash"
+    );
+
+    setTimeout(function ()
+    {
+        document.body.classList.remove(
+            "big-tempo-flash"
+        );
+    }, beatInterval * 0.4);
 }

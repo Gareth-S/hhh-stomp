@@ -43,6 +43,13 @@ function initialiseSettings()
     
     loadBand();
 
+  document
+    .getElementById("save-settings")
+    .addEventListener(
+        "click",
+        saveSettings
+    );
+    
     
 }
 
@@ -83,6 +90,12 @@ function loadSettings()
         document.getElementById("big-tempo").checked =
             (bigTempo === "true");
     }
+    
+    console.log(
+    "Loaded big-tempo =",
+    document.getElementById("big-tempo").checked
+);
+
     
     const textSize =
     localStorage.getItem("text-size");
@@ -138,15 +151,6 @@ function saveSettings()
         
     );  
     
-/*
-    
-    localStorage.setItem(
-    "text-size",
-    document.querySelector('input[name="fontsize"]:checked'
-
-    ).value
-
-*/
 
 const size =
     document.querySelector(
