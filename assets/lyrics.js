@@ -743,6 +743,16 @@ async function loadBandNotes()
 
         console.log(songData);
 
+               
+  //tempo call
+                
+        if (songData.tempo)
+        {
+            configureBeatEngine(songData.tempo);
+        }           
+
+        startBeatEngine();
+        
         insertBandNotes(songData.songNotes);
         insertSectionBandNotes(songData.sections);
         insertInlineBandNotes(songData.inline);
@@ -838,15 +848,6 @@ async function loadUserNotes()
             const notes =
                 await response.json();
                 
-                
-  //tempo call
-                
-        if (notes.tempo)
-        {
-            configureBeatEngine(notes.tempo);
-        }           
-
-        startBeatEngine();
         
         
         

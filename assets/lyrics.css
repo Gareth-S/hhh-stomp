@@ -411,20 +411,22 @@ header {
 
     justify-content: center;
 
-    padding: .4em .8em;
+    padding: .4em .4em;
 }
 
 .beat-led
 {
-    width: .8em;
+    width: 1em;
 
-    height: .8em;
+    height: 1em;
 
     border-radius: 50%;
 
     background: #555;
-
+    
     transition: background .15s ease;
+    
+   border: 1px solid #121212; 
 }
 
 
@@ -441,19 +443,7 @@ header {
 
 /*----------------------------------------------------------*/
 /* Settings                                                  */
-/*----------------------------------------------------------
-
-
-.text-size
-{
-    width: 100%;
-    padding: 0.5rem;
-    min-height: 3.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-*/
+/*----------------------------------------------------------*/
 
 
 
@@ -476,54 +466,6 @@ header {
 {
     font-size: 1.7em;
 }
-
-
-/*
-.settings-buttons
-{
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin: 1rem 0;
-}
-
-.choice-selected
-{
- 
-
-    background: var(--bg);
-    color: var(--text);
-    
-    
-    border: 2px solid var(--chord);
-    
-}
-
-.text-size span
-{
-    display: block;
-
-    text-align: center;
-}
-
-
-.settings-table
-{
-    border-collapse: collapse;
-}
-
-.settings-table td
-{
-    padding: 0.4em 0.8em;
-}
-
-.settings-table input
-{
-    transform: scale(1.2);
-}
-
-
-*/
 
 
 .hide-chords .chords

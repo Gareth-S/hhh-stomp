@@ -4,7 +4,12 @@ todo in song2html
 
 
     <script defer src="../assets/lyrics.js"></script>
+    <script defer src="../assets/beat.js"></script>
     <script defer src="../assets/common.js"></script>
+
+
+ <div id="song-controls">final form for song</div>
+
 
 
 

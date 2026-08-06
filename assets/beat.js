@@ -6,6 +6,34 @@ let currentBeat = -1;
 let beatInterval = 1000;
 
 
+function configureBeatEngine(tempo)
+{
+    if (!tempo)
+    {
+        return;
+    }
+
+    if (tempo.bpm)
+    {
+        beatInterval = 60000 / tempo.bpm;
+      
+        console.log("Beat interval =", beatInterval);
+  }
+
+    if (tempo.countInBars)
+    {
+        countInBars = tempo.countInBars;
+    }
+
+    if (tempo.timeSignature)
+    {
+        timeSignature = tempo.timeSignature;
+    }
+
+}
+
+
+
 function initialiseBeatButton()
 {
     const button =
@@ -74,28 +102,4 @@ function startBeatEngine()
     beatTimer =
         setInterval(nextBeat, beatInterval);
 }
-
-function configureBeatEngine(tempo)
-{
-    if (!tempo)
-    {
-        return;
-    }
-
-    if (tempo.bpm)
-    {
-        beatInterval = 60000 / tempo.bpm;
-    }
-
-    if (tempo.countInBars)
-    {
-        countInBars = tempo.countInBars;
-    }
-
-    if (tempo.timeSignature)
-    {
-        timeSignature = tempo.timeSignature;
-    }
-}
-
 
