@@ -43,6 +43,8 @@ if (showLineNumbers === "false")
     // Add line numbers to the page.
     addLineNumbers();
 
+    // and links to sections
+    addSectionLinks();
 
 // console.log("show-chords =", showChords);
     
@@ -75,7 +77,8 @@ loadBandNotes();
 loadUserNotes();
 
 initialiseBeatButton();
-
+loadNotesEditor();
+// initialiseNoteEditor();
 
 const currentTheme = theme || "default";
 const selected = document.querySelector(
@@ -182,8 +185,9 @@ wrapAllBlocks();
 });
 
 
-// wrap
+let userNotes = null;
 
+// wrap
 
 let measure = null;
 
@@ -394,6 +398,70 @@ function insertBandNotes(data)
         );
     }
 }
+
+
+
+function addSectionLinks()
+{
+    document
+        .querySelectorAll(".section-link")
+        .forEach(
+            icon => icon.remove()
+        );
+
+    if (
+        document.body.classList.contains(
+            "hide-line-numbers"
+        )
+    )
+    {
+        return;
+    }
+
+    const sections =
+        document.querySelectorAll(".song-section");
+
+    for (const section of sections)
+    {
+        const heading =
+            section.querySelector("h2");
+
+        if (!heading)
+        {
+            continue;
+        }
+
+        const icon =
+            document.createElement("span");
+
+        icon.className =
+            "section-link";
+
+        icon.textContent =
+            " 📝";
+
+        icon.dataset.section =
+            section.id;
+
+        icon.addEventListener(
+            "click",
+            function ()
+            {
+                console.log(
+                    "Section clicked",
+                    icon.dataset.section
+                );
+
+                openNotesEditor(
+                    icon.dataset.section
+                );
+            }
+        );
+
+        heading.append(icon);
+    }
+}
+
 
 
 function insertSectionBandNotes(sections)
@@ -650,12 +718,12 @@ function insertTopUserNotes(user, notes)
 
 function addLineNumbers()
 {
-    const lyrics = document.querySelectorAll(".lyrics");
+    const lyrics =
+        document.querySelectorAll(".lyrics");
 
     for (const line of lyrics)
     {
         const number = line.dataset.line;
-
         if (!number)
             continue;
 
@@ -663,12 +731,20 @@ function addLineNumbers()
 
         span.className = "line-number";
 
-        span.textContent = number ;
+        span.textContent = number;
+
+        span.dataset.line = line.id;
+
+        span.addEventListener("click", function ()
+            {
+                openNotesEditor(span.dataset.line);
+                console.log(span.dataset.line);
+            }
+        );
 
         line.prepend(span);
     }
 }
-
 
 /*----------------------------------------------------------*/
 /* Band Notes                                                */
@@ -850,6 +926,10 @@ async function loadUserNotes()
             const notes =
                 await response.json();
                 
+           if (member === currentUser())
+            {
+                userNotes = notes;
+            }
         
         
         
@@ -881,6 +961,102 @@ function insertTopNotes(notes)
     console.log("Insert top notes", notes);
 }
 
+/*----------------------------------------------------------*/
+/* Notes Editor                                               */
+/*----------------------------------------------------------*/
 
+function loadNotesEditor()
+{
+    fetch("../assets/notes-editor.html")
+
+        .then(response => response.text())
+
+        .then(html =>
+        {
+            document
+                .getElementById(
+                    "notes-editor-container"
+                )
+                .innerHTML = html;
+
+            initialiseNotesEditor();
+        });
+}
+
+
+let currentTarget = null;
+
+
+function openNotesEditor(targetId)
+{
+    currentTarget = targetId;
+
+    console.log(
+        "Opening editor for",
+        targetId
+    );
+
+    document
+        .getElementById("notes-editor")
+        .classList.remove("hidden");
+}
+
+/*
+
+function openNotesEditor(targetId)
+{
+    currentTarget = targetId;
+
+    document
+        .getElementById("note-target")
+        .textContent =
+        targetId;
+
+    document
+        .getElementById("note-text")
+        .value = "";
+
+    document
+        .getElementById("notes-editor")
+        .classList
+        .remove("hidden");
+}
+
+
+*/
+
+
+function closeNotesEditor()
+{
+    document
+        .getElementById("notes-editor")
+        .classList
+        .add("hidden");
+}
+
+
+function initialiseNotesEditor()
+{
+    document
+        .getElementById("save-note")
+        .addEventListener(
+            "click",
+            function ()
+            {
+                console.log(
+                    "Save clicked"
+                );
+
+                closeNotesEditor();
+            }
+        );
+
+    document
+        .getElementById("cancel-note")
+        .addEventListener(
+            "click",
+            closeNotesEditor
+        );
+}
 
 
