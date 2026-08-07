@@ -10,6 +10,7 @@ todo in song2html
 
  <div id="song-controls">final form for song</div>
 
+<div id="note-editor-container"></div> -- editor hook
 
 
 

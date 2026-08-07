@@ -1,23 +1,28 @@
+<!-- notes form -->
+
 <div id="notes-editor" class="hidden">
 
     <div class="notes-editor-window">
 
-        <h2>Notes Editor</h2>
+ <!--       <h2>Notes Editor</h2> -->
 
         <div class="notes-group">
 
-            <h3>Song Notes</h3>
+            <h4>Song Notes</h4>
 
             <textarea
                 id="song-notes"
-                rows="4">
+                rows="3"
+                placeholder="Song notes...">
             </textarea>
 
+<!--
         </div>
 
         <div class="notes-group">
 
             <h3>Section Notes</h3>
+ -->           
 
             <table class="notes-table">
 
@@ -26,7 +31,7 @@
                     <tr>
 
                         <th>Section</th>
-                        <th>Note</th>
+                        <th>Notes</th>
                         <th></th>
 
                     </tr>
@@ -35,21 +40,53 @@
 
                 <tbody id="section-notes-body">
 
+                    <tr>
+
+                        <td width="10%">
+                            <input
+                                class="section-number"
+                                type="text"
+                                inputmode="numeric"
+                                maxlength="3"
+                                placeholder="Section">
+                        </td>
+
+                        <td>
+                            <input
+                                class="note-text"
+                                type="text"
+                                placeholder="Note">
+                        </td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="delete-note-row">
+                                🗑
+                            </button>
+                        </td>
+
+                    </tr>
+
                 </tbody>
 
             </table>
 
-            <button id="add-section-row">
-
+            <button
+                type="button"
+                id="add-section-row">
                 + Add Section
-
             </button>
 
+<!--
         </div>
 
         <div class="notes-group">
 
+
+
             <h3>Line Notes</h3>
+-->
 
             <table class="notes-table">
 
@@ -58,7 +95,7 @@
                     <tr>
 
                         <th>Line</th>
-                        <th>Note</th>
+                        <th>Notes</th>
                         <th></th>
 
                     </tr>
@@ -67,30 +104,58 @@
 
                 <tbody id="line-notes-body">
 
+                    <tr>
+
+                        <td width="10%">
+                            <input
+                                class="line-number"
+                                type="text"
+                                inputmode="numeric"
+                                maxlength="3"
+                                placeholder="Line">
+                        </td>
+
+                        <td>
+                            <input
+                                class="note-text"
+                                type="text"
+                                placeholder="Note">
+                        </td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="delete-note-row">
+                                🗑
+                            </button>
+                        </td>
+
+                    </tr>
+
                 </tbody>
 
             </table>
 
-            <button id="add-line-row">
-
+            <button
+                type="button"
+                id="add-line-row">
                 + Add Line
-
             </button>
 
         </div>
 
         <div class="notes-buttons">
 
-            <button id="cancel-note">
-
+            <button
+                type="button"
+                id="cancel-note">
                 Cancel
-
             </button>
 
-            <button id="save-note">
-
+            <button
+                type="button"
+                id="save-note">
                 Save
-
             </button>
 
         </div>

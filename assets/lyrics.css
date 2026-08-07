@@ -10,6 +10,7 @@
  * Theme colours
  */
 
+
 :root {
 
     --bg:             #1e2548;
@@ -25,7 +26,9 @@
 
     --personal-bg:    #8a3030;
     --personal-text:  #fff080;
-    --scale:1                ;
+
+    --scale:1;
+    --accent-colour:  #d6c15f;
 }
 
 
@@ -219,6 +222,8 @@ body {
 
     --personal-bg:   #d07c7c;
     --personal-text: #fff8b0;
+
+    --accent-colour: #3f154b;
 }
 
 .dark-theme {
@@ -235,6 +240,8 @@ body {
 
     --personal-bg:   #7d4040;
     --personal-text: #ffe080;
+
+    --accent-colour: #f0d65a;
 }
 
 .default-theme {
@@ -251,9 +258,12 @@ body {
 
     --personal-bg:   #8a3030;
     --personal-text: #fff080;
-    --link: #d8c85a         ;
-    
+
+    --link:          #d8c85a;
+
+    --accent-colour: #d9be55;
 }
+
 
 /*----------------------------------------------------------*/
 /* Beat Engine Colours                                       */
@@ -694,13 +704,18 @@ body
 #notes-editor
 {
     position: fixed;
-    inset: 0;
+
+    top: 0;
+    left: 0;
+ 
+    width: 100vw;
+    height: 100vh;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background: rgba(0,0,0,.6);
+    background: rgba(0,0,0,.25);
 
     z-index: 9999;
 }
@@ -713,18 +728,29 @@ body
 .notes-editor-window
 {
     background: var(--background-colour);
-    color: var(--text-colour);
+    color: var(--accent-colour);
 
-    width: 85%;
-    max-width: 900px;
+    width: 70%;
+    max-width: 1000px;
     max-height: 85vh;
 
     overflow-y: auto;
 
-    padding: 1rem;
+    padding: .4rem .8rem;
+  
+/*    border: 2px solid var(--accent-colour); */
 
-    border: 2px solid var(--accent-colour);
-    border-radius: .5rem;
+    border-radius: .4rem;
+    
+    cursor: pointer;
+    
+    box-shadow:
+    0 0 30px rgba(0,0,0,.85);
+}
+
+.notes-editor-window button:hover
+{
+    opacity: .85;
 }
 
 .notes-group
@@ -735,7 +761,6 @@ body
 .notes-table
 {
     width: 100%;
-
     border-collapse: collapse;
 }
 
@@ -750,8 +775,8 @@ body
 .notes-table input
 {
     width: 100%;
-
     box-sizing: border-box;
+    padding: .35rem;
 }
 
 #song-notes
@@ -766,8 +791,73 @@ body
 .notes-buttons
 {
     display: flex;
-
     justify-content: flex-end;
-
     gap: .75rem;
+}
+
+.notes-group h3
+{
+    margin-bottom: .5rem;
+
+    color: var(--heading-colour);
+
+    padding-bottom: .25rem;
+}
+
+.notes-table th
+{
+    text-align: left;
+
+    padding-bottom: .5rem;
+
+    color: var(--heading-colour);
+}
+
+.notes-table td
+{
+    padding: .3rem 0;
+}
+
+/*
+
+#save-note
+{
+    background: var(--accent-colour);
+
+    color: var(--background-colour);
+}
+
+#cancel-note
+{
+    background: transparent;
+
+    color: var(--text-colour);
+}
+
+*/
+
+
+.notes-table input,
+
+
+#song-notes
+{
+    background: var(--bg);
+    color: var(--text);
+
+    border: 1px solid var(--accent-colour);
+
+    padding: .4rem;
+
+    box-sizing: border-box;
+
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.notes-table input::placeholder,
+#song-notes::placeholder
+{
+    color: var(--text);
+    opacity: .6;
 }
