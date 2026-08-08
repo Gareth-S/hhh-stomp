@@ -341,6 +341,16 @@ function splitBlock(block, splitWord)
     block.replaceWith(first, second);
 }
 
+function currentUser()
+{
+        return "Gareth";
+
+//    return localStorage.getItem("current-user");
+
+    
+}
+
+
 /*----------------------------------------------------------*/
 /* Inline User Cues                                          */
 /*----------------------------------------------------------*/
@@ -636,6 +646,13 @@ function insertUserNotes(user, inline)
         {
             continue;
         }
+        
+  console.log(
+    "RENDER INLINE:",
+    user,
+    line,
+    inline[line]
+);      
 
         renderInlineCue(
             user,
@@ -926,11 +943,20 @@ async function loadUserNotes()
             const notes =
                 await response.json();
                 
-           if (member === currentUser())
+                
+            console.log("LOADED NOTES FOR:", member, notes);
+            
+            console.log(
+    "Tom/Gareth JSON:",
+    member,
+    notes
+);
+                
+        if (member === currentUser())
             {
                 userNotes = notes;
             }
-        
+
         
         
 //            console.log(notes);
@@ -948,8 +974,22 @@ async function loadUserNotes()
             console.log(error);
         }
     }
+        
 }
 
+function populateNotesEditor()
+{
+    if (!userNotes)
+    {
+        console.log("No user notes available");
+        return;
+    }
+
+    document
+        .getElementById("song-notes")
+        .value =
+        userNotes.songNotes || "";
+}
 
 
 /*----------------------------------------------------------*/
@@ -986,6 +1026,96 @@ function loadNotesEditor()
 
 let currentTarget = null;
 
+function populateSectionNotesEditor()
+{
+    const body = document.getElementById(
+            "section-notes-body"
+        );
+
+    if (!body || !userNotes)
+    {
+        return;
+    }
+
+    body.innerHTML = "";
+
+    const sections = userNotes.sections || {};
+
+    for (const sectionId in sections)
+    {
+        const notes = sections[sectionId];
+
+        for (const note of notes)
+        {
+            const row = document.createElement("tr");
+
+            row.innerHTML = 
+                `<td>
+                    <input type="text" value="${sectionId}" maxlength="3">
+                </td>
+
+                <td>
+                    <input type="text" value="${note}" >
+                </td>
+
+                <td>
+                    <button type="button" class="delete-note" >
+                        🗑
+                    </button>
+                </td>
+            `;
+
+            body.appendChild(row);
+        }
+    }
+}
+
+
+function populateLineNotesEditor()
+{
+    const body = document.getElementById(
+            "line-notes-body"
+        );
+
+    if (!body || !userNotes)
+    {
+        return;
+    }
+
+    body.innerHTML = "";
+
+    const inline =
+        userNotes.inline || {};
+
+    for (const lineId in inline)
+    {
+        const notes = inline[lineId];
+
+        for (const note of notes)
+        {
+            const row =  document.createElement("tr");
+
+            row.innerHTML =
+                ` <td>
+                    <input type="text" value="${lineId}" maxlength="3">
+                </td>
+
+                <td>
+                    <input type="text" value="${note}">
+                </td>
+
+                <td>
+                    <button type="button" class="delete-note">
+                        🗑
+                    </button>
+                </td>
+            `;
+
+            body.appendChild(row);
+        }
+    }
+}
+
 
 function openNotesEditor(targetId)
 {
@@ -995,35 +1125,17 @@ function openNotesEditor(targetId)
         "Opening editor for",
         targetId
     );
-
+    
+    populateNotesEditor();
+    populateSectionNotesEditor();
+    populateLineNotesEditor();
+    
     document
         .getElementById("notes-editor")
         .classList.remove("hidden");
+        
 }
 
-/*
-
-function openNotesEditor(targetId)
-{
-    currentTarget = targetId;
-
-    document
-        .getElementById("note-target")
-        .textContent =
-        targetId;
-
-    document
-        .getElementById("note-text")
-        .value = "";
-
-    document
-        .getElementById("notes-editor")
-        .classList
-        .remove("hidden");
-}
-
-
-*/
 
 
 function closeNotesEditor()
@@ -1058,5 +1170,6 @@ function initialiseNotesEditor()
             closeNotesEditor
         );
 }
+
 
 
