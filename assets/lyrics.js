@@ -343,7 +343,7 @@ function splitBlock(block, splitWord)
 
 function currentUser()
 {
-        return "Gareth";
+        return "Sally";
 
 //    return localStorage.getItem("current-user");
 
@@ -1295,11 +1295,19 @@ function initialiseNotesEditor()
             "click",
             function ()
             {
-                console.log(
-                    "Save clicked"
-                );
+  
+             const notes =
+                collectNotesFromEditor();
 
-                closeNotesEditor();
+            console.log(
+                JSON.stringify(notes, null, 4)
+                        );
+               
+                
+                
+//                closeNotesEditor();
+
+                
             }
         );
 
@@ -1339,7 +1347,7 @@ function addSectionRow()
 
     row.innerHTML = `
         <td>
-            <input type="text" value="${currentTarget.replace("section-", "")}" class="section-target" placeholder="section">
+            <input type="text" value="${currentTarget}" class="section-target" placeholder="section">
         </td>
 
         <td>
@@ -1369,7 +1377,7 @@ function addLineRow()
     row.innerHTML = `
         <td>
             <input
-                type="text" value="${currentTarget.replace("line-", "")}" class="line-target" placeholder="line">
+                type="text" value="${currentTarget}" class="line-target" placeholder="line">
         </td>
 
         <td>
@@ -1427,5 +1435,98 @@ function addLineRowForTarget(targetId)
     row.querySelector(
         ".line-note"
     ).focus();
+}
+
+// section notes
+
+function collectNotesFromEditor()
+{
+    const notes =
+    {
+        user: currentUser(),
+        songNotes: [],
+        sections: {},
+        inline: {}
+    };
+
+    const songNotes =
+        document.getElementById(
+            "song-notes"
+        ).value.trim();
+
+    if (songNotes)
+    {
+        notes.songNotes.push(
+            songNotes
+        );
+    }
+
+    const sectionRows =
+    document.querySelectorAll(
+        "#section-notes-body tr"
+    );
+
+for (const row of sectionRows)
+{
+    const section =
+        row.querySelector(
+            ".section-target"
+        ).value.trim();
+
+    const note =
+        row.querySelector(
+            ".section-note"
+        ).value.trim();
+
+    if (!section || !note)
+    {
+        continue;
+    }
+
+    if (!notes.sections[section])
+    {
+        notes.sections[section] = [];
+    }
+
+    notes.sections[section].push(
+        note
+    );
+}
+    
+    // in-line notes
+    
+ const lineRows =
+    document.querySelectorAll(
+        "#line-notes-body tr"
+    );
+
+for (const row of lineRows)
+{
+    const line =
+        row.querySelector(
+            ".line-target"
+        ).value.trim();
+
+    const note =
+        row.querySelector(
+            ".line-note"
+        ).value.trim();
+
+    if (!line || !note)
+    {
+        continue;
+    }
+
+    if (!notes.inline[line])
+    {
+        notes.inline[line] = [];
+    }
+
+    notes.inline[line].push(
+        note
+    );
+}   
+    
+    return notes;
 }
 
