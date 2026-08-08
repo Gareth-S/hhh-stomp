@@ -343,7 +343,7 @@ function splitBlock(block, splitWord)
 
 function currentUser()
 {
-        return "Gareth";
+        return "Sally";
 
 //    return localStorage.getItem("current-user");
 
@@ -932,10 +932,18 @@ async function loadUserNotes()
 
             if (!response.ok)
             {
-                console.log(
-                    filename +
-                    " not found"
-                );
+                console.log(filename + " not found" );
+ 
+            if (member === currentUser())
+                {
+                    userNotes =
+                    {
+                        user: currentUser(),
+                        songNotes: [],
+                        sections: {},
+                        inline: {}
+                    };
+                }
 
                 continue;
             }
@@ -1169,6 +1177,82 @@ function initialiseNotesEditor()
             "click",
             closeNotesEditor
         );
+        
+        
+    document
+        .getElementById("add-section-row")
+        .addEventListener(
+            "click",
+            addSectionRow
+    );     
+        
+    document
+    .getElementById("add-line-row")
+    .addEventListener(
+        "click",
+        addLineRow
+    );
+    
+}
+
+function addSectionRow()
+{
+    const body =
+        document.getElementById(
+            "section-notes-body"
+        );
+
+    const row =
+        document.createElement("tr");
+
+    row.innerHTML = `
+        <td>
+            <input type="number" value="${currentTarget.replace("section-", "")}" min="1" max="99"text" maxlength="3" placeholder="">
+        </td>
+
+        <td>
+            <input type="text" placeholder="Note">
+        </td>
+
+        <td>
+            <button type="button" class="delete-note"            >
+                🗑
+            </button>
+        </td>
+    `;
+
+    body.appendChild(row);
+}
+
+function addLineRow()
+{
+    const body =
+        document.getElementById(
+            "line-notes-body"
+        );
+
+    const row =
+        document.createElement("tr");
+
+    row.innerHTML = `
+        <td>
+            <input
+                type="number" value="${currentTarget.replace("line-", "")}" min="1" max="999" maxlength="3" placeholder="">
+        </td>
+
+        <td>
+            <input
+                type="text" placeholder="Note">
+        </td>
+
+        <td>
+            <button type="button" class="delete-note">
+                🗑
+            </button>
+        </td>
+    `;
+
+    body.appendChild(row);
 }
 
 
