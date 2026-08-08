@@ -341,6 +341,8 @@ function splitBlock(block, splitWord)
     block.replaceWith(first, second);
 }
 
+
+
 function currentUser()
 {
         return "Sally";
@@ -969,7 +971,7 @@ async function loadUserNotes()
         
 //            console.log(notes);
 //            insertTopNotes(notes);  
-//               insertUserNotes(notes);
+//            insertUserNotes(notes);
                 
             insertUserNotes(notes.user,notes.inline);
             insertTopUserNotes(notes.user,notes.songNotes);
@@ -1124,27 +1126,6 @@ function populateLineNotesEditor()
     }
 }
 
-/*
-function openNotesEditor(targetId)
-{
-    currentTarget = targetId;
-
-    console.log(
-        "Opening editor for",
-        targetId
-    );
-    
-    populateNotesEditor();
-    populateSectionNotesEditor();
-    populateLineNotesEditor();
-    
-    document
-        .getElementById("notes-editor")
-        .classList.remove("hidden");
-        
-}
-
-*/
 
 function openNotesEditor(targetId)
 {
@@ -1224,60 +1205,6 @@ function addSectionRowForTarget(targetId)
 }
 
 
-
-/*
-
-function addSectionRowForTarget(targetId)
-{
-    const body =
-        document.getElementById(
-            "section-notes-body"
-        );
-
-
-
-    const number = targetId;
-        
-        
-   const existing =
-        body.querySelectorAll(
-            ".section-target"
-        );
-
-    for (const input of existing)
-        {
-            if (input.value === number)
-        {
-            input
-            .closest("tr")
-            .querySelector(".section-note")
-            .focus();
-
-        return;
-    }
-}
-    
-    
-    
-    addSectionRow();
-
-    const rows = body.querySelectorAll("tr");
-
-    const row = rows[rows.length - 1];
-    
-    row.querySelector(
-    ".section-target"
-    ).value = number;
-
-    row.querySelector(
-        ".section-note"
-    ).focus();
-
-}
-
-
-*/
-
 function closeNotesEditor()
 {
     document
@@ -1287,27 +1214,63 @@ function closeNotesEditor()
 }
 
 
+
 function initialiseNotesEditor()
 {
     document
         .getElementById("save-note")
         .addEventListener(
             "click",
-            function ()
+            async function ()
             {
-  
-             const notes =
-                collectNotesFromEditor();
+                const notes =
+                    collectNotesFromEditor();
 
-            console.log(
-                JSON.stringify(notes, null, 4)
+                console.log(
+                    JSON.stringify(
+                        notes,
+                        null,
+                        4
+                    )
+                );
+
+                try
+                {
+                    const response =
+                        await fetch(
+                            "../assets/save-notes.php",
+                            {
+                                method: "POST",
+
+                                headers:
+                                {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        notes
+                                    )
+                            }
                         );
-               
-                
-                
-//                closeNotesEditor();
 
-                
+                    const result =
+                        await response.json();
+
+                    console.log(
+                        "SAVE RESULT:",
+                        result
+                    );
+                }
+
+                catch (error)
+                {
+                    console.error(
+                        "SAVE ERROR:",
+                        error
+                    );
+                }
             }
         );
 
@@ -1317,23 +1280,23 @@ function initialiseNotesEditor()
             "click",
             closeNotesEditor
         );
-        
-        
+
     document
         .getElementById("add-section-row")
         .addEventListener(
             "click",
             addSectionRow
-    );     
-        
+        );
+
     document
-    .getElementById("add-line-row")
-    .addEventListener(
-        "click",
-        addLineRow
-    );
-    
+        .getElementById("add-line-row")
+        .addEventListener(
+            "click",
+            addLineRow
+        );
 }
+
+
 
 function addSectionRow()
 {
@@ -1377,7 +1340,7 @@ function addLineRow()
     row.innerHTML = `
         <td>
             <input
-                type="text" value="${currentTarget}" class="line-target" placeholder="line">
+                type="text" value="" class="line-target" placeholder="line">
         </td>
 
         <td>
