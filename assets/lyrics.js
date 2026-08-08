@@ -1105,11 +1105,11 @@ function populateLineNotesEditor()
 
             row.innerHTML =
                 ` <td>
-                    <input type="text" value="${lineId}" maxlength="3">
+                    <input type="text" value="${lineId}" class="line-target" maxlength="3">
                 </td>
 
                 <td>
-                    <input type="text" value="${note}">
+                    <input type="text" value="${note}" class="line-note">
                 </td>
 
                 <td>
@@ -1369,12 +1369,12 @@ function addLineRow()
     row.innerHTML = `
         <td>
             <input
-                type="text" value="${currentTarget.replace("line-", "")}" placeholder="line">
+                type="text" value="${currentTarget.replace("line-", "")}" class="line-target" placeholder="line">
         </td>
 
         <td>
             <input
-                type="text" placeholder="Note">
+                type="text" class="line-note" placeholder="Note">
         </td>
 
         <td>
@@ -1387,5 +1387,45 @@ function addLineRow()
     body.appendChild(row);
 }
 
+function addLineRowForTarget(targetId)
+{
+    const body =
+        document.getElementById(
+            "line-notes-body"
+        );
 
+    const existing =
+        body.querySelectorAll(
+            ".line-target"
+        );
+
+    for (const input of existing)
+    {
+        if (input.value === targetId)
+        {
+            input
+                .closest("tr")
+                .querySelector(".line-note")
+                .focus();
+
+            return;
+        }
+    }
+
+    addLineRow();
+
+    const rows =
+        body.querySelectorAll("tr");
+
+    const row =
+        rows[rows.length - 1];
+
+    row.querySelector(
+        ".line-target"
+    ).value = targetId;
+
+    row.querySelector(
+        ".line-note"
+    ).focus();
+}
 
