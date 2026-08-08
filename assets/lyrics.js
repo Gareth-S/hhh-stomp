@@ -343,7 +343,7 @@ function splitBlock(block, splitWord)
 
 function currentUser()
 {
-        return "Sally";
+        return "Gareth";
 
 //    return localStorage.getItem("current-user");
 
@@ -1059,11 +1059,11 @@ function populateSectionNotesEditor()
 
             row.innerHTML = 
                 `<td>
-                    <input type="text" value="${sectionId}" maxlength="3">
+                    <input type="text" value="${sectionId}"  class="section-target"maxlength="3">
                 </td>
 
                 <td>
-                    <input type="text" value="${note}" >
+                    <input type="text" value="${note}" class="section-note" >
                 </td>
 
                 <td>
@@ -1124,7 +1124,7 @@ function populateLineNotesEditor()
     }
 }
 
-
+/*
 function openNotesEditor(targetId)
 {
     currentTarget = targetId;
@@ -1144,7 +1144,139 @@ function openNotesEditor(targetId)
         
 }
 
+*/
 
+function openNotesEditor(targetId)
+{
+    currentTarget = targetId;
+
+    console.log(
+        "Opening editor for",
+        targetId
+    );
+
+    populateNotesEditor();
+    populateSectionNotesEditor();
+    populateLineNotesEditor();
+
+    document
+        .getElementById("notes-editor")
+        .classList
+        .remove("hidden");
+
+    if (targetId.startsWith("section-"))
+    {
+        addSectionRowForTarget(targetId);
+    }
+
+    if (targetId.startsWith("line-"))
+    {
+        addLineRowForTarget(targetId);
+    }
+}
+
+
+function addSectionRowForTarget(targetId)
+{
+    const body =
+        document.getElementById(
+            "section-notes-body"
+        );
+
+    const existing =
+        body.querySelectorAll("tr");
+
+    for (const row of existing)
+    {
+        const input =
+            row.querySelector(
+                ".section-target"
+            );
+
+        if (
+            input &&
+            input.value === targetId
+        )
+        {
+            row
+                .querySelector(".section-note")
+                .focus();
+
+            return;
+        }
+    }
+
+    addSectionRow();
+
+    const rows =
+        body.querySelectorAll("tr");
+
+    const row =
+        rows[rows.length - 1];
+
+    row.querySelector(
+        ".section-target"
+    ).value = targetId;
+
+    row.querySelector(
+        ".section-note"
+    ).focus();
+}
+
+
+
+/*
+
+function addSectionRowForTarget(targetId)
+{
+    const body =
+        document.getElementById(
+            "section-notes-body"
+        );
+
+
+
+    const number = targetId;
+        
+        
+   const existing =
+        body.querySelectorAll(
+            ".section-target"
+        );
+
+    for (const input of existing)
+        {
+            if (input.value === number)
+        {
+            input
+            .closest("tr")
+            .querySelector(".section-note")
+            .focus();
+
+        return;
+    }
+}
+    
+    
+    
+    addSectionRow();
+
+    const rows = body.querySelectorAll("tr");
+
+    const row = rows[rows.length - 1];
+    
+    row.querySelector(
+    ".section-target"
+    ).value = number;
+
+    row.querySelector(
+        ".section-note"
+    ).focus();
+
+}
+
+
+*/
 
 function closeNotesEditor()
 {
@@ -1207,11 +1339,11 @@ function addSectionRow()
 
     row.innerHTML = `
         <td>
-            <input type="number" value="${currentTarget.replace("section-", "")}" min="1" max="99"text" maxlength="3" placeholder="">
+            <input type="text" value="${currentTarget.replace("section-", "")}" class="section-target" placeholder="section">
         </td>
 
         <td>
-            <input type="text" placeholder="Note">
+            <input type="text" class="section-note" placeholder="Note">
         </td>
 
         <td>
@@ -1237,7 +1369,7 @@ function addLineRow()
     row.innerHTML = `
         <td>
             <input
-                type="number" value="${currentTarget.replace("line-", "")}" min="1" max="999" maxlength="3" placeholder="">
+                type="text" value="${currentTarget.replace("line-", "")}" placeholder="line">
         </td>
 
         <td>
