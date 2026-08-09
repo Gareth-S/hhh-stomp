@@ -53,6 +53,23 @@ function populateCatalogue(songs)
 
     for (const song of songs)
     {
+        const entry =
+            document.createElement("div");
+
+        entry.className =
+            "song-list-entry";
+
+
+        const handle =
+            document.createElement("span");
+
+        handle.className =
+            "song-drag-handle";
+
+        handle.textContent =
+            "☰";
+
+
         const link =
             document.createElement("a");
 
@@ -62,12 +79,53 @@ function populateCatalogue(songs)
         link.textContent =
             song.title;
 
-        link.className =
-            "song-list-entry";
+
+        entry.appendChild(handle);
+        entry.appendChild(link);
+
+        container.appendChild(entry);
+    }
+}
+
+/*
+function populateCatalogue(songs)
+{
+    const container =
+        document.getElementById(
+            "all-songs"
+        );
+
+    if (!container)
+    {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    for (const song of songs)
+    {
+        
+       const entry = document.createElement("div");
+
+       entry.className = "song-list-entry";
+
+ 
+        
+        const link = document.createElement("a");
+
+        link.href = song.file;
+
+        link.textContent = song.title;
+
+        link.className = "song-list-entry";
+        
+        entry.appendChild(link);
 
         container.appendChild(link);
     }
 }
+
+*/
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -83,6 +141,8 @@ document.addEventListener(
         await loadCurrentSetlist();
         
         initialiseSortable();
+        updateDuplicateMarkers();
+    
         
     }
 );
@@ -142,6 +202,23 @@ function populateSetlist(songs)
 
     for (const song of songs)
     {
+        const entry =
+            document.createElement("div");
+
+        entry.className =
+            "song-list-entry";
+
+
+        const handle =
+            document.createElement("span");
+
+        handle.className =
+            "song-drag-handle";
+
+        handle.textContent =
+            "☰";
+
+
         const link =
             document.createElement("a");
 
@@ -151,17 +228,109 @@ function populateSetlist(songs)
         link.textContent =
             song.title;
 
-        link.className =
-            "song-list-entry";
-    
-    
-        link.innerHTML =
-    '       <span class="song-drag-handle">☰</span>' + song.title;
 
+        entry.appendChild(handle);
+        entry.appendChild(link);
 
-        container.appendChild(link);
+        container.appendChild(entry);
     }
 }
+
+function updateDuplicateMarkers()
+{
+    const setlist =
+        document.getElementById(
+            "current-setlist"
+        );
+
+    const catalogue =
+        document.getElementById(
+            "all-songs"
+        );
+
+    if (!setlist || !catalogue)
+    {
+        return;
+    }
+
+
+    /*
+     * Use the song filename as the identity of a song.
+     * Titles can change, but the filename should remain stable.
+     */
+    const counts = {};
+
+
+    const setlistEntries =
+        setlist.querySelectorAll(
+            ".song-list-entry"
+        );
+
+    for (const entry of setlistEntries)
+    {
+        const link =
+            entry.querySelector("a");
+
+        if (!link)
+        {
+            continue;
+        }
+
+        const file =
+            link.getAttribute("href");
+
+        counts[file] =
+            (counts[file] || 0) + 1;
+    }
+
+
+    /* Mark duplicate songs in the current setlist. */
+    for (const entry of setlistEntries)
+    {
+        const link =
+            entry.querySelector("a");
+
+        if (!link)
+        {
+            continue;
+        }
+
+        const file =
+            link.getAttribute("href");
+
+        entry.classList.toggle(
+            "setlist-duplicate",
+            counts[file] > 1
+        );
+    }
+
+
+    /* Mark songs in the catalogue which are already in the setlist. */
+    const catalogueEntries =
+        catalogue.querySelectorAll(
+            ".song-list-entry"
+        );
+
+    for (const entry of catalogueEntries)
+    {
+        const link =
+            entry.querySelector("a");
+
+        if (!link)
+        {
+            continue;
+        }
+
+        const file =
+            link.getAttribute("href");
+
+        entry.classList.toggle(
+            "in-current-setlist",
+            !!counts[file]
+        );
+    }
+}
+
 
 
 /*----------------------------------------------------------*/

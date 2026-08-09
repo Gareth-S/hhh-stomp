@@ -1,3 +1,92 @@
 .song-list-entry {
     display: block;
 }
+
+.song-list-entry {
+    display: flex;
+    align-items: center;
+}
+
+.song-drag-handle {
+    cursor: grab;
+    padding-right: 0.5em;
+    user-select: none;
+}
+
+.song-drag-handle:active {
+    cursor: grabbing;
+}
+
+
+/* Drag handles are only shown for songs in the current setlist. */
+#all-songs .song-drag-handle {
+    display: none;
+}
+
+#current-setlist .song-drag-handle {
+    display: inline-block;
+}
+
+.song-drag-handle {
+    cursor: grab;
+    padding-right: 0.5em;
+    user-select: none;
+}
+
+.song-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Keep each song pane independently scrollable. */
+.song-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+
+/* Give every song a consistent box. */
+.song-list-entry {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 2.4em;
+    margin-bottom: 0.3em;
+    padding: 0.35em 0.5em;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+}
+
+
+/* Keep the song link readable inside the box. */
+.song-list-entry a {
+    flex: 1;
+}
+
+
+/* Catalogue handles stay hidden. */
+#all-songs .song-drag-handle {
+    display: none;
+}
+
+
+/* Setlist handles are visible. */
+#current-setlist .song-drag-handle {
+    display: inline-block;
+    cursor: grab;
+    padding-right: 0.5em;
+    user-select: none;
+}
+
+
+/* A song already present in the current setlist. */
+.in-current-setlist {
+    opacity: 0.7;
+}
+
+
+/* The same song appears more than once in the setlist. */
+.setlist-duplicate {
+    opacity: 1;
+    font-weight: bold;
+}
