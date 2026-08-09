@@ -1274,18 +1274,10 @@ function initialiseNotesEditor()
                         "SAVE RESULT:",
                         result
                     );
-                                        
+                      
+
             if (result.success)
                 {
-                    
-                    userNotes = notes;
-                    
-                    clearUserNotesDisplay();
-                    
-                    insertUserNotes(userNotes.user, userNotes.inline);
-                    insertTopUserNotes(userNotes.user, userNotes.songNotes);
-                    insertSectionUserNotes(userNotes.user, userNotes.sections);
-
                     closeNotesEditor();
                 }
 
@@ -1519,4 +1511,5 @@ for (const row of lineRows)
     
     return notes;
 }
+
 
