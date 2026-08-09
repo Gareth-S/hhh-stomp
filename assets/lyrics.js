@@ -607,6 +607,18 @@ function insertInlineBandNotes(inline)
     }
 }
 
+
+function clearUserNotesDisplay()
+{
+    document
+        .querySelectorAll(".user-note, .user-cue")
+        
+        .forEach(
+            note => note.remove()
+            );
+}
+
+
 /*----------------------------------------------------------*/
 /* Render Inline Band Cue                                   */
 /*----------------------------------------------------------*/
@@ -1262,13 +1274,23 @@ function initialiseNotesEditor()
                         "SAVE RESULT:",
                         result
                     );
+                                        
+            if (result.success)
+                {
                     
-                    if (result.success)
-                    {
-                        closeNotesEditor();
-                    }
+                    userNotes = notes;
+                    
+                    clearUserNotesDisplay();
+                    
+                    insertUserNotes(userNotes.user, userNotes.inline);
+                    insertTopUserNotes(userNotes.user, userNotes.songNotes);
+                    insertSectionUserNotes(userNotes.user, userNotes.sections);
+
+                    closeNotesEditor();
                 }
 
+            }
+                
                 catch (error)
                 {
                     console.error(

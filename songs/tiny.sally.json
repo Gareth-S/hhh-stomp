@@ -11,7 +11,10 @@
             "section"
         ],
         "section-8": [
-            "section-8"
+            "sectio"
+        ],
+        "section-9": [
+            "secti"
         ]
     },
     "inline": {
@@ -20,6 +23,9 @@
         ],
         "another line": [
             "another line"
+        ],
+        "line-4": [
+            "line-4"
         ]
     }
 }
