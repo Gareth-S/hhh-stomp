@@ -1508,8 +1508,41 @@ for (const row of lineRows)
         note
     );
 }   
-    
+    notes.sections = sortNoteTargets(notes.sections);
+    notes.inline = sortNoteTargets(notes.inline);
+
     return notes;
+}
+
+function sortNoteTargets(notes)
+{
+    const sorted = {};
+
+    const keys =
+        Object.keys(notes)
+            .sort(
+                function (a, b)
+                {
+                    const numberA =
+                        parseInt(
+                            a.split("-")[1]
+                        );
+
+                    const numberB =
+                        parseInt(
+                            b.split("-")[1]
+                        );
+
+                    return numberA - numberB;
+                }
+            );
+
+    for (const key of keys)
+    {
+        sorted[key] = notes[key];
+    }
+
+    return sorted;
 }
 
 
