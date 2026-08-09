@@ -1,6 +1,8 @@
 {
     "user": "Tom",
-    "songNotes": [test],
+    "songNotes": [
+	"test"
+],
     "sections": {},
     "inline": {}
 }
