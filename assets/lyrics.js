@@ -1262,6 +1262,11 @@ function initialiseNotesEditor()
                         "SAVE RESULT:",
                         result
                     );
+                    
+                    if (result.success)
+                    {
+                        closeNotesEditor();
+                    }
                 }
 
                 catch (error)
