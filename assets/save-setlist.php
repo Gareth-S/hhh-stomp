@@ -102,7 +102,7 @@ unset(
 );
 
 
-/* Write the setlist JSON file. */
+/* Write the setlist JSON file. 
 $result =
     file_put_contents(
         $path,
@@ -113,12 +113,74 @@ $result =
         )
     );
 
+if ($result === false)
+{
+    http_response_code(500);
+    exit("Unable to save setlist");
+}
+*/
+
+
+
+/*
+ * Create the final JSON once.
+ *
+ * The same data is written to both:
+ *
+ *     setlists/<name>.setlist.json
+ *     assets/current.setlist.json
+ */
+$jsonOutput =
+    json_encode(
+        $data,
+        JSON_PRETTY_PRINT |
+        JSON_UNESCAPED_SLASHES
+    );
+
+
+if ($jsonOutput === false)
+{
+    http_response_code(500);
+    exit("Unable to encode setlist");
+}
+
+
+/* Save the named setlist. */
+$result =
+    file_put_contents(
+        $path,
+        $jsonOutput
+    );
+
 
 if ($result === false)
 {
     http_response_code(500);
     exit("Unable to save setlist");
 }
+
+
+/*
+ * Also make this setlist the current setlist.
+ */
+$currentPath =
+    __DIR__ .
+    "/current.setlist.json";
+
+
+$result =
+    file_put_contents(
+        $currentPath,
+        $jsonOutput
+    );
+
+
+if ($result === false)
+{
+    http_response_code(500);
+    exit("Setlist saved, but could not update current setlist");
+}
+
 
 
 /* Tell the browser that the save worked. */

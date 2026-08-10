@@ -1,8 +1,24 @@
 {
     "songs": [
         {
-            "title": "Tiny Song",
+            "title": "Tiny Dancer",
+            "file": "songs/tiny-dancer.html"
+        },
+        {
+            "title": "Tiny",
             "file": "songs/tiny.html"
+        },
+        {
+            "title": "Man in the Mirror",
+            "file": "songs/man-mirror.html"
+        },
+        {
+            "title": "Imagine",
+            "file": "songs/imagine.html"
+        },
+        {
+            "title": "Brown Eyed Girl",
+            "file": "songs/brown-eyed-girl.html"
         }
     ]
 }

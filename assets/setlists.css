@@ -90,3 +90,13 @@
     opacity: 1;
     font-weight: bold;
 }
+
+/*
+ * Highlight songs which occur more than once
+ * in the current setlist.
+ */
+.song-list-entry.setlist-duplicate
+{
+    background-color: rgba(255, 200, 0, 0.15);
+}
+

@@ -80,9 +80,9 @@ function populateCatalogue(songs)
             song.title;
 
 
-        entry.appendChild(handle);
-        entry.appendChild(link);
-
+         entry.appendChild(link);
+         entry.appendChild(handle);
+ 
         container.appendChild(entry);
     }
 }
@@ -106,30 +106,7 @@ function populateCatalogue(songs)
         updateDuplicateMarkers();
 
 
-        
-        /*
-        // Test collecting the current setlist.
-        document
-            .getElementById("save-setlist")
-            .addEventListener(
-                "click",
-                function ()
-                {
-                    const songs =
-                        collectSetlistFromEditor();
-
-                    console.log(
-                        JSON.stringify(
-                            songs,
-                            null,
-                            4
-                        )
-                    );
-                }
-            );
-            
-          */  
-            
+   
 /*----------------------------------------------------------*/
 /*    Save current setlist                                  */
 /*----------------------------------------------------------*/
@@ -323,9 +300,44 @@ function populateSetlist(songs)
         link.textContent =
             song.title;
 
+            
+  /*
+ * Delete button for current-setlist entries.
+ *
+ * This removes only this particular entry.
+ * It does not affect the catalogue, so duplicate songs
+ * can still be deliberately present in the setlist.
+ */
+const deleteButton =
+    document.createElement("button");
 
-        entry.appendChild(handle);
+deleteButton.type =
+    "button";
+
+deleteButton.className =
+    "delete-setlist-song";
+
+deleteButton.textContent =
+    "🗑";
+
+deleteButton.addEventListener(
+    "click",
+    function ()
+    {
+        entry.remove();
+
+        /*
+         * Recalculate duplicate highlighting after
+         * removing the song.
+         */
+        updateDuplicateMarkers();
+    }
+);
+
+        entry.appendChild(deleteButton);          
+
         entry.appendChild(link);
+        entry.appendChild(handle);
 
         container.appendChild(entry);
     }
@@ -520,24 +532,82 @@ function initialiseSortable()
         }
     );
 
+/*
+ * Current setlist accepts cloned songs and can be reordered.
+ *
+ * When a song is dragged in from the catalogue, SortableJS
+ * creates a clone of the catalogue entry. The onAdd handler
+ * adds the controls that catalogue entries deliberately do
+ * not have.
+ */
 
-    // Current setlist accepts cloned songs and can be reordered.
-    new Sortable(
-        setlist,
+new Sortable(
+    setlist,
+    {
+        group: {
+            name: "songs",
+            pull: true,
+            put: true
+        },
+
+        sort: true,
+
+        handle: ".song-drag-handle",
+
+
+        onAdd: function (event)
         {
-            group: {
-                name: "songs",
-                pull: true,
-                put: true
-            },
+            const entry =
+                event.item;
 
-            sort: true,
 
-            handle: ".song-drag-handle"
+            /*
+             * Add the delete button to newly dragged-in songs.
+             */
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.type =
+                "button";
+
+            deleteButton.className =
+                "delete-setlist-song";
+
+            deleteButton.textContent =
+                "🗑";
+
+
+            deleteButton.addEventListener(
+                "click",
+                function ()
+                {
+                    entry.remove();
+
+                    /*
+                     * Recalculate duplicate highlighting after
+                     * removing the song.
+                     */
+                    updateDuplicateMarkers();
+                }
+            );
+
+
+            
+/*
+ * Put the delete button before the song text,
+ * after the existing drag handle.
+ */
+            entry.insertBefore(deleteButton, entry.querySelector("a"));
+            
+            //entry.appendChild(deleteButton);
+
+
+            /*
+             * Recalculate duplicate highlighting because
+             * the new song has just been added.
+             */
+            updateDuplicateMarkers();
         }
-    );
+    }
+);
 }
-
-
-
-

@@ -1,14 +1,6 @@
 {
     "songs": [
         {
-            "title": "Tiny Dancer",
-            "file": "songs/tiny-dancer.html"
-        },
-        {
-            "title": "Tiny",
-            "file": "songs/tiny.html"
-        },
-        {
             "title": "Man in the Mirror",
             "file": "songs/man-mirror.html"
         },
@@ -17,8 +9,16 @@
             "file": "songs/imagine.html"
         },
         {
+            "title": "Tiny Dancer",
+            "file": "songs/tiny-dancer.html"
+        },
+        {
             "title": "Brown Eyed Girl",
             "file": "songs/brown-eyed-girl.html"
+        },
+        {
+            "title": "Sweet Home Alabama",
+            "file": "songs/sweet-home-alabama.html"
         }
     ]
 }
