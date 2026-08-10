@@ -49,7 +49,7 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    width: 100%;
+    width: 70%;
     min-height: 2.4em;
     margin-bottom: 0.3em;
     padding: 0.35em 0.5em;
@@ -81,7 +81,7 @@
 
 /* A song already present in the current setlist. */
 .in-current-setlist {
-    opacity: 0.7;
+    opacity: 0.4;
 }
 
 

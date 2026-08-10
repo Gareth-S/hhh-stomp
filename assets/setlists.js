@@ -86,66 +86,161 @@ function populateCatalogue(songs)
         container.appendChild(entry);
     }
 }
-
-/*
-function populateCatalogue(songs)
-{
-    const container =
-        document.getElementById(
-            "all-songs"
-        );
-
-    if (!container)
-    {
-        return;
-    }
-
-    container.innerHTML = "";
-
-    for (const song of songs)
-    {
         
-       const entry = document.createElement("div");
-
-       entry.className = "song-list-entry";
-
- 
         
-        const link = document.createElement("a");
-
-        link.href = song.file;
-
-        link.textContent = song.title;
-
-        link.className = "song-list-entry";
-        
-        entry.appendChild(link);
-
-        container.appendChild(link);
-    }
-}
-
-*/
-
-document.addEventListener(
+ document.addEventListener(
     "DOMContentLoaded",
-     async function ()
+    async function ()
     {
         // Initialise shared UI used by this page.
         initialiseTheme();
         initialiseTextSize();
         initialiseBurgerMenu();
-        
-        
+
+
         await loadCatalogue();
         await loadCurrentSetlist();
-        
+
+
         initialiseSortable();
         updateDuplicateMarkers();
-    
+
+
         
+        /*
+        // Test collecting the current setlist.
+        document
+            .getElementById("save-setlist")
+            .addEventListener(
+                "click",
+                function ()
+                {
+                    const songs =
+                        collectSetlistFromEditor();
+
+                    console.log(
+                        JSON.stringify(
+                            songs,
+                            null,
+                            4
+                        )
+                    );
+                }
+            );
+            
+          */  
+            
+/*----------------------------------------------------------*/
+/*    Save current setlist                                  */
+/*----------------------------------------------------------*/
+
+document
+    .getElementById("save-setlist")
+    .addEventListener(
+        "click",
+        async function ()
+        {
+            const songs =
+                collectSetlistFromEditor();
+
+
+            /*
+             * Ask for the name of the saved setlist.
+             *
+             * This is deliberately simple for V1.
+             */
+            const name =
+                prompt(
+                    "Save setlist as:"
+                );
+
+
+            if (!name)
+            {
+                return;
+            }
+
+
+            const data =
+                {
+                    filename: name,
+                    songs: songs
+                };
+
+
+            /*
+             * This fetch() is network/server dependent.
+             *
+             * The browser sends the setlist to the local
+             * PHP server, which writes the JSON file.
+             */
+            try
+            {
+                const response =
+                    await fetch(
+                        "assets/save-setlist.php",
+                        {
+                            method: "POST",
+
+                            headers:
+                            {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(data)
+                        }
+                    );
+
+
+                if (!response.ok)
+                {
+                    throw new Error(
+                        "Save failed: HTTP " +
+                        response.status
+                    );
+                }
+
+
+                const result =
+                    await response.json();
+
+
+                if (!result.success)
+                {
+                    throw new Error(
+                        "Save failed"
+                    );
+                }
+
+
+                console.log(
+                    "Setlist saved:",
+                    name
+                );
+            }
+            catch (error)
+            {
+                console.error(
+                    "Unable to save setlist:",
+                    error
+                );
+
+                alert(
+                    "Unable to save setlist."
+                );
+            }
+        }
+    );
+    
+    
+    
     }
-);
+);    
+    
+
+
 
 /*----------------------------------------------------------*/
 /* Load setlist                                             */
@@ -331,6 +426,61 @@ function updateDuplicateMarkers()
     }
 }
 
+
+/*----------------------------------------------------------*/
+/*    Collect current setlist                                */
+/*----------------------------------------------------------*/
+
+function collectSetlistFromEditor()
+{
+    const setlist =
+        document.getElementById(
+            "current-setlist"
+        );
+
+    const songs = [];
+
+    if (!setlist)
+    {
+        return songs;
+    }
+
+    const entries =
+        setlist.querySelectorAll(
+            ".song-list-entry"
+        );
+
+    for (const entry of entries)
+    {
+        const link =
+            entry.querySelector("a");
+
+        if (!link)
+        {
+            continue;
+        }
+
+        const title =
+            link.textContent.trim();
+
+        const file =
+            link.getAttribute("href");
+
+        if (!title || !file)
+        {
+            continue;
+        }
+
+        songs.push(
+            {
+                title: title,
+                file: file
+            }
+        );
+    }
+
+    return songs;
+}
 
 
 /*----------------------------------------------------------*/

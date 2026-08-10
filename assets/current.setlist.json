@@ -3,15 +3,15 @@
     "songs": [
         {
             "title": "Tiny Dancer",
-            "file": "/songs/tiny-dancer.html"
+            "file": "songs/tiny-dancer.html"
         },
         {
             "title": "Man in the Mirror",
-            "file": "/songs/man-mirror.html"
+            "file": "songs/man-mirror.html"
         },
         {
             "title": "Brown Eyed Girl",
-            "file": "/songs/brown-eyed-girl.html"
+            "file": "songs/brown-eyed-girl.html"
         }
     ]
 }
