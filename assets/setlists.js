@@ -53,31 +53,23 @@ function populateCatalogue(songs)
 
     for (const song of songs)
     {
-        const entry =
-            document.createElement("div");
+        const entry = document.createElement("div");
 
-        entry.className =
-            "song-list-entry";
+        entry.className = "song-list-entry";
 
 
-        const handle =
-            document.createElement("span");
+        const handle = document.createElement("span");
 
-        handle.className =
-            "song-drag-handle";
+        handle.className = "song-drag-handle";
 
-        handle.textContent =
-            "☰";
+        handle.textContent = "↑↓";
 
 
-        const link =
-            document.createElement("a");
+        const link = document.createElement("a");
 
-        link.href =
-            song.file;
+        link.href =  song.file;
 
-        link.textContent =
-            song.title;
+        link.textContent = song.title;
 
 
          entry.appendChild(link);
@@ -288,7 +280,7 @@ function populateSetlist(songs)
             "song-drag-handle";
 
         handle.textContent =
-            "☰";
+            "↑↓";
 
 
         const link =
@@ -528,7 +520,8 @@ function initialiseSortable()
                 put: false
             },
 
-            sort: false
+            sort: false,
+            handle: ".song-drag-handle"
         }
     );
 

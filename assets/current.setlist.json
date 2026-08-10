@@ -1,12 +1,32 @@
 {
     "songs": [
         {
+            "title": "mim",
+            "file": "songs/maninmirror1.html"
+        },
+        {
             "title": "Tiny Dancer",
             "file": "songs/tiny-dancer.html"
         },
         {
+            "title": "Tiny Song",
+            "file": "songs/tinysong.html"
+        },
+        {
+            "title": "Imagine",
+            "file": "songs/imagine2.html"
+        },
+        {
+            "title": "mim",
+            "file": "songs/maninmirror1.html"
+        },
+        {
             "title": "Tiny",
             "file": "songs/tiny.html"
+        },
+        {
+            "title": "Imagine",
+            "file": "songs/imagine.html"
         },
         {
             "title": "Man in the Mirror",

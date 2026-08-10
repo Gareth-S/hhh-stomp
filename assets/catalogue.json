@@ -5,16 +5,48 @@
             "file": "songs/imagine.html"
         },
         {
+            "title": "Imagine",
+            "file": "songs/imagine2.html"
+        },
+        {
+            "title": "Imagine",
+            "file": "songs/imagine3.html"
+        },
+        {
+            "title": "Imagine",
+            "file": "songs/imagine4.html"
+        },
+        {
+            "title": "Imagine",
+            "file": "songs/imagine5.html"
+        },
+        {
             "title": "mim",
             "file": "songs/maninmirror.html"
+        },
+        {
+            "title": "mim",
+            "file": "songs/maninmirror1.html"
+        },
+        {
+            "title": "Tiny",
+            "file": "songs/another-tiny.html"
         },
         {
             "title": "Tiny",
             "file": "songs/tiny.html"
         },
         {
+            "title": "Tiny",
+            "file": "songs/yet-another-tiny.html"
+        },
+        {
             "title": "Tiny Song",
             "file": "songs/tinysong.html"
+        },
+        {
+            "title": "Tiny Song",
+            "file": "songs/tinysong1.html"
         }
     ]
 }

@@ -20,7 +20,7 @@
 
 /* Drag handles are only shown for songs in the current setlist. */
 #all-songs .song-drag-handle {
-    display: none;
+    display: inline-block;
 }
 
 #current-setlist .song-drag-handle {
@@ -66,7 +66,7 @@
 
 /* Catalogue handles stay hidden. */
 #all-songs .song-drag-handle {
-    display: none;
+    display: inline-block;
 }
 
 
@@ -100,3 +100,78 @@
     background-color: rgba(255, 200, 0, 0.15);
 }
 
+
+/*
+ * Dragged song appearance.
+ *
+ * Keep this consistent across all themes so the item
+ * remains clearly visible while moving between panes.
+ */
+
+.sortable-ghost,
+.sortable-chosen
+{
+    background: #20252b;
+    color: #c6c86a;
+    border: 1px solid var(--accent-colour);
+}
+/*
+ * List frame.
+ *
+ * The frame owns the scrolling area, while the song entries
+ * can be narrower and centred inside it.
+ */
+#all-songs,
+#current-setlist
+{
+    width: 100%;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 0.5rem;
+}
+
+
+/*
+ * Song entries sit neatly in the middle of their pane.
+ */
+#all-songs .song-list-entry,
+#current-setlist .song-list-entry
+{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+ * The drag handle is a drag control, not a scrolling control.
+ *
+ * This prevents the browser's normal touch scrolling from
+ * taking over when the user starts a drag on the handle.
+ */
+.song-drag-handle
+{
+    touch-action: none;
+}
+
+/*
+ * Independent scrolling areas.
+ *
+ * These heights are deliberately sized to show approximately:
+ *     5 catalogue entries
+ *     12 current-setlist entries
+ *
+ * The panes scroll internally once their content exceeds
+ * the available height.
+ */
+#all-songs
+{
+    height: 13rem;
+}
+
+#current-setlist
+{
+    height: 31rem;
+}
