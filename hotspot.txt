@@ -1,0 +1,19 @@
+disconnect from your current Wi-Fi
+ nmcli device disconnect wlp2s0
+
+create the temporary hotspot
+ nmcli device wifi hotspot ifname wlp2s0 ssid Hiphop-Hippy password hhh123456
+
+
+find ip address
+ nmcli device show wlp2s0 | grep IP4.ADDRESS
+
+
+stop the hotspot
+ nmcli connection down Hotspot
+
+restart hotspot
+ nmcli connection up Hotspot
+
+
+

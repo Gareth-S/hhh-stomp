@@ -51,8 +51,13 @@ function populateCatalogue(songs)
 
     container.innerHTML = "";
 
-    for (const song of songs)
-    {
+ //   for (const song of songs)
+   
+        for (let i = 0; i < songs.length; i++)
+            {
+            
+        const song = songs[i];
+         
         const entry = document.createElement("div");
 
         entry.className = "song-list-entry";
@@ -67,7 +72,14 @@ function populateCatalogue(songs)
 
         const link = document.createElement("a");
 
-        link.href =  song.file;
+ /*
+ * Open the song while remembering that it came from
+ * the catalogue and its position in that list.
+ */
+        link.href = song.file + "?source=catalogue&index=" + songs.indexOf(song);
+       
+        
+//        link.href =  song.file;
 
         link.textContent = song.title;
 
@@ -76,7 +88,7 @@ function populateCatalogue(songs)
          entry.appendChild(handle);
  
         container.appendChild(entry);
-    }
+            }
 }
         
         
@@ -264,30 +276,35 @@ function populateSetlist(songs)
 
     container.innerHTML = "";
 
-    for (const song of songs)
+//    for (const song of songs)
+  
+    for (let i = 0; i < songs.length; i++)
     {
-        const entry =
-            document.createElement("div");
+        
+         const song = songs[i];
 
-        entry.className =
-            "song-list-entry";
+        const entry =  document.createElement("div");
 
+        entry.className = "song-list-entry";
 
-        const handle =
-            document.createElement("span");
+        const handle = document.createElement("span");
 
-        handle.className =
-            "song-drag-handle";
+        handle.className = "song-drag-handle";
 
-        handle.textContent =
-            "↑↓";
+        handle.textContent = "↑↓";
 
+        const link = document.createElement("a");
 
-        const link =
-            document.createElement("a");
+            
+/*
+ * Open the song while remembering that it came from
+ * the catalogue and its position in that list.
+ */
 
-        link.href =
-            song.file;
+        link.href = song.file + "?source=setlist&index=" + songs.indexOf(song);
+            
+            
+//        link.href = song.file;
 
         link.textContent =
             song.title;

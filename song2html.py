@@ -197,18 +197,17 @@ def render_header(f, song):
 
     print('            <nav id="navbar">', file=f)
     print(file=f)
+    print('                <a class="prev-song" href="#">◀</a>', file=f)
 
     print('                <a id="menu-button" href="#">☰</a>', file=f)
 #    print('                <a id="menu-button" hidden href="#">☰</a>', file=f)
-
-    print('                <a id="prev-song" href="#">◀</a>', file=f)
 
     print(
         f'                <h1 class="song-title">{song.title}</h1>',
         file=f
     )
 
-    print('                <a id="next-song" href="#">▶</a>', file=f)
+    print('                <a class="next-song" href="#">▶</a>', file=f)
     print(file=f)
 
     print("            </nav>", file=f)
@@ -222,21 +221,29 @@ def render_header(f, song):
 
 
     print('            <div id="song-controls">', file=f)
+    
+    
     print(file=f)
 
-    print('                <button id="tempo-button"></button>', file=f)
+    print('                <button id="tempo-button">', file=f)
+        
+  
+    print('          <span class="beat-led"></span>', file=f)
+    print('          <span class="beat-led"></span>', file=f)
+    print('          <span class="beat-led"></span>', file=f)
+    print('          <span class="beat-led"></span>', file=f)
+
+       
+        
+    print('                        </button>', file=f)
     print(file=f)
+    print('     <span id="tempo-status"></span>, file=f)
 
     print('            </div>', file=f)
     print(file=f)
 
 
 
-#def render_header(f, song):
-#    print("    <header>", file=f)
-#    print(f"        <h1 class=\"song-title\">{song.title}</h1>", file=f)
-#    print("    </header>", file=f)
-#    print(file=f)
 
 def render_burger_menu(f):
 
@@ -247,9 +254,6 @@ def render_burger_menu(f):
     print('                    <h3>Theme</h3>', file=f)
     print(file=f)
 
-#    print('                    <label><input type="radio" name="theme" id="theme-default" checked> Default</label>', file=f)
-#    print('                    <label><input type="radio" name="theme" id="theme-light"> Light</label>', file=f)
-#    print('                    <label><input type="radio" name="theme" id="theme-dark"> Dark</label>', file=f)
 
     print('  <label class="theme-option default-theme-preview" for="theme-default">', file=f)
     print('      <input type="radio" name="theme" id="theme-default" value="default" checked>', file=f)
@@ -272,21 +276,22 @@ def render_burger_menu(f):
     print(file=f)
 
     print('                <div class="menu-section">', file=f)
-    print('                    <h3>Options</h3>', file=f)
+    
+#    print('                    <h3>Options</h3>', file=f)
 
 #    print('                    <label><input type="checkbox" id="big-tempo"> Big Tempo</label>', file=f)
 
-    print('  <label class="option-toggle" for="big-tempo">', file=f)
-    print('      <input type="checkbox" name="big-tempo" id="big-tempo">', file=f)
-    print('    Big Tempo', file=f)
-    print('    </label>', file=f)
+ #   print('  <label class="option-toggle" for="big-tempo">', file=f)
+ #   print('      <input type="checkbox" name="big-tempo" id="big-tempo">', file=f)
+ #   print('    Big Tempo', file=f)
+ #   print('    </label>', file=f)
 
 #    print('                    <label><input type="checkbox" id="invert-theme"> Invert Colours</label>', file=f)
 
-    print('  <label class="option-toggle" for="invert-theme">', file=f)
-    print('      <input type="checkbox" name="invert-theme" id="invert-theme">', file=f)
-    print('        Invert Colours', file=f)
-    print('    </label>', file=f)
+#   print('  <label class="option-toggle" for="invert-theme">', file=f)
+#   print('      <input type="checkbox" name="invert-theme" id="invert-theme">', file=f)
+#   print('        Invert Colours', file=f)
+#   print('    </label>', file=f)
 
 
     print('                </div>', file=f)
@@ -295,8 +300,8 @@ def render_burger_menu(f):
     print('                <div class="menu-section">', file=f)
     print('                    <h3>links</h3>', file=f)
 
-    print('                    <a href="songlists.html">Song Lists</a>', file=f)
-    print('                    <a href="settings.html">Settings</a>', file=f)
+    print('                    <a href="../setlists.html">Song Lists</a>', file=f)
+    print('                    <a href="../settings.html">Settings</a>', file=f)
 
     print('                </div>', file=f)
     print(file=f)
@@ -312,14 +317,14 @@ def render_footer(f):
     print(file=f)
     print('            <nav id="footerbar">', file=f)
     print(file=f)
-    print('                <a id="prev-song-footer" href="#">◀</a>', file=f)
+    print('                <a class="prev-song-footer" href="#">◀</a>', file=f)
     print(
-        '                <a id="song-lists" href="index.html">'
+        '                <a id="song-lists" href="../setlists.html">'
         'Song Lists</a>',
         file=f
     )
 
-    print('                <a id="next-song-footer" href="#">▶</a>', file=f)
+    print('                <a class="next-song-footer" href="#">▶</a>', file=f)
     print(file=f)
     print("            </nav>", file=f)
     print(file=f)
@@ -443,7 +448,11 @@ def render_html(song, filename):
 
         print(f"    <title>{song.title}</title>", file=f)
         print("    <link rel=\"stylesheet\" href=\"../assets/lyrics.css\">", file=f)
+        
+        print("    <script defer src=\"../assets/beat.js\"></script>", file=f)
+        print("    <script defer src=\"../assets/common.js\"></script>", file=f)
         print("    <script defer src=\"../assets/lyrics.js\"></script>", file=f)
+        
         print("</head>", file=f)
         print("<body class=\"default-theme\">", file=f)
         print(file=f)
@@ -478,6 +487,8 @@ def render_html(song, filename):
         print("        </div>", file=f)
         print(file=f)
         print("    </div>", file=f)
+        print('    <div id="notes-editor-container"></div>', file=f)
+
         print("</body>", file=f)
         print("</html>", file=f)
 

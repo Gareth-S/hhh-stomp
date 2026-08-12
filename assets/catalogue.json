@@ -1,52 +1,84 @@
 {
     "songs": [
         {
-            "title": "Imagine",
-            "file": "songs/imagine.html"
+            "title": "00 Break",
+            "file": "songs/00-Break.html"
+        },
+        {
+            "title": "A Fool for Your Stockings",
+            "file": "songs/A Fool for Your Stockings.html"
+        },
+        {
+            "title": "After Midnight",
+            "file": "songs/After Midnight.html"
+        },
+        {
+            "title": "Beds Are Burning",
+            "file": "songs/Beds are burning.html"
+        },
+        {
+            "title": "Blue On Black",
+            "file": "songs/Blue On Black.html"
+        },
+        {
+            "title": "Brown Sugar",
+            "file": "songs/Brown Sugar.html"
+        },
+        {
+            "title": "Call Me The Breeze",
+            "file": "songs/Call Me The Breeze.html"
+        },
+        {
+            "title": "Copperhead Road",
+            "file": "songs/Copperhead Road.html"
+        },
+        {
+            "title": "Dont Let Me Be Misunderstood",
+            "file": "songs/dont let me be misunderstood.html"
+        },
+        {
+            "title": "Down To The Waterline",
+            "file": "songs/down 2 waterline.html"
+        },
+        {
+            "title": "Fool For your Stockings",
+            "file": "songs/Fool for Your Stockings.html"
+        },
+        {
+            "title": "I Heard It Through The Grapevine",
+            "file": "songs/heard thru grapevine.html"
         },
         {
             "title": "Imagine",
-            "file": "songs/imagine2.html"
-        },
-        {
-            "title": "Imagine",
-            "file": "songs/imagine3.html"
-        },
-        {
-            "title": "Imagine",
-            "file": "songs/imagine4.html"
-        },
-        {
-            "title": "Imagine",
-            "file": "songs/imagine5.html"
-        },
-        {
-            "title": "mim",
-            "file": "songs/maninmirror.html"
-        },
-        {
-            "title": "mim",
-            "file": "songs/maninmirror1.html"
-        },
-        {
-            "title": "Tiny",
-            "file": "songs/another-tiny.html"
-        },
-        {
-            "title": "Tiny",
             "file": "songs/tiny.html"
         },
         {
-            "title": "Tiny",
-            "file": "songs/yet-another-tiny.html"
+            "title": "Mystery Dance",
+            "file": "songs/Mystery Dance.html"
         },
         {
-            "title": "Tiny Song",
-            "file": "songs/tinysong.html"
+            "title": "Ride On",
+            "file": "songs/Ride on.html"
         },
         {
-            "title": "Tiny Song",
-            "file": "songs/tinysong1.html"
+            "title": "Six Blade Knife",
+            "file": "songs/six blade knife.html"
+        },
+        {
+            "title": "So Lonely",
+            "file": "songs/So Lonely.html"
+        },
+        {
+            "title": "Tiny good ?",
+            "file": "songs/tiny-good.html"
+        },
+        {
+            "title": "Where Do You Think Youre Going",
+            "file": "songs/where you going.html"
+        },
+        {
+            "title": "Yellow Ledbetter",
+            "file": "songs/Yellow_ledbetter.html"
         }
     ]
 }

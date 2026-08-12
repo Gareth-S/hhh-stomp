@@ -78,7 +78,12 @@ loadUserNotes();
 
 initialiseBeatButton();
 loadNotesEditor();
+
+initialiseSongNavigation();
+
 // initialiseNoteEditor();
+
+
 
 const currentTheme = theme || "default";
 const selected = document.querySelector(
@@ -342,10 +347,11 @@ function splitBlock(block, splitWord)
 }
 
 
+// current user of the app
 
 function currentUser()
 {
-        return "Sally";
+        return "Tom";
 
 //    return localStorage.getItem("current-user");
 
@@ -1546,3 +1552,177 @@ function sortNoteTargets(notes)
 }
 
 
+/*
+ * Set up previous/next song navigation.
+ *
+ * The song URL tells us which list was used to open the song
+ * and its position within that list.
+ */
+async function initialiseSongNavigation()
+{
+    console.log(
+        "NAVIGATION INITIALISING"
+    );
+
+    console.log(
+        "NAV URL:",
+        window.location.href
+    );
+
+    console.log(
+        "NAV PARAMS:",
+        window.location.search
+    );
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const source =
+        params.get("source");
+
+    const index =
+        Number(
+            params.get("index")
+        );
+
+    if (
+        !source ||
+        !Number.isInteger(index) ||
+        index < 0
+    )
+    {
+        return;
+    }
+
+    /*
+     * Load the same list that was used to open the song.
+     */
+    const filename =
+        source === "catalogue"
+            ? "catalogue.json"
+            : "current.setlist.json";
+
+    const response =
+        await fetch(
+            "../assets/" + filename
+        );
+
+    if (!response.ok)
+    {
+        console.error(
+            "Unable to load song navigation list"
+        );
+
+        return;
+    }
+
+    const data =
+        await response.json();
+
+    const songs =
+        data.songs;
+        
+ 
+    const previous =
+        document.querySelectorAll(
+            ".prev-song"
+        );
+
+    const next =
+        document.querySelectorAll(
+            ".next-song"
+        );
+
+    if (
+        previous.length === 0 ||
+        next.length === 0
+    )
+    {
+        return;
+    }
+
+    /*
+     * Song paths in the JSON are relative to the site root.
+     *
+     * This script runs from inside /songs/, so remove the
+     * "songs/" part before using the path for navigation.
+     */
+    function songNavigationPath(file)
+    {
+        if (file.startsWith("songs/"))
+        {
+            return file.substring(6);
+        }
+
+        return file;
+    }
+
+    /*
+     * First song: previous returns to setlists.
+     */
+    if (index === 0)
+    {
+        previous.forEach(
+            link =>
+            {
+                link.href =
+                    "../setlists.html";
+            }
+        );
+    }
+    else
+    {
+        const previousUrl =
+            songNavigationPath(
+                songs[index - 1].file
+            ) +
+            "?source=" +
+            source +
+            "&index=" +
+            (index - 1);
+
+        previous.forEach(
+            link =>
+            {
+                link.href =
+                    previousUrl;
+            }
+        );
+    }
+
+    /*
+     * Last song: next returns to setlists.
+     */
+    if (index >= songs.length - 1)
+    {
+        next.forEach(
+            link =>
+            {
+                link.href =
+                    "../setlists.html";
+            }
+        );
+    }
+    else
+    {
+        const nextUrl =
+            songNavigationPath(
+                songs[index + 1].file
+            ) +
+            "?source=" +
+            source +
+            "&index=" +
+            (index + 1);
+
+        next.forEach(
+            link =>
+            {
+                link.href =
+                    nextUrl;
+            }
+        );
+    }
+    
+}

@@ -390,8 +390,14 @@ header {
 #prev-song,
 #next-song {
 
-    font-size: 1.4em;
-    text-decoration: none;
+    font-size: 2.0em;
+    padding: 0.5em 1em;
+/*    text-decoration: none;  
+    
+    box-shadow:
+      inset 0 1.5px 0.2px rgba(0,0,0,.45);
+  */
+
 
 }
 

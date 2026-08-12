@@ -1,0 +1,28 @@
+{
+    "user": "Tom",
+    "songNotes": [
+        "song notes 1\nsong notes 4"
+    ],
+    "sections": {
+        "section-2": [
+            "new note"
+        ],
+        "section-3": [
+            "section-3 note"
+        ]
+    },
+    "inline": {
+        "line-3": [
+            "this line"
+        ],
+        "line-4": [
+            "wrong line"
+        ],
+        "line-14": [
+            "laugh at gareth"
+        ],
+        "line-15": [
+            "smile nicely"
+        ]
+    }
+}
