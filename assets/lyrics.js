@@ -1552,6 +1552,7 @@ function sortNoteTargets(notes)
 }
 
 
+
 /*
  * Set up previous/next song navigation.
  *
@@ -1597,7 +1598,7 @@ async function initialiseSongNavigation()
     }
 
     /*
-     * Load the same list that was used to open the song.
+     * Load the same list that was used to open this song.
      */
     const filename =
         source === "catalogue"
@@ -1606,7 +1607,10 @@ async function initialiseSongNavigation()
 
     const response =
         await fetch(
-            "../assets/" + filename
+            "../assets/" +
+            filename +
+            "?ts=" +
+            Date.now()
         );
 
     if (!response.ok)
@@ -1623,8 +1627,11 @@ async function initialiseSongNavigation()
 
     const songs =
         data.songs;
-        
- 
+
+    /*
+     * There are navigation controls at both the top
+     * and bottom of the song page.
+     */
     const previous =
         document.querySelectorAll(
             ".prev-song"
@@ -1724,5 +1731,5 @@ async function initialiseSongNavigation()
             }
         );
     }
-    
 }
+

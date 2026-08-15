@@ -175,3 +175,37 @@
 {
     height: 31rem;
 }
+
+
+/*
+ * Saved setlist entries.
+ *
+ * Keep these aligned with the 70% song-list panes.
+ */
+.saved-setlist-entry
+{
+    width: 50%;
+    margin: 0 auto 0.4em auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 2em;
+}
+
+/*
+ * Saved setlist name.
+ */
+.saved-setlist-entry span
+{
+    text-align: left;
+}
+
+/*
+ * Load button.
+ */
+.saved-setlist-entry button
+{
+    flex-shrink: 0;
+}

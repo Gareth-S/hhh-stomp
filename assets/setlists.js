@@ -104,7 +104,7 @@ function populateCatalogue(songs)
 
         await loadCatalogue();
         await loadCurrentSetlist();
-
+        await loadSavedSetlists();
 
         initialiseSortable();
         updateDuplicateMarkers();
@@ -264,6 +264,186 @@ const response =
         );
     }
 }
+
+/*----------------------------------------------------------*/
+/* Load previously saved setlists                            */
+/*----------------------------------------------------------*/
+
+/*
+ * Load the names of all saved setlists from the server.
+ */
+async function loadSavedSetlists()
+{
+    try
+    {
+        const response =
+            await fetch(
+                "assets/list-setlists.php?ts=" +
+                Date.now()
+            );
+
+        if (!response.ok)
+        {
+            throw new Error(
+                "Could not load saved setlists"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        populateSavedSetlists(
+            data.setlists
+        );
+    }
+    catch (error)
+    {
+        console.error(
+            "Saved setlists error:",
+            error
+        );
+    }
+}
+
+/*
+ * Display the available saved setlists.
+ */
+function populateSavedSetlists(setlists)
+{
+    const container =
+        document.getElementById(
+            "saved-setlists-list"
+        );
+
+    if (!container)
+    {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    for (const filename of setlists)
+    {
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "saved-setlist-entry";
+
+        const name =
+            filename.replace(
+                /\.setlist\.json$/i,
+                ""
+            );
+
+        const label =
+            document.createElement("span");
+
+        label.textContent =
+            name;
+
+        const button =
+            document.createElement("button");
+
+        button.type =
+            "button";
+
+        button.textContent =
+            "Load";
+
+        button.addEventListener(
+            "click",
+            function ()
+            {
+                loadSavedSetlist(
+                    filename
+                );
+            }
+        );
+
+        row.appendChild(label);
+        row.appendChild(button);
+
+        container.appendChild(row);
+    }
+}
+
+
+/*
+ * Load one previously saved setlist into the
+ * current setlist pane.
+ */
+async function loadSavedSetlist(filename)
+{
+    try
+    {
+        const response =
+            await fetch(
+                "setlists/" +
+                encodeURIComponent(filename) +
+                "?ts=" +
+                Date.now()
+            );
+
+        if (!response.ok)
+        {
+            throw new Error(
+                "Could not load saved setlist"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        populateSetlist(
+            data.songs
+        );
+
+        /*
+         * Recalculate duplicate highlighting after
+         * replacing the current setlist.
+         */
+        updateDuplicateMarkers();
+
+        console.log(
+            "Loaded setlist:",
+            filename
+        );
+    }
+    catch (error)
+    {
+        console.error(
+            "Unable to load saved setlist:",
+            error
+        );
+
+        alert(
+            "Unable to load saved setlist."
+        );
+    }
+}
+
+
+
+
+/*
+ * Return only the actual song filename.
+ *
+ * Navigation information such as source and index is not
+ * part of the song's identity and must not be duplicated.
+ */
+function cleanSongFile(file)
+{
+    if (!file)
+    {
+        return "";
+    }
+
+    return file
+        .split("?")[0]
+        .split("#")[0];
+}
+
 
 
 function populateSetlist(songs)
@@ -544,7 +724,7 @@ function collectSetlistFromEditor()
         const title =
             link.textContent.trim();
 
-        const file = getSongFile(link.getAttribute("href"));    
+        const file = cleanSongFile(link.getAttribute("href"));    
             
             
 //        const file = link.getAttribute("href");
