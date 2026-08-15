@@ -1,0 +1,30 @@
+{
+    "song": {
+        "id": "Title",
+        "title": "Title",
+        "artist": "",
+        "version": "1.0"
+    },
+
+    "tempo": {
+        "bpm": 480        ,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    },
+
+    "songNotes": [
+        " song notes",
+    ],
+
+    "sections": {
+        "section-1": [
+            "section-1 notes",
+        ]
+    },
+
+    "inline": {
+        "line-1": [
+            "line-1 notes"
+        ]
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "songs": [
+        {
+            "title": "00 Break",
+            "file": "songs/00-Break.html?source=setlist&index=0?source=setlist&index=0"
+        },
+        {
+            "title": "Don't let it bring you down",
+            "file": "songs/Dont_bring_down.html?source=catalogue&index=5"
+        },
+        {
+            "title": "Comes a time",
+            "file": "songs/Comes_a_Time.html?source=catalogue&index=4"
+        },
+        {
+            "title": "Runnin' Down A Dream",
+            "file": "songs/run-dream.html?source=catalogue&index=9"
+        },
+        {
+            "title": "Down To The Waterline",
+            "file": "songs/down_2_waterline.html?source=setlist&index=1?source=setlist&index=1"
+        },
+        {
+            "title": "00 Break",
+            "file": "songs/00-Break.html?source=setlist&index=2?source=setlist&index=2"
+        }
+    ]
+}

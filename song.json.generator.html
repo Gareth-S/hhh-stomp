@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song JSON Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h2 { border-bottom: 2px solid #ddd; padding-bottom: 8px; color: #222; }
+        .form-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .btn-container {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background-color: #0052a3; }
+        button.secondary {
+            background-color: #e0e0e0;
+            color: #333;
+            margin-left: 8px;
+        }
+        button.secondary:hover { background-color: #d0d0d0; }
+        .dynamic-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        .dynamic-item input { flex: 1; }
+        .remove-btn {
+            background-color: #cc0000;
+            padding: 8px 12px;
+        }
+        .remove-btn:hover { background-color: #a30000; }
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.95rem;
+        }
+        .copy-success {
+            color: green;
+            font-weight: bold;
+            margin-left: 15px;
+            display: none;
+        }
+    </style>
+
+    <!-- JavaScript placed here so the browser defines functions BEFORE the buttons load -->
+    <script>
+        function updateJSON() {
+            const title = document.getElementById('songTitle').value;
+            const artist = document.getElementById('songArtist').value;
+            const bpm = parseInt(document.getElementById('tempoBpm').value) || 0;
+            const timeSig = document.getElementById('tempoTimeSig').value;
+
+            const output = {
+                "song": {
+                    "id": title,
+                    "title": title,
+                    "artist": artist,
+                    "version": "1.0"
+                },
+                "tempo": {
+                    "bpm": bpm,
+                    "timeSignature": timeSig,
+                    "countInBars": 4
+                },
+                "songNotes": [],
+                "sections": {},
+                "inline": {}
+            };
+
+            document.querySelectorAll('.song-note-input').forEach(input => {
+                output.songNotes.push(input.value);
+            });
+
+            const secKeys = document.querySelectorAll('.section-key');
+            const secVals = document.querySelectorAll('.section-val');
+            secKeys.forEach((keyEl, index) => {
+                if (keyEl.value.trim() !== "") {
+                    output.sections[keyEl.value] = [secVals[index].value];
+                }
+            });
+
+            const inlineKeys = document.querySelectorAll('.inline-key');
+            const inlineVals = document.querySelectorAll('.inline-val');
+            inlineKeys.forEach((keyEl, index) => {
+                if (keyEl.value.trim() !== "") {
+                    output.inline[keyEl.value] = [inlineVals[index].value];
+                }
+            });
+
+            document.getElementById('jsonOutput').textContent = JSON.stringify(output, null, 4);
+        }
+
+        function createDynamicRow(inputClass1, value1, inputClass2 = null, value2 = '') {
+            const div = document.createElement('div');
+            div.className = 'dynamic-item';
+            
+            let html = `<input type="text" class="${inputClass1}" value="${value1}" oninput="updateJSON()">`;
+            if (inputClass2) {
+                html += `<input type="text" class="${inputClass2}" value="${value2}" oninput="updateJSON()">`;
+            }
+            html += `<button type="button" class="remove-btn" onclick="removeItem(this)">X</button>`;
+            
+            div.innerHTML = html;
+            return div;
+        }
+
+        function addNoteField() {
+            document.getElementById('notesContainer').appendChild(createDynamicRow('song-note-input', ''));
+            updateJSON();
+        }
+
+        function addSectionField() {
+            const count = document.querySelectorAll('.section-key').length + 1;
+            document.getElementById('sectionsContainer').appendChild(createDynamicRow('section-key', `section-${count}`, 'section-val', ''));
+            updateJSON();
+        }
+
+        function addInlineField() {
+            const count = document.querySelectorAll('.inline-key').length + 1;
+            document.getElementById('inlineContainer').appendChild(createDynamicRow('inline-key', `line-${count}`, 'inline-val', ''));
+            updateJSON();
+        }
+
+        function removeItem(btn) {
+            btn.parentElement.remove();
+            updateJSON();
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('jsonOutput').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const notice = document.getElementById('copyNotice');
+                notice.style.display = 'inline';
+                setTimeout(() => notice.style.display = 'none', 2000);
+            }).catch(err => {
+                alert("Failed to copy automatically. Please select the text block manualy.");
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', updateJSON);
+    </script>
+</head>
+<body>
+
+    <h1>Song Data Generator</h1>
+
+    <div class="form-section">
+        <h2>Song Info & Tempo (Fixed Template)</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label>Song Title / ID</label>
+                <input type="text" id="songTitle" value="Title" oninput="updateJSON()">
+            </div>
+            <div class="form-group">
+                <label>Artist</label>
+                <input type="text" id="songArtist" value="" placeholder="Optional artist" oninput="updateJSON()">
+            </div>
+            <div class="form-group">
+                <label>BPM</label>
+                <input type="number" id="tempoBpm" value="480" oninput="updateJSON()">
+            </div>
+            <div class="form-group">
+                <label>Time Signature</label>
+                <input type="text" id="tempoTimeSig" value="4/4" oninput="updateJSON()">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Song Notes</h2>
+        <div id="notesContainer">
+            <div class="dynamic-item">
+                <input type="text" class="song-note-input" value="song notes" oninput="updateJSON()">
+                <button type="button" class="remove-btn" onclick="removeItem(this)">X</button>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="secondary" onclick="addNoteField()">+ Add Note Line</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Sections</h2>
+        <div id="sectionsContainer">
+            <div class="dynamic-item">
+                <input type="text" class="section-key" value="section-1" placeholder="section-name" oninput="updateJSON()">
+                <input type="text" class="section-val" value="section-1 notes" placeholder="Notes" oninput="updateJSON()">
+                <button type="button" class="remove-btn" onclick="removeItem(this)">X</button>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="secondary" onclick="addSectionField()">+ Add Section</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Inline Notes</h2>
+        <div id="inlineContainer">
+            <div class="dynamic-item">
+                <input type="text" class="inline-key" value="line-1" placeholder="line-name" oninput="updateJSON()">
+                <input type="text" class="inline-val" value="line-1 notes" placeholder="Notes" oninput="updateJSON()">
+                <button type="button" class="remove-btn" onclick="removeItem(this)">X</button>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="secondary" onclick="addInlineField()">+ Add Inline Line</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2 style="display: flex; justify-content: space-between; align-items: center;">
+            Generated Output JSON
+            <div>
+                <button onclick="copyToClipboard()">Copy JSON</button>
+                <span id="copyNotice" class="copy-success">Copied!</span>
+            </div>
+        </h2>
+        <pre id="jsonOutput"></pre>
+    </div>
+
+</body>
+</html>
