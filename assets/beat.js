@@ -5,6 +5,8 @@
 let currentBeat = -1;
 let beatInterval = 1000;
 let useMasterClock = false;
+let currentTempoBpm = 480;
+let currentTimeSignature = "4/4";
 
 /*----------------------------------------------------------*/
 /* Clock Source                                              */
@@ -45,21 +47,48 @@ function configureBeatEngine(tempo)
 
     if (tempo.bpm)
     {
+        currentTempoBpm = tempo.bpm;
+
+        beatInterval = 60000 / tempo.bpm;
+
+        console.log(
+            "Beat interval =",
+            beatInterval
+                );
+    }
+
+    if (tempo.timeSignature)
+    {
+        currentTimeSignature = tempo.timeSignature;
+        timeSignature = tempo.timeSignature;
+}
+
+    
+    /*
+    
+    if (tempo.bpm)
+    {
         beatInterval = 60000 / tempo.bpm;
       
         console.log("Beat interval =", beatInterval);
   }
 
-    if (tempo.countInBars)
-    {
-        countInBars = tempo.countInBars;
-    }
-
-    if (tempo.timeSignature)
+     if (tempo.timeSignature)
     {
         timeSignature = tempo.timeSignature;
     }
 
+  */
+  
+    if (tempo.countInBars)
+    {
+        countInBars = tempo.countInBars;
+    }
+/*
+ * Show the tempo as soon as the song JSON has been loaded.
+ */
+        showTempoStatus();
+ 
 }
 
 function initialiseBeatButton()
@@ -117,10 +146,20 @@ function nextBeat()
 
         beatTimer = null;
         
+        
+        showTempoStatus();
+
+        console.log( "Count-in complete");
+        
+        /*
+        
         showReady();
 
         console.log("READY");
 
+        */
+        
+        
         return;
     }
 }
@@ -202,8 +241,11 @@ function startBeatEngine()
         clearInterval(beatTimer);
     }
 
+    /*
     document.getElementById("tempo-status").textContent = "";
-
+    */
+    
+    
     currentBeat = -1;
 
     currentBar = 1;
@@ -236,11 +278,31 @@ function synchroniseToMasterClock()
      */
 }
 
+
+/*
+ * Show the current song tempo while the beat engine is idle.
+ */
+function showTempoStatus()
+{
+    document.getElementById(
+        "tempo-status"
+    ).textContent =
+        currentTempoBpm +
+        " BPM • " +
+        currentTimeSignature;
+}
+
+
+/*
+
 function showReady()
 {
     document.getElementById("tempo-status").textContent =
         "READY";
 }
+
+*/
+
 
 function clearReady()
 {

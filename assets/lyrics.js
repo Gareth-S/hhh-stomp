@@ -351,7 +351,7 @@ function splitBlock(block, splitWord)
 
 function currentUser()
 {
-        return "Tom";
+        return "Dick";
 
 //    return localStorage.getItem("current-user");
 

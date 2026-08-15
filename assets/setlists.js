@@ -233,11 +233,17 @@ async function loadCurrentSetlist()
 {
     try
     {
-        const response =
-            await fetch(
-                "assets/current.setlist.json"
-            );
-
+       /*
+ * Always fetch the latest saved setlist.
+ *
+ * The timestamp prevents the browser from returning
+ * an older cached copy after the setlist has been saved.
+ */
+const response =
+    await fetch(
+        "assets/current.setlist.json?ts=" +
+        Date.now()
+    );
         if (!response.ok)
         {
             throw new Error(
@@ -248,9 +254,7 @@ async function loadCurrentSetlist()
         const setlist =
             await response.json();
 
-        populateSetlist(
-            setlist.songs
-        );
+        populateSetlist(setlist.songs);
     }
     catch (error)
     {
@@ -281,7 +285,7 @@ function populateSetlist(songs)
     for (let i = 0; i < songs.length; i++)
     {
         
-         const song = songs[i];
+        const song = songs[i];
 
         const entry =  document.createElement("div");
 
@@ -301,7 +305,20 @@ function populateSetlist(songs)
  * the catalogue and its position in that list.
  */
 
-        link.href = song.file + "?source=setlist&index=" + songs.indexOf(song);
+
+/*
+ * Rebuild the navigation URL from the clean song filename.
+ *
+ * This prevents old source/index information from being
+ * appended again when a saved setlist is loaded.
+ */
+link.href =
+    getSongFile(song.file) +
+    "?source=setlist&index=" +
+    i;
+    
+
+//        link.href = song.file + "?source=setlist&index=" + songs.indexOf(song);
             
             
 //        link.href = song.file;
@@ -352,6 +369,25 @@ deleteButton.addEventListener(
     }
 }
 
+/*
+ * Return the actual song filename from a song link.
+ *
+ * The source/index query string is navigation information,
+ * not part of the song's identity.
+ */
+function getSongFile(href)
+{
+    if (!href)
+    {
+        return "";
+    }
+
+    return href
+        .split("?")[0]
+        .split("#")[0];
+}
+
+
 function updateDuplicateMarkers()
 {
     const setlist =
@@ -392,9 +428,16 @@ function updateDuplicateMarkers()
             continue;
         }
 
-        const file =
-            link.getAttribute("href");
+        
+        const file = getSongFile(link.getAttribute("href") );
+        
+        /*
+        
+        const file = link.getAttribute("href");
 
+        */
+        
+        
         counts[file] =
             (counts[file] || 0) + 1;
     }
@@ -410,10 +453,15 @@ function updateDuplicateMarkers()
         {
             continue;
         }
+       const file = getSongFile(link.getAttribute("href") );
+        
+        /*
 
         const file =
             link.getAttribute("href");
 
+        */    
+            
         entry.classList.toggle(
             "setlist-duplicate",
             counts[file] > 1
@@ -437,9 +485,15 @@ function updateDuplicateMarkers()
             continue;
         }
 
+        const file = getSongFile(link.getAttribute("href") );
+        
+        /*
+       
         const file =
             link.getAttribute("href");
 
+        */    
+            
         entry.classList.toggle(
             "in-current-setlist",
             !!counts[file]
@@ -471,8 +525,14 @@ function collectSetlistFromEditor()
             ".song-list-entry"
         );
 
-    for (const entry of entries)
-    {
+        for (let i = 0; i < entries.length; i++)
+            
+        {   
+            const entry = entries[i];
+        
+//        for (const entry of entries)
+
+        
         const link =
             entry.querySelector("a");
 
@@ -484,8 +544,10 @@ function collectSetlistFromEditor()
         const title =
             link.textContent.trim();
 
-        const file =
-            link.getAttribute("href");
+        const file = getSongFile(link.getAttribute("href"));    
+            
+            
+//        const file = link.getAttribute("href");
 
         if (!title || !file)
         {
@@ -495,12 +557,64 @@ function collectSetlistFromEditor()
         songs.push(
             {
                 title: title,
-                file: file
+                file: file + "?source=setlist&index=" + i
             }
         );
     }
 
     return songs;
+}
+
+
+/*
+ * Rebuild navigation URLs for every song in the current setlist.
+ *
+ * This is called after adding, deleting, or reordering songs so
+ * the stored index always matches the song's current position.
+ */
+function updateSetlistLinks()
+{
+    const setlist =
+        document.getElementById(
+            "current-setlist"
+        );
+
+    if (!setlist)
+    {
+        return;
+    }
+
+    const entries =
+        setlist.querySelectorAll(
+            ".song-list-entry"
+        );
+
+    for (
+        let i = 0;
+        i < entries.length;
+        i++
+    )
+    {
+        const link =
+            entries[i].querySelector(
+                "a"
+            );
+
+        if (!link)
+        {
+            continue;
+        }
+
+        const file =
+            getSongFile(
+                link.getAttribute("href")
+            );
+
+        link.href =
+            file +
+            "?source=setlist&index=" +
+            i;
+    }
 }
 
 
@@ -611,13 +725,41 @@ new Sortable(
             
             //entry.appendChild(deleteButton);
 
+            
+            /*
+ * The cloned catalogue entry is now part of the setlist.
+ *
+ * Change its navigation source from catalogue to setlist.
+ * The final index is refreshed for the whole setlist below.
+ */
+            updateSetlistLinks();
 
             /*
              * Recalculate duplicate highlighting because
              * the new song has just been added.
              */
             updateDuplicateMarkers();
-        }
+            
+            
+            
+            
+            
+        },
+        
+        
+ /*
+ * Rebuild navigation indexes after songs are reordered.
+ */
+ 
+ 
+onEnd: function ()
+{
+    updateSetlistLinks();
+    updateDuplicateMarkers();
+}
+
+
+
     }
 );
 }

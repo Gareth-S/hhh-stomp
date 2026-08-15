@@ -5,80 +5,88 @@
             "file": "songs/00-Break.html"
         },
         {
-            "title": "A Fool for Your Stockings",
-            "file": "songs/A Fool for Your Stockings.html"
+            "title": "96 Degrees in the shade",
+            "file": "songs/96_Degrees.html"
         },
         {
-            "title": "After Midnight",
-            "file": "songs/After Midnight.html"
+            "title": "Aerials",
+            "file": "songs/Aerials.html"
         },
         {
-            "title": "Beds Are Burning",
-            "file": "songs/Beds are burning.html"
-        },
-        {
-            "title": "Blue On Black",
-            "file": "songs/Blue On Black.html"
+            "title": "Blackest eyes",
+            "file": "songs/Blackest_eyes.html"
         },
         {
             "title": "Brown Sugar",
-            "file": "songs/Brown Sugar.html"
+            "file": "songs/Brown_Sugar.html"
         },
         {
-            "title": "Call Me The Breeze",
-            "file": "songs/Call Me The Breeze.html"
+            "title": "Cheap Sunglasses",
+            "file": "songs/Cheap_Sungalsses.html"
         },
         {
-            "title": "Copperhead Road",
-            "file": "songs/Copperhead Road.html"
+            "title": "China Girl",
+            "file": "songs/China_Girl.html"
         },
         {
-            "title": "Dont Let Me Be Misunderstood",
-            "file": "songs/dont let me be misunderstood.html"
+            "title": "Comes a time",
+            "file": "songs/Comes_a_Time.html"
+        },
+        {
+            "title": "Don't let it bring you down",
+            "file": "songs/Dont_bring_down.html"
         },
         {
             "title": "Down To The Waterline",
-            "file": "songs/down 2 waterline.html"
+            "file": "songs/down_2_waterline.html"
         },
         {
-            "title": "Fool For your Stockings",
-            "file": "songs/Fool for Your Stockings.html"
+            "title": "Folsom Prison Blues",
+            "file": "songs/Folsom.html"
+        },
+        {
+            "title": "Green River",
+            "file": "songs/Green_River.html"
+        },
+        {
+            "title": "Guitar Man",
+            "file": "songs/Guitar_Man.html"
         },
         {
             "title": "I Heard It Through The Grapevine",
-            "file": "songs/heard thru grapevine.html"
+            "file": "songs/heard_thru_grapevine.html"
         },
         {
-            "title": "Imagine",
-            "file": "songs/tiny.html"
+            "title": "Little Wing",
+            "file": "songs/Little_Wing_.html"
         },
         {
             "title": "Mystery Dance",
-            "file": "songs/Mystery Dance.html"
+            "file": "songs/Mystery_Dance.html"
         },
         {
-            "title": "Ride On",
-            "file": "songs/Ride on.html"
+            "title": "Rikki don't lose that number",
+            "file": "songs/Rikki.html"
+        },
+        {
+            "title": "Runnin' Down A Dream",
+            "file": "songs/run-dream.html"
         },
         {
             "title": "Six Blade Knife",
-            "file": "songs/six blade knife.html"
+            "file": "songs/six_blade_knife.html"
         },
         {
             "title": "So Lonely",
-            "file": "songs/So Lonely.html"
+            "file": "songs/So_Lonely.html"
         },
         {
-            "title": "Tiny good ?",
-            "file": "songs/tiny-good.html"
+            "title": "The Road To Hell",
+            "file": "songs/Road2hell.html"
         },
         {
-            "title": "Where Do You Think Youre Going",
-            "file": "songs/where you going.html"
-        },
-        {
-            "title": "Yellow Ledbetter",
-            "file": "songs/Yellow_ledbetter.html"
+            "title": "Watching The Detectives",
+            "file": "songs/Watching_detectives.html"
         }
     ]
 }
