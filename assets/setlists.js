@@ -101,6 +101,7 @@ function populateCatalogue(songs)
         initialiseTextSize();
         initialiseBurgerMenu();
 
+        initialiseHelpPopup();
 
         await loadCatalogue();
         await loadCurrentSetlist();

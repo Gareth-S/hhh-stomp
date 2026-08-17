@@ -152,3 +152,82 @@ function initialiseBurgerMenu()
         closeMenu();
     });
 }
+
+/*
+ * Initialise the Help popup.
+ *
+ * The popup is used by both the Settings and Set Lists pages.
+ */
+function initialiseHelpPopup()
+{
+    const helpLink =
+        document.getElementById(
+            "help-link"
+        );
+
+    const overlay =
+        document.getElementById(
+            "help-overlay"
+        );
+
+    const closeButton =
+        document.getElementById(
+            "help-close"
+        );
+
+    if (
+        !helpLink ||
+        !overlay ||
+        !closeButton
+    )
+    {
+        return;
+    }
+
+    /*
+     * Open the Help popup.
+     */
+    helpLink.addEventListener(
+        "click",
+        function (event)
+        {
+            event.preventDefault();
+
+            overlay.classList.add(
+                "help-visible"
+            );
+        }
+    );
+
+    /*
+     * Close using the X button.
+     */
+    closeButton.addEventListener(
+        "click",
+        function ()
+        {
+            overlay.classList.remove(
+                "help-visible"
+            );
+        }
+    );
+
+    /*
+     * Close when clicking/touching outside
+     * the actual popup.
+     */
+    overlay.addEventListener(
+        "click",
+        function (event)
+        {
+            if (
+                event.target === overlay
+            )
+            {
+                overlay.classList.remove(
+                    "help-visible"
+                );
+            }
+        }
+    );
+}

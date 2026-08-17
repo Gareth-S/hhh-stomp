@@ -1,0 +1,52 @@
+{
+    "songs": [
+        {
+            "title": "00 Break",
+            "file": "songs/00-Break.html?source=setlist&index=0"
+        },
+        {
+            "title": "Blackest eyes",
+            "file": "songs/Blackest_eyes.html?source=setlist&index=1"
+        },
+        {
+            "title": "China Girl",
+            "file": "songs/China_Girl.html?source=setlist&index=2"
+        },
+        {
+            "title": "Runnin' Down A Dream",
+            "file": "songs/run-dream.html?source=setlist&index=3"
+        },
+        {
+            "title": "The Road To Hell",
+            "file": "songs/Road2hell.html?source=setlist&index=4"
+        },
+        {
+            "title": "Don't let it bring you down",
+            "file": "songs/Dont_bring_down.html?source=setlist&index=5"
+        },
+        {
+            "title": "Little Wing",
+            "file": "songs/Little_Wing_.html?source=setlist&index=6"
+        },
+        {
+            "title": "Comes a time",
+            "file": "songs/Comes_a_Time.html?source=setlist&index=7"
+        },
+        {
+            "title": "Brown Sugar",
+            "file": "songs/Brown_Sugar.html?source=setlist&index=8"
+        },
+        {
+            "title": "Runnin' Down A Dream",
+            "file": "songs/run-dream.html?source=setlist&index=9"
+        },
+        {
+            "title": "Down To The Waterline",
+            "file": "songs/down_2_waterline.html?source=setlist&index=10"
+        },
+        {
+            "title": "00 Break",
+            "file": "songs/00-Break.html?source=setlist&index=11"
+        }
+    ]
+}

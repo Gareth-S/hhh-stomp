@@ -1,12 +1,10 @@
 {
     "band": "Band A",
-
+    "bandleader": "Gareth",
     "members": [
-
         "Gareth",
         "Tom",
         "Dick",
         "Sally"
-
     ]
 }

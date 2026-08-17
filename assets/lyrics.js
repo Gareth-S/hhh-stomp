@@ -349,11 +349,16 @@ function splitBlock(block, splitWord)
 
 // current user of the app
 
-function currentUser()
-{
-        return "Dick";
 
-//    return localStorage.getItem("current-user");
+
+   function currentUser()
+{
+    return localStorage.getItem(
+        "current-user"
+    );
+ 
+    
+    //return "Dick";
 
     
 }

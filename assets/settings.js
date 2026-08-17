@@ -15,6 +15,8 @@ function initialiseSettings()
     console.log("Initialising settings");
     initialiseBurgerMenu();
     
+     initialiseHelpPopup();
+    
     initialiseTheme();
     initialiseTextSize();
     initialiseBeatButton();
@@ -42,13 +44,19 @@ function initialiseSettings()
     }
     
     loadBand();
+    
+    const saveButton =
+    document.getElementById(
+        "save-settings"
+    );
 
-  document
-    .getElementById("save-settings")
-    .addEventListener(
+if (saveButton)
+{
+    saveButton.addEventListener(
         "click",
         saveSettings
     );
+}
     
     
 }

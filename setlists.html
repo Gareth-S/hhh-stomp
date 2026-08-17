@@ -130,7 +130,11 @@
 <footer>
         <nav id="footerbar">
         
-         <p align="center"> <a href="settings.html">Settings</a></p>
+         <p align="center">
+            <a href="settings.html">Settinss</a>
+        &nbsp;|&nbsp;
+            <a href="#" id="help-link">Help</a>
+        </p>
         
         </nav>
 
@@ -141,6 +145,41 @@
         </div>
     </div>
 
+    <!-- Help popup -->
+
+<div id="help-overlay">
+
+    <div id="help-popup">
+
+        <button
+            type="button"
+            id="help-close"
+            aria-label="Close help"
+        >
+            ×
+        </button>
+
+        <div id="help-content">
+
+            <h2>Help</h2>
+
+            <!--
+             * Hard-code help text here.
+             *
+             * This area scrolls when the text becomes
+             * longer than the popup.
+             -->
+
+            <p>
+                Put your help text here.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+    
 </body>
 
 </html>
