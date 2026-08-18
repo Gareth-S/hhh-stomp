@@ -33,12 +33,26 @@ if (!$user)
 $directory =
     __DIR__ . "/../songs";
 
+$song =
+    $data["filename"] ?? "";
+
+if (!$song)
+{
+    http_response_code(400);
+    echo "No filename";
+    exit;
+}
+
 $filename =
     $directory .
-    "/tiny." .
+    "/" .
+    $song .
+    "." .
     strtolower($user) .
     ".json";
-
+    
+    
+    
 $result =
     file_put_contents(
         $filename,

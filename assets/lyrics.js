@@ -1434,13 +1434,30 @@ function addLineRowForTarget(targetId)
 
 function collectNotesFromEditor()
 {
-    const notes =
-    {
-        user: currentUser(),
-        songNotes: [],
-        sections: {},
-        inline: {}
-    };
+    
+    
+    const path =
+    window.location.pathname;
+
+const filename =
+    decodeURIComponent(
+        path
+            .split("/")
+            .pop()
+    )
+    .replace(
+        /\.html$/,
+        ""
+    );
+
+const notes =
+{
+    user: currentUser(),
+    filename: filename,
+    songNotes: [],
+    sections: {},
+    inline: {}
+};
 
     const songNotes =
         document.getElementById(
@@ -1639,12 +1656,12 @@ async function initialiseSongNavigation()
      */
     const previous =
         document.querySelectorAll(
-            ".prev-song"
+            ".prev-song, .prev-song-footer"
         );
 
     const next =
         document.querySelectorAll(
-            ".next-song"
+            ".next-song, .next-song-footer"
         );
 
     if (
@@ -1661,6 +1678,44 @@ async function initialiseSongNavigation()
      * This script runs from inside /songs/, so remove the
      * "songs/" part before using the path for navigation.
      */
+
+function songNavigationPath(file)
+{
+    /*
+     * Remove any existing navigation query string.
+     *
+     * current.setlist.json stores songs with:
+     *
+     *     ?source=setlist&index=n
+     *
+     * We must remove that before adding the new
+     * source/index for the destination song.
+     */
+    let cleanFile =
+        file.split("?")[0];
+
+    /*
+     * Also remove a possible fragment.
+     */
+    cleanFile =
+        cleanFile.split("#")[0];
+
+    /*
+     * Song paths in the JSON are relative to the
+     * site root, but this script runs inside /songs/.
+     */
+    if (cleanFile.startsWith("songs/"))
+    {
+        cleanFile =
+            cleanFile.substring(6);
+    }
+
+    return cleanFile;
+}
+
+    
+    /*
+
     function songNavigationPath(file)
     {
         if (file.startsWith("songs/"))
@@ -1671,6 +1726,7 @@ async function initialiseSongNavigation()
         return file;
     }
 
+    */
     /*
      * First song: previous returns to setlists.
      */

@@ -131,7 +131,7 @@
         <nav id="footerbar">
         
          <p align="center">
-            <a href="settings.html">Settinss</a>
+            <a href="settings.html">Settings</a>
         &nbsp;|&nbsp;
             <a href="#" id="help-link">Help</a>
         </p>
@@ -163,17 +163,44 @@
 
             <h2>Help</h2>
 
+            <ul>
+            <li><strong>The Top Pane All Songs:</strong> is all the songs, this is alphabetical and NOT sortable.
+            <br>
+            Drag songs from here by their "handles ↑↓" to the lower Current Setlist pane. 
+            <br> Once dropped there it will "dim" in All Songs so you don't select it again by mistake
+            - you can however add a song again but it this case it will highlight in the Current Setlist
+            pane so you can find both easily.</li><br>
+            <li><strong>The lower pane Current Setlist:</strong> is basically that, you can re-oder them by dragging on their "handles ↑↓" and delete them from the list by clicking the "Trash Can 🗑" - deleting does NOT affect All Songs, only the Current Seltlist.</li><br>
+            <li><strong>Load Setlists:</strong> is where you can find previously saved setlists, clicking "load" will temporarliy
+            load into "Current Setlists" where it can be "edited", it only becomes permanant once you've saved it, refreshing the page before a save will return you to what it was when you started.</li>
+            </ul>
+            <hr>
+            <!--
+            
+So the workflow is:
+
+Saved setlist
+     â
+   Load
+     â
+edit / reorder / add / delete
+     â
+Save Setlist
+     â
+assets/current.setlist.json
+            -->
+            
             <!--
              * Hard-code help text here.
              *
              * This area scrolls when the text becomes
              * longer than the popup.
-             -->
+             
 
             <p>
                 Put your help text here.
             </p>
-
+-->
         </div>
 
     </div>
