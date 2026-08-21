@@ -231,3 +231,35 @@ function initialiseHelpPopup()
         }
     );
 }
+
+
+// Screen Wake Lock
+
+let wakeLock = null;
+
+async function enableWakeLock() {
+    if (!("wakeLock" in navigator)) return;
+
+    try {
+        wakeLock = await navigator.wakeLock.request("screen");
+
+        wakeLock.addEventListener("release", () => {
+            wakeLock = null;
+        });
+    } catch (err) {
+        console.log("Wake Lock unavailable:", err);
+    }
+}
+
+async function disableWakeLock() {
+    if (wakeLock) {
+        await wakeLock.release();
+        wakeLock = null;
+    }
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && wakeLock === null) {
+        enableWakeLock();
+    }
+});

@@ -83,6 +83,7 @@ initialiseSongNavigation();
 
 // initialiseNoteEditor();
 
+enableWakeLock();
 
 
 const currentTheme = theme || "default";
