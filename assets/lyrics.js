@@ -1620,9 +1620,100 @@ async function initialiseSongNavigation()
         return;
     }
 
+    
+    /*
+ * Load the same list that was used to open this song.
+ *
+ * Catalogue songs come from catalogue.json.
+ * Setlist songs normally come from the temporary setlist
+ * stored for this browser session.
+ *
+ * If there is no temporary setlist, fall back to the
+ * latest saved current.setlist.json.
+ */
+    
+let songs;
+
+if (source === "catalogue")
+{
+    const response =
+        await fetch(
+            "../assets/catalogue.json?ts=" +
+            Date.now()
+        );
+
+    if (!response.ok)
+    {
+        console.error(
+            "Unable to load song navigation list"
+        );
+
+        return;
+    }
+
+    const data =
+        await response.json();
+
+    songs =
+        data.songs;
+}
+else
+{
+    const temporarySetlist =
+        sessionStorage.getItem(
+            "current_setlist"
+        );
+
+    if (temporarySetlist)
+    {
+        try
+        {
+            songs =
+                JSON.parse(
+                    temporarySetlist
+                );
+        }
+        catch (error)
+        {
+            console.error(
+                "Unable to read temporary setlist:",
+                error
+            );
+
+            return;
+        }
+    }
+    else
+    {
+        const response =
+            await fetch(
+                "../assets/current.setlist.json?ts=" +
+                Date.now()
+            );
+
+        if (!response.ok)
+        {
+            console.error(
+                "Unable to load song navigation list"
+            );
+
+            return;
+        }
+
+        const data =
+            await response.json();
+
+        songs =
+            data.songs;
+    }
+}
+    
     /*
      * Load the same list that was used to open this song.
      */
+    
+       /*
+     
     const filename =
         source === "catalogue"
             ? "catalogue.json"
@@ -1651,6 +1742,8 @@ async function initialiseSongNavigation()
     const songs =
         data.songs;
 
+        */
+        
     /*
      * There are navigation controls at both the top
      * and bottom of the song page.

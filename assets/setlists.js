@@ -256,6 +256,8 @@ const response =
             await response.json();
 
         populateSetlist(setlist.songs);
+        
+        saveTemporarySetlist(setlist.songs);
     }
     catch (error)
     {
@@ -296,6 +298,12 @@ async function loadSavedSetlists()
         populateSavedSetlists(
             data.setlists
         );
+        
+ //       console.log("CURRENT SETLIST:", setlist.songs);
+        
+ //       saveTemporarySetlist(data.songs);
+    
+        
     }
     catch (error)
     {
@@ -400,6 +408,9 @@ async function loadSavedSetlist(filename)
             data.songs
         );
 
+        saveTemporarySetlist(data.songs);
+        
+        
         /*
          * Recalculate duplicate highlighting after
          * replacing the current setlist.
@@ -746,6 +757,13 @@ function collectSetlistFromEditor()
     return songs;
 }
 
+function saveTemporarySetlist(songs)
+{
+    sessionStorage.setItem(
+        "current_setlist",
+        JSON.stringify(songs)
+    );
+}
 
 /*
  * Rebuild navigation URLs for every song in the current setlist.
