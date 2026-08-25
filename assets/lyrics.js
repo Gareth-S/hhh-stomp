@@ -80,6 +80,8 @@ initialiseBeatButton();
 loadNotesEditor();
 
 initialiseSongNavigation();
+initialiseSwipeNavigation();
+
 
 // initialiseNoteEditor();
 
@@ -1708,42 +1710,8 @@ else
     }
 }
     
-    /*
-     * Load the same list that was used to open this song.
-     */
-    
-       /*
-     
-    const filename =
-        source === "catalogue"
-            ? "catalogue.json"
-            : "current.setlist.json";
-
-    const response =
-        await fetch(
-            "../assets/" +
-            filename +
-            "?ts=" +
-            Date.now()
-        );
-
-    if (!response.ok)
-    {
-        console.error(
-            "Unable to load song navigation list"
-        );
-
-        return;
-    }
-
-    const data =
-        await response.json();
-
-    const songs =
-        data.songs;
-
-        */
-        
+ 
+ 
     /*
      * There are navigation controls at both the top
      * and bottom of the song page.
@@ -1888,3 +1856,80 @@ function songNavigationPath(file)
     }
 }
 
+/*----------------------------------------------------------*/
+/* Swipe navigation                                         */
+/*----------------------------------------------------------*/
+
+function initialiseSwipeNavigation()
+{
+    let startX = 0;
+    let startY = 0;
+
+    document.addEventListener(
+        "pointerdown",
+        event =>
+        {
+            if (event.pointerType !== "touch")
+            {
+                return;
+            }
+
+            startX = event.clientX;
+            startY = event.clientY;
+        }
+    );
+
+    document.addEventListener(
+        "pointerup",
+        event =>
+        {
+            if (event.pointerType !== "touch")
+            {
+                return;
+            }
+
+            const deltaX =
+                event.clientX - startX;
+
+            const deltaY =
+                event.clientY - startY;
+
+            /*
+             * Ignore short movements and vertical swipes.
+             */
+            if (
+                Math.abs(deltaX) < 50 ||
+                Math.abs(deltaX) < Math.abs(deltaY) * 0.75
+//                Math.abs(deltaX) <= Math.abs(deltaY)
+            )
+            {
+                return;
+            }
+
+            if (deltaX < 0)
+            {
+                const next =
+                    document.querySelector(
+                        ".next-song"
+                    );
+
+                if (next)
+                {
+                    next.click();
+                }
+            }
+            else
+            {
+                const previous =
+                    document.querySelector(
+                        ".prev-song"
+                    );
+
+                if (previous)
+                {
+                    previous.click();
+                }
+            }
+        }
+    );
+}
