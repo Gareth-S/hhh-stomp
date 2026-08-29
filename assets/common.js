@@ -258,8 +258,13 @@ async function disableWakeLock() {
     }
 }
 
-document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible" && wakeLock === null) {
-        enableWakeLock();
-    }
-});
+function initialiseWakeLock() {
+    document.addEventListener("visibilitychange", () => {
+        if (
+            document.visibilityState === "visible" &&
+            wakeLock === null
+        ) {
+            enableWakeLock();
+        }
+    });
+}
