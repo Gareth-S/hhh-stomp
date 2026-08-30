@@ -217,19 +217,7 @@ async function loadBand()
 
 loadSettings();
 
-const members =
-    document.querySelectorAll(
-        "#band-members input[type='checkbox']"
-    );
-
-for (const member of members)
-{
-    member.addEventListener(
-        "change",
-        saveSettings
-    );
-}
-
+attachMemberListeners();
 
         }
         
@@ -239,6 +227,24 @@ for (const member of members)
         }
 
 }
+
+
+function attachMemberListeners()
+{
+    const members =
+        document.querySelectorAll(
+            "#band-members input[type='checkbox']"
+        );
+
+    for (const member of members)
+    {
+        member.addEventListener(
+            "change",
+            saveSettings
+        );
+    }
+}
+
 
 
 function populateBandMembers(members)
