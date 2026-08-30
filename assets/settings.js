@@ -8,59 +8,73 @@
 // hhh-stomp
 //
 
+
 document.addEventListener("DOMContentLoaded", initialiseSettings);
 
 function initialiseSettings()
 {
     console.log("Initialising settings");
+
     initialiseBurgerMenu();
-    
-     initialiseHelpPopup();
-    
+    initialiseHelpPopup();
     initialiseTheme();
     initialiseTextSize();
     initialiseBeatButton();
 
+    attachStaticListeners();
+
+    loadBand();
+}
+
+function attachStaticListeners()
+{
     document
         .getElementById("show-chords")
-        .addEventListener("change", saveSettings);
-    
+        .addEventListener(
+            "change",
+            saveSettings
+        );
+
     document
         .getElementById("show-line-numbers")
-        .addEventListener("change", saveSettings);
+        .addEventListener(
+            "change",
+            saveSettings
+        );
 
     document
         .getElementById("big-tempo")
-        .addEventListener("change", saveSettings);
-        
+        .addEventListener(
+            "change",
+            saveSettings
+        );
+
     const fontButtons =
         document.querySelectorAll(
-        'input[name="fontsize"]'
+            'input[name="fontsize"]'
         );
 
     for (const button of fontButtons)
     {
-        button.addEventListener("change", saveSettings);
+        button.addEventListener(
+            "change",
+            saveSettings
+        );
     }
-    
-    loadBand();
-    
+
     const saveButton =
-    document.getElementById(
-        "save-settings"
-    );
+        document.getElementById(
+            "save-settings"
+        );
 
-if (saveButton)
-{
-    saveButton.addEventListener(
-        "click",
-        saveSettings
-    );
+    if (saveButton)
+    {
+        saveButton.addEventListener(
+            "click",
+            saveSettings
+        );
+    }
 }
-    
-    
-}
-
 
 
 function loadSettings()
