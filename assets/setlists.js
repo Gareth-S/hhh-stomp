@@ -92,10 +92,13 @@ function populateCatalogue(songs)
 }
         
         
- document.addEventListener(
+document.addEventListener(
     "DOMContentLoaded",
-    async function ()
-    {
+    initialiseSetlists
+);
+
+async function initialiseSetlists()
+{
         // Initialise shared UI used by this page.
         initialiseTheme();
         initialiseTextSize();
@@ -218,8 +221,7 @@ document
     
     
     
-    }
-);    
+}    
     
 
 
