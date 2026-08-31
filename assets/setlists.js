@@ -528,31 +528,9 @@ link.href =
  * It does not affect the catalogue, so duplicate songs
  * can still be deliberately present in the setlist.
  */
+  
 const deleteButton =
-    document.createElement("button");
-
-deleteButton.type =
-    "button";
-
-deleteButton.className =
-    "delete-setlist-song";
-
-deleteButton.textContent =
-    "🗑";
-
-deleteButton.addEventListener(
-    "click",
-    function ()
-    {
-        entry.remove();
-
-        /*
-         * Recalculate duplicate highlighting after
-         * removing the song.
-         */
-        updateDuplicateMarkers();
-    }
-);
+    createDeleteButton(entry);
 
         entry.appendChild(deleteButton);          
 
@@ -561,6 +539,37 @@ deleteButton.addEventListener(
 
         container.appendChild(entry);
     }
+}
+
+function createDeleteButton(entry)
+{
+    const deleteButton =
+        document.createElement("button");
+
+    deleteButton.type =
+        "button";
+
+    deleteButton.className =
+        "delete-setlist-song";
+
+    deleteButton.textContent =
+        "🗑";
+
+    deleteButton.addEventListener(
+        "click",
+        function ()
+        {
+            entry.remove();
+
+            /*
+             * Recalculate duplicate highlighting after
+             * removing the song.
+             */
+            updateDuplicateMarkers();
+        }
+    );
+
+    return deleteButton;
 }
 
 /*
