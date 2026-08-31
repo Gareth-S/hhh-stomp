@@ -6,192 +6,62 @@
 // hhh-stomp
 //
 
-// Burger Bar
-
-document.addEventListener("DOMContentLoaded", function () {
-
-const songContainer = document.getElementById("song-container");
-
-if (!songContainer)
-{
-    return;
-}
-
-
-//
-// Read user settings.
-//
-    
-const showChords = localStorage.getItem("show-chords");
-const showLineNumbers = localStorage.getItem("show-line-numbers");
-const theme = localStorage.getItem("theme");
-const textSize = localStorage.getItem("text-size");
-
-
-// console.log("show-line-numbers =", showLineNumbers);
-
-if (showChords === "false")
-{
-    document.body.classList.add("hide-chords");
-}
-
-if (showLineNumbers === "false")
-{
-    document.body.classList.add("hide-line-numbers");
-}
-
-    // Add line numbers to the page.
-    addLineNumbers();
-
-    // and links to sections
-    addSectionLinks();
-
-// console.log("show-chords =", showChords);
-    
-    
-function applyTheme(themeName)
-{
-    document.body.classList.remove(
-
-        "default-theme",
-        "light-theme",
-        "dark-theme"
-
-    );
-
-    document.body.classList.add(
-
-        themeName + "-theme"
-
-    );
-}
-    
-if (theme)
-{
-    applyTheme(theme);
-}
-
-applyTextSize(textSize);
-
-loadBandNotes();
-loadUserNotes();
-
-initialiseBeatButton();
-loadNotesEditor();
-
-initialiseSongNavigation();
-initialiseSwipeNavigation();
-
-
-// initialiseNoteEditor();
-
-enableWakeLock();
-
-
-const currentTheme = theme || "default";
-const selected = document.querySelector(
-        'input[name="theme"][value="' + currentTheme + '"]'
-    );
-
-
-if (selected)
-{
-    selected.checked = true;
-}
-    
-function saveTheme(event)
-{
-    const theme = event.target.value;
-    localStorage.setItem("theme", theme);
-    applyTheme(theme);
-}
-
-function applyTextSize(size)
-{
-    if (!size)
+document.addEventListener(
+    "DOMContentLoaded",
+    function ()
     {
-        size = "default";
+        const songContainer =
+            document.getElementById(
+                "song-container"
+            );
+
+        if (!songContainer)
+        {
+            return;
+        }
+
+        initialiseTheme();
+        initialiseTextSize();
+        initialiseBurgerMenu();
+
+        const showChords =
+            localStorage.getItem("show-chords");
+
+        const showLineNumbers =
+            localStorage.getItem("show-line-numbers");
+
+        if (showChords === "false")
+        {
+            document.body.classList.add(
+                "hide-chords"
+            );
+        }
+
+        if (showLineNumbers === "false")
+        {
+            document.body.classList.add(
+                "hide-line-numbers"
+            );
+        }
+
+        addLineNumbers();
+        addSectionLinks();
+
+        loadBandNotes();
+        loadUserNotes();
+
+        initialiseBeatButton();
+        loadNotesEditor();
+
+        initialiseSongNavigation();
+        initialiseSwipeNavigation();
+
+        enableWakeLock();
+
+        createMeasureDiv();
+        wrapAllBlocks();
     }
-
-    const scale = {
-
-        small:   0.85,
-        default: 1.0,
-        large:   1.2,
-        xlarge:  1.4
-
-    };
-
-    document.documentElement.style.setProperty(
-        "--scale",
-        scale[size]
-
-    );
-}
-    
-    const menuButton = document.getElementById("menu-button");
-    const burgerMenu = document.getElementById("burger-menu");
-    
-    const themeButtons = document.querySelectorAll('input[name="theme"]');
-
-    for (const button of themeButtons)
-    {
-        button.addEventListener("change", saveTheme);
-    }
-
-    
-    if (!menuButton || !burgerMenu) {
-        return;
-    }
-
-    function openMenu() {
-
-        burgerMenu.hidden = false;
-
-    }
-
-    function closeMenu() {
-
-        burgerMenu.hidden = true;
-
-    }
-
-    function toggleMenu() {
-
-        burgerMenu.hidden = !burgerMenu.hidden;
-
-    }
-
-    closeMenu();
-
-    menuButton.addEventListener("click", function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        toggleMenu();
-
-    });
-
-    burgerMenu.addEventListener("click", function (event) {
-
-        event.stopPropagation();
-
-    });
-
-    document.addEventListener("click", function () {
-
-        closeMenu();
-
-    });
-    
-// wrap
-
-createMeasureDiv();
-wrapAllBlocks();
-
-});
-
+);
 
 let userNotes = null;
 
