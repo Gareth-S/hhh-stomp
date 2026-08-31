@@ -898,34 +898,8 @@ new Sortable(
             /*
              * Add the delete button to newly dragged-in songs.
              */
-            const deleteButton =
-                document.createElement("button");
 
-            deleteButton.type =
-                "button";
-
-            deleteButton.className =
-                "delete-setlist-song";
-
-            deleteButton.textContent =
-                "🗑";
-
-
-            deleteButton.addEventListener(
-                "click",
-                function ()
-                {
-                    entry.remove();
-
-                    /*
-                     * Recalculate duplicate highlighting after
-                     * removing the song.
-                     */
-                    updateDuplicateMarkers();
-                }
-            );
-
-
+            const deleteButton = createDeleteButton(entry);
             
 /*
  * Put the delete button before the song text,
