@@ -924,12 +924,6 @@ function populateSectionNotesEditor()
                 <td>
                     <input type="text" value="${note}" class="section-note" >
                 </td>
-
-                <td>
-                    <button type="button" class="delete-note" >
-                        🗑
-                    </button>
-                </td>
             `;
 
             body.appendChild(row);
@@ -969,12 +963,6 @@ function populateLineNotesEditor()
 
                 <td>
                     <input type="text" value="${note}" class="line-note">
-                </td>
-
-                <td>
-                    <button type="button" class="delete-note">
-                        🗑
-                    </button>
                 </td>
             `;
 
@@ -1180,12 +1168,6 @@ function addSectionRow()
         <td>
             <input type="text" class="section-note" placeholder="Note">
         </td>
-
-        <td>
-            <button type="button" class="delete-note"            >
-                🗑
-            </button>
-        </td>
     `;
 
     body.appendChild(row);
@@ -1210,12 +1192,6 @@ function addLineRow()
         <td>
             <input
                 type="text" class="line-note" placeholder="Note">
-        </td>
-
-        <td>
-            <button type="button" class="delete-note">
-                🗑
-            </button>
         </td>
     `;
 
