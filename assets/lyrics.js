@@ -763,45 +763,6 @@ async function loadBandNotes()
 /* User Notes                                                */
 /*----------------------------------------------------------*/
 
-function currentSongName()
-{
-    const filename =
-        window.location.pathname
-            .split("/")
-            .pop();
-
-    return filename.replace(".html", "");
-}
-
-function enabledMembers()
-{
-    const members = [];
-
-    for (const key in localStorage)
-    {
-        if (!key.startsWith("notes-"))
-            continue;
-
-        if (localStorage.getItem(key) !== "true")
-            continue;
-
-        members.push(
-            key.replace("notes-", "")
-        );
-    }
-
-    return members;
-}
-
-function notesFilename(song, member)
-{
-    return (
-        song +
-        "." +
-        member.toLowerCase() +
-        ".json"
-    );
-}
 
 
 async function loadUserNotes()
