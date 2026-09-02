@@ -1032,13 +1032,8 @@ function addSectionRowForTarget(targetId)
         }
     }
 
-    addSectionRow();
-
-    const rows =
-        body.querySelectorAll("tr");
-
     const row =
-        rows[rows.length - 1];
+        addSectionRow();
 
     row.querySelector(
         ".section-target"
@@ -1048,6 +1043,7 @@ function addSectionRowForTarget(targetId)
         ".section-note"
     ).focus();
 }
+
 
 
 function closeNotesEditor()
@@ -1171,6 +1167,8 @@ function addSectionRow()
     `;
 
     body.appendChild(row);
+    
+    return row;
 }
 
 function addLineRow()
@@ -1196,7 +1194,11 @@ function addLineRow()
     `;
 
     body.appendChild(row);
+    
+    return row;
 }
+
+
 
 function addLineRowForTarget(targetId)
 {
@@ -1223,13 +1225,8 @@ function addLineRowForTarget(targetId)
         }
     }
 
-    addLineRow();
-
-    const rows =
-        body.querySelectorAll("tr");
-
     const row =
-        rows[rows.length - 1];
+        addLineRow();
 
     row.querySelector(
         ".line-target"
@@ -1239,6 +1236,8 @@ function addLineRowForTarget(targetId)
         ".line-note"
     ).focus();
 }
+
+
 
 // section notes
 
