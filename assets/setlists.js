@@ -446,6 +446,9 @@ async function loadSavedSetlist(filename)
  * Navigation information such as source and index is not
  * part of the song's identity and must not be duplicated.
  */
+
+/*
+
 function cleanSongFile(file)
 {
     if (!file)
@@ -458,7 +461,7 @@ function cleanSongFile(file)
         .split("#")[0];
 }
 
-
+*/
 
 function populateSetlist(songs)
 {
@@ -507,7 +510,7 @@ function populateSetlist(songs)
  * appended again when a saved setlist is loaded.
  */
 link.href =
-    getSongFile(song.file) +
+    cleanSongPath(song.file) +
     "?source=setlist&index=" +
     i;
     
@@ -578,7 +581,11 @@ function createDeleteButton(entry)
  * The source/index query string is navigation information,
  * not part of the song's identity.
  */
-function getSongFile(href)
+
+
+/*
+
+function getSongFile(href) -- superceded by   cleanSongPath()
 {
     if (!href)
     {
@@ -590,6 +597,7 @@ function getSongFile(href)
         .split("#")[0];
 }
 
+*/
 
 function updateDuplicateMarkers()
 {
@@ -632,7 +640,7 @@ function updateDuplicateMarkers()
         }
 
         
-        const file = getSongFile(link.getAttribute("href") );
+        const file = cleanSongPath(link.getAttribute("href") );
         
         /*
         
@@ -656,7 +664,7 @@ function updateDuplicateMarkers()
         {
             continue;
         }
-       const file = getSongFile(link.getAttribute("href") );
+       const file = cleanSongPath(link.getAttribute("href") );
         
         /*
 
@@ -688,7 +696,7 @@ function updateDuplicateMarkers()
             continue;
         }
 
-        const file = getSongFile(link.getAttribute("href") );
+        const file = cleanSongPath(link.getAttribute("href") );
         
         /*
        
@@ -747,7 +755,7 @@ function collectSetlistFromEditor()
         const title =
             link.textContent.trim();
 
-        const file = cleanSongFile(link.getAttribute("href"));    
+        const file = cleanSongPath(link.getAttribute("href"));    
             
             
 //        const file = link.getAttribute("href");
@@ -816,7 +824,7 @@ function updateSetlistLinks()
         }
 
         const file =
-            getSongFile(
+            cleanSongPath(
                 link.getAttribute("href")
             );
 

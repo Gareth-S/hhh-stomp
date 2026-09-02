@@ -1390,6 +1390,7 @@ function sortNoteTargets(notes)
  * The song URL tells us which list was used to open the song
  * and its position within that list.
  */
+
 async function initialiseSongNavigation()
 {
     console.log(
@@ -1540,37 +1541,36 @@ else
         return;
     }
 
+
     /*
-     * Song paths in the JSON are relative to the site root.
-     *
-     * This script runs from inside /songs/, so remove the
-     * "songs/" part before using the path for navigation.
-     */
+ * Song paths in the JSON are relative to the site root.
+ *
+ * This script runs from inside /songs/, so remove the
+ * "songs/" part before using the path for navigation.
+ */
 
 function songNavigationPath(file)
 {
     /*
-     * Remove any existing navigation query string.
+     * Remove any existing navigation query string
+     * and fragment from the song path.
      *
      * current.setlist.json stores songs with:
      *
      *     ?source=setlist&index=n
      *
-     * We must remove that before adding the new
-     * source/index for the destination song.
+     * cleanSongPath() removes these before we add the
+     * new source/index for the destination song.
      */
     let cleanFile =
-        file.split("?")[0];
-
-    /*
-     * Also remove a possible fragment.
-     */
-    cleanFile =
-        cleanFile.split("#")[0];
+        cleanSongPath(file);
 
     /*
      * Song paths in the JSON are relative to the
      * site root, but this script runs inside /songs/.
+     *
+     * Remove "songs/" so the returned path points to
+     * the song correctly from the current directory.
      */
     if (cleanFile.startsWith("songs/"))
     {
@@ -1580,24 +1580,12 @@ function songNavigationPath(file)
 
     return cleanFile;
 }
-
     
-    /*
-
-    function songNavigationPath(file)
-    {
-        if (file.startsWith("songs/"))
-        {
-            return file.substring(6);
-        }
-
-        return file;
-    }
-
-    */
+    
     /*
      * First song: previous returns to setlists.
      */
+    
     if (index === 0)
     {
         previous.forEach(

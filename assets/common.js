@@ -232,7 +232,6 @@ function initialiseHelpPopup()
     );
 }
 
-
 // Screen Wake Lock
 
 let wakeLock = null;
@@ -258,13 +257,23 @@ async function disableWakeLock() {
     }
 }
 
-function initialiseWakeLock() {
-    document.addEventListener("visibilitychange", () => {
-        if (
-            document.visibilityState === "visible" &&
-            wakeLock === null
-        ) {
-            enableWakeLock();
-        }
-    });
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && wakeLock === null) {
+        enableWakeLock();
+    }
+});
+
+
+// clean song path
+
+function cleanSongPath(path)
+{
+    if (!path)
+    {
+        return "";
+    }
+
+    return path
+        .split("?")[0]
+        .split("#")[0];
 }
