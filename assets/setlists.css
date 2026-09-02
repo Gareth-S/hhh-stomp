@@ -1,37 +1,36 @@
-.song-list-entry {
-    display: block;
-}
-
-.song-list-entry {
+.song-list-entry
+{
     display: flex;
     align-items: center;
 }
 
-.song-drag-handle {
+.song-drag-handle
+{
     cursor: grab;
-    padding-right: 0.5em;
+    padding-right: .5em;
     user-select: none;
 }
 
-.song-drag-handle:active {
+.song-drag-handle:active
+{
     cursor: grabbing;
 }
 
-
-/* Drag handles are only shown for songs in the current setlist. */
-#all-songs .song-drag-handle {
-    display: inline-block;
-}
 
 #current-setlist .song-drag-handle {
     display: inline-block;
 }
 
+/*
+
 .song-drag-handle {
     cursor: grab;
     padding-right: 0.5em;
     user-select: none;
 }
+
+*/
+
 
 .song-drag-handle:active {
     cursor: grabbing;
@@ -64,18 +63,11 @@
 }
 
 
-/* Catalogue handles stay hidden. */
-#all-songs .song-drag-handle {
-    display: inline-block;
-}
 
 
 /* Setlist handles are visible. */
 #current-setlist .song-drag-handle {
     display: inline-block;
-    cursor: grab;
-    padding-right: 0.5em;
-    user-select: none;
 }
 
 
