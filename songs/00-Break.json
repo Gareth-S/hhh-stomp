@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "00-break",
+        "title": "00-break",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

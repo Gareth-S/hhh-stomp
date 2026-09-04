@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "A Fool for Your Stockings",
+        "title": "A Fool for Your Stockings",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

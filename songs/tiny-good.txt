@@ -18,7 +18,7 @@ Cb             Cmaj7 F
  It's easy if you   try
 C        Cmaj7 F
  No hell below us
-C          Cmaj7 F
+Cb          Cmaj7 F#m7
   Above us only  sky
  
 [Bridge 1]

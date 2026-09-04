@@ -1,0 +1,24 @@
+{
+    "user": "Gareth",
+    "filename": "Beds_are_burning",
+    "songNotes": [],
+    "sections": {
+        "section-1": [
+            "test2"
+        ],
+        "section-2": [
+            "test"
+        ],
+        "section-3": [
+            "post"
+        ],
+        "section-4": [
+            "versae"
+        ]
+    },
+    "inline": {
+        "line-16": [
+            "line 16"
+        ]
+    }
+}

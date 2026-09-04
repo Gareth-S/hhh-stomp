@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "Beds Are Burning",
+        "title": "Beds Are Burning",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 120,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

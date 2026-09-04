@@ -1,0 +1,21 @@
+{
+    "song": {
+        "id": " Yellow Ledbetter",
+        "title": " Yellow Ledbetter",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 68,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    },
+    "songNotes": [],
+    "sections": {
+        "section-6": [
+            "rhythm change"
+        ]
+    },
+    "inline": {}
+}    
+

@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": " Blue On Black",
+        "title": " Blue On Black",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 70,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

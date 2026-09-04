@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": " After Midnight",
+        "title": " After Midnight",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 102,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

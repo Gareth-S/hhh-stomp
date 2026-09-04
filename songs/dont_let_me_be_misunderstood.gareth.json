@@ -1,0 +1,20 @@
+{
+    "user": "Gareth",
+    "filename": "dont_let_me_be_misunderstood",
+    "songNotes": [
+        "Reggae vibe"
+    ],
+    "sections": {
+        "section-1": [
+            "come in on E"
+        ],
+        "section-2": [
+            "chorus"
+        ]
+    },
+    "inline": {
+        "line-5": [
+            "just a test"
+        ]
+    }
+}

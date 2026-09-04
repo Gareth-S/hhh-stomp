@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "Call Me The Breeze",
+        "title": "Call Me The Breeze",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

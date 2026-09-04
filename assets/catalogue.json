@@ -1,92 +1,64 @@
 {
     "songs": [
         {
-            "title": "00 Break",
+            "title": "00-break",
             "file": "songs/00-Break.html"
         },
         {
+            "title": "A Fool for Your Stockings",
+            "file": "songs/Fool_for_Your_Stockings.html"
+        },
+        {
             "title": "After Midnight",
-            "file": "songs/After Midnight.html"
+            "file": "songs/After_Midnight.html"
         },
         {
             "title": "Beds Are Burning",
-            "file": "songs/Beds are burning.html"
+            "file": "songs/Beds_are_burning.html"
         },
         {
             "title": "Blue On Black",
-            "file": "songs/Blue On Black.html"
+            "file": "songs/Blue_On_Black.html"
         },
         {
             "title": "Brown Sugar",
-            "file": "songs/Brown Sugar.html"
+            "file": "songs/Brown_Sugar.html"
         },
         {
             "title": "Call Me The Breeze",
-            "file": "songs/Call Me The Breeze.html"
-        },
-        {
-            "title": "Copperhead Road",
-            "file": "songs/Copperhead Road1.html"
-        },
-        {
-            "title": "Copperhead Road",
-            "file": "songs/Copperhead Road2.html"
+            "file": "songs/Call_Me_The_Breeze.html"
         },
         {
             "title": "Copperhead Road",
             "file": "songs/Copperhead_Road.html"
         },
         {
-            "title": "Copperhead Road",
-            "file": "songs/Copperhead_Road3.html"
-        },
-        {
             "title": "Dont Let Me Be Misunderstood",
-            "file": "songs/dont let me be misunderstood.html"
-        },
-        {
-            "title": "Down To The Waterline",
-            "file": "songs/down 2 waterline1.html"
-        },
-        {
-            "title": "Down To The Waterline",
-            "file": "songs/down 2 waterline2.html"
+            "file": "songs/dont_let_me_be_misunderstood.html"
         },
         {
             "title": "Down To The Waterline",
             "file": "songs/down_2_waterline.html"
         },
         {
-            "title": "Fool For your Stockings",
-            "file": "songs/Fool for Your Stockings.html"
-        },
-        {
             "title": "I Heard It Through The Grapevine",
-            "file": "songs/heard thru grapevine.html"
+            "file": "songs/heard_thru_grapevine.html"
         },
         {
             "title": "Mystery Dance",
-            "file": "songs/Mystery Dance.html"
-        },
-        {
-            "title": "Mystery Dance",
-            "file": "songs/Mystery Dance1.html"
+            "file": "songs/Mystery_Dance.html"
         },
         {
             "title": "Ride On",
-            "file": "songs/Ride on.html"
-        },
-        {
-            "title": "Runnin' Down A Dream chords",
-            "file": "songs/run-dream.html"
+            "file": "songs/Ride_on.html"
         },
         {
             "title": "Six Blade Knife",
-            "file": "songs/six blade knife.html"
+            "file": "songs/six_blade_knife.html"
         },
         {
             "title": "So Lonely",
-            "file": "songs/So Lonely.html"
+            "file": "songs/So_Lonely.html"
         },
         {
             "title": "Tiny good ?",
@@ -98,7 +70,7 @@
         },
         {
             "title": "Where Do You Think Youre Going",
-            "file": "songs/where you going.html"
+            "file": "songs/where_you_going.html"
         },
         {
             "title": "Yellow Ledbetter",

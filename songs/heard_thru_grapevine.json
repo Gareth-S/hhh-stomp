@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "I Heard It Through The Grapevine",
+        "title": "I Heard It Through The Grapevine",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

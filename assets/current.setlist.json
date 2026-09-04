@@ -5,32 +5,20 @@
             "file": "songs/00-Break.html?source=setlist&index=0"
         },
         {
-            "title": "Six Blade Knife",
-            "file": "songs/six blade knife.html?source=setlist&index=1"
+            "title": "A Fool for Your Stockings",
+            "file": "songs/Fool_for_Your_Stockings.html?source=setlist&index=1"
         },
         {
-            "title": "Brown Sugar",
-            "file": "songs/Brown Sugar.html?source=setlist&index=2"
+            "title": "00 Break",
+            "file": "songs/00-Break.html?source=setlist&index=2"
         },
         {
-            "title": "Copperhead Road",
-            "file": "songs/Copperhead_Road.html?source=setlist&index=3"
+            "title": "After Midnight",
+            "file": "songs/After_Midnight.html?source=setlist&index=3"
         },
         {
             "title": "00 Break",
             "file": "songs/00-Break.html?source=setlist&index=4"
-        },
-        {
-            "title": "Yellow Ledbetter",
-            "file": "songs/Yellow_ledbetter.html?source=setlist&index=5"
-        },
-        {
-            "title": "Tiny good ?",
-            "file": "songs/tiny-good1.html?source=setlist&index=6"
-        },
-        {
-            "title": "00 Break",
-            "file": "songs/00-Break.html?source=setlist&index=7"
         }
     ]
 }

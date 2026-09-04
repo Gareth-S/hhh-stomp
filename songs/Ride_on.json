@@ -1,0 +1,16 @@
+{
+    "song": {
+        "id": "Ride On",
+        "title": "Ride On",
+        "artist": "",
+        "version": "1.0"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    },
+    "songNotes": [
+        "Come in on 3"
+    ]
+}
