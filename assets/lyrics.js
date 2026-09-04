@@ -1351,6 +1351,8 @@ for (const row of lineRows)
     return notes;
 }
 
+
+
 function sortNoteTargets(notes)
 {
     const sorted = {};
