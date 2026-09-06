@@ -91,22 +91,34 @@ function createMeasureDiv()
 
 
 //
-// Find every chord/lyric pair on the page
-// and pass it to the wrapping engine.
+// Find every chord/lyric block on the page and keep wrapping
+// until no block needs another split.
 //
 
 function wrapAllBlocks()
 {
-    const blocks = document.querySelectorAll(".chord-lyric");
+    let changed = true;
 
-//    console.log("Found", blocks.length, "wrapping blocks");
+    while (changed)
+    {
+        changed = false;
 
-    for (const block of blocks) {
+        const blocks =
+            document.querySelectorAll(
+                ".chord-lyric"
+            );
 
-        wrapChordLyric(block);
-
+        for (const block of blocks)
+        {
+            if (wrapChordLyric(block))
+            {
+                changed = true;
+                break;
+            }
+        }
     }
 }
+
 
 // Wrapping engine.
 //
@@ -120,29 +132,47 @@ function wrapChordLyric(block)
 
     const style = getComputedStyle(lyrics);
 
-    const browserWord =
+/*    
+      console.log(
+          "WRAP TEST:",
+      {
+          text: lyrics.textContent,
+          width: lyrics.clientWidth,
+          scrollWidth: lyrics.scrollWidth,
+          font: style.font,
+          lineHeight: style.lineHeight
+    };
+*/    
+
+    const wrap =
         browserWrapPosition(
             lyrics.textContent,
             style,
             lyrics.clientWidth
+            );
+
+    if (wrap)
+        {
+        splitBlock(
+            block,
+            wrap.position
         );
 
- //   console.log("Browser chose:", browserWord);
-        
-    if (browserWord)
-    splitBlock(block, browserWord);
+    return true;
+    }
+
+    return false;    
+
 }
 
 
-
-
-
-
-// Ask the browser where it wants to wrap.
 //
-// Returns:
-//     the first word on the second line
-// or  null if everything fits.
+// Ask the browser where the text wraps.
+//
+// Returns the first word on the second line
+// together with its character position.
+// Returns null if everything fits.
+//
 
 function browserWrapPosition(text, style, width)
 {
@@ -154,75 +184,263 @@ function browserWrapPosition(text, style, width)
     measure.style.whiteSpace = "normal";
     measure.style.width = width + "px";
 
-    const words = text.split(" ");
+    const words =
+        text.split(" ");
 
     let line = "";
+    let position = 0;
     let lastHeight = 0;
 
-    for (const word of words) {
-
+    for (const word of words)
+    {
         line += word + " ";
 
         measure.textContent = line;
 
-        const height = measure.offsetHeight;
+        const height =
+            measure.offsetHeight;
 
-        if (lastHeight !== 0 && height > lastHeight) {
-
- //           console.log("Browser wraps before:", word);
-
-            return word;
-
+        if (
+            lastHeight !== 0 &&
+            height > lastHeight
+        )
+        {
+            return {
+                word: word,
+                position: position
+            };
         }
 
-        lastHeight = height;
+        position += word.length + 1;
 
+        lastHeight = height;
     }
 
     return null;
 }
 
-
+//
+//
 // Split one chord/lyric block into two blocks.
 //
-// Currently this is a prototype.
-// The split word is supplied directly.
+// The lyric split position comes from the browser wrapping test.
+// Chords are kept whole, and HTML such as .accidental spans
+// is preserved.
+//
 
-
-function splitBlock(block, splitWord)
+function splitBlock(block, splitAt)
 {
-    const chords = block.querySelector(".chords").textContent;
-    const lyrics = block.querySelector(".lyrics").textContent;
+    const chordElement =
+        block.querySelector(".chords");
 
-    const splitAt = lyrics.indexOf(splitWord);
+    const lyricElement =
+        block.querySelector(".lyrics");
 
-    if (splitAt < 0)
+    const lyrics =
+        lyricElement.textContent;
+
+    const chordText =
+        chordElement.textContent;
+
+    if (
+        splitAt <= 0 ||
+        splitAt >= lyrics.length
+    )
+    {
         return;
+    }
 
-    const first = block.cloneNode(true);
-    const second = block.cloneNode(true);
+    /*
+     * Find the chord boundary at the proposed split.
+     */
+    let chordSplitAt =
+        splitAt;
 
+    while (
+        chordSplitAt > 0 &&
+        chordSplitAt < chordText.length &&
+        !/\s/.test(chordText[chordSplitAt])
+    )
+    {
+        chordSplitAt--;
+    }
+
+    /*
+     * If the split landed inside a chord, move forward
+     * to the end of that complete chord.
+     */
+    if (chordSplitAt < splitAt)
+    {
+        chordSplitAt =
+            splitAt;
+
+        while (
+            chordSplitAt < chordText.length &&
+            !/\s/.test(chordText[chordSplitAt])
+        )
+        {
+            chordSplitAt++;
+        }
+
+        /*
+         * Preserve the whitespace immediately before
+         * the chord so its horizontal position is retained.
+         */
+        while (
+            chordSplitAt > 0 &&
+            /\s/.test(chordText[chordSplitAt - 1])
+        )
+        {
+            chordSplitAt--;
+        }
+    }
+
+    const first =
+        block.cloneNode(true);
+
+    const second =
+        block.cloneNode(true);
+
+    /*
+     * Lyrics split at the exact browser-selected position.
+     */
     first.querySelector(".lyrics").textContent =
-        lyrics.substring(0, splitAt).trimEnd();
+        lyrics.substring(
+            0,
+            splitAt
+        ).trimEnd();
 
     second.querySelector(".lyrics").textContent =
-        lyrics.substring(splitAt).trimStart();
+        lyrics.substring(
+            splitAt
+        ).trimStart();
 
-    // Prototype only.
-    // Chords are split at exactly the same character position.
-    first.querySelector(".chords").textContent =
-        chords.substring(0, splitAt).trimEnd();
+    /*
+     * Rebuild the chord contents while preserving
+     * accidental spans.
+     */
+    setChordText(
+        first.querySelector(".chords"),
+        chordElement,
+        0,
+        chordSplitAt
+    );
 
-    second.querySelector(".chords").textContent =
-        chords.substring(splitAt).trimStart();
+    setChordText(
+        second.querySelector(".chords"),
+        chordElement,
+        chordSplitAt,
+        chordText.length
+    );
 
-    block.replaceWith(first, second);
+    block.replaceWith(
+        first,
+        second
+    );
+}
+
+//
+// Copy part of a chord element while preserving its HTML.
+//
+// Character positions refer to the visible text, not the
+// HTML markup itself.
+//
+
+function setChordText(
+    target,
+    original,
+    start,
+    end
+)
+{
+    target.innerHTML = "";
+
+    const walker =
+        document.createTreeWalker(
+            original,
+            NodeFilter.SHOW_TEXT
+        );
+
+    let node;
+    let position = 0;
+
+    while (
+        node = walker.nextNode()
+    )
+    {
+        const text =
+            node.textContent;
+
+        const nodeStart =
+            position;
+
+        const nodeEnd =
+            position + text.length;
+
+        const copyStart =
+            Math.max(
+                start,
+                nodeStart
+            );
+
+        const copyEnd =
+            Math.min(
+                end,
+                nodeEnd
+            );
+
+        if (copyStart < copyEnd)
+        {
+            const clone =
+                node.parentElement === original
+                    ? document.createTextNode(
+                        text.substring(
+                            copyStart - nodeStart,
+                            copyEnd - nodeStart
+                        )
+                    )
+                    : cloneChordTextNode(
+                        node,
+                        original,
+                        copyStart - nodeStart,
+                        copyEnd - nodeStart
+                    );
+
+            target.appendChild(clone);
+        }
+
+        position =
+            nodeEnd;
+    }
+}
+
+//
+// Clone a chord text node together with its parent
+// markup, such as the .accidental span.
+//
+
+function cloneChordTextNode(
+    node,
+    original,
+    start,
+    end
+)
+{
+    const parent =
+        node.parentElement.cloneNode(false);
+
+    parent.textContent =
+        node.textContent.substring(
+            start,
+            end
+        );
+
+    return parent;
 }
 
 
+
 // current user of the app
-
-
 
    function currentUser()
 {
@@ -230,9 +448,7 @@ function splitBlock(block, splitWord)
         "current-user"
     );
  
-    
     //return "Dick";
-
     
 }
 

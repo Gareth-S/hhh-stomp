@@ -84,6 +84,7 @@ function configureBeatEngine(tempo)
     {
         countInBars = tempo.countInBars;
     }
+    
 /*
  * Show the tempo as soon as the song JSON has been loaded.
  */
@@ -138,7 +139,8 @@ function nextBeat()
     }
 
     updateBeatDisplay();
-    console.log( "Bar", currentBar, "Beat", currentBeat + 1, "Remaining",barsRemaining);
+    
+//    console.log( "Bar", currentBar, "Beat", currentBeat + 1, "Remaining",barsRemaining);
 
     if (barsRemaining <= 0)
     {
