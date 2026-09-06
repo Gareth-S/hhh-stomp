@@ -132,7 +132,7 @@ function wrapChordLyric(block)
 
     const style = getComputedStyle(lyrics);
 
-/*    
+ /*   
       console.log(
           "WRAP TEST:",
       {
@@ -141,29 +141,130 @@ function wrapChordLyric(block)
           scrollWidth: lyrics.scrollWidth,
           font: style.font,
           lineHeight: style.lineHeight
-    };
-*/    
+    });
+    
+*/
+    
+    
+const wrap =
+    browserWrapPosition(
+        lyrics.textContent,
+        style,
+        lyrics.clientWidth
+    );
 
-    const wrap =
-        browserWrapPosition(
-            lyrics.textContent,
-            style,
-            lyrics.clientWidth
-            );
-
+    
     if (wrap)
-        {
+    {
         splitBlock(
             block,
             wrap.position
-        );
-
+            );
     return true;
     }
 
-    return false;    
+/*
+ * The lyrics fit on one line, but the chords might not.
+ * In that case use the last-word fallback.
+ */
+return wrapChordOverflow(block);
+
 
 }
+
+
+
+//
+// If the chords still overflow after normal lyric wrapping,
+// move the last lyric word and its chord material to a new block.
+//
+
+//
+// If the chords still overflow after normal lyric wrapping,
+// move the last lyric word and its chord material to a new block.
+//
+// This fallback is deliberately only applied once to a block.
+//
+
+function wrapChordOverflow(block)
+{
+    /*
+     * This block has already had the overflow fallback applied.
+     * Don't keep moving words onto new lines.
+     */
+    if (block.dataset.chordOverflowHandled === "true")
+    {
+        return false;
+    }
+
+    const chords =
+        block.querySelector(".chords");
+
+    const lyrics =
+        block.querySelector(".lyrics");
+
+    /*
+     * Ignore tiny browser rounding/spacing differences.
+     */
+    if (
+        chords.scrollWidth <= chords.clientWidth + 4
+    )
+    {
+        return false;
+    }
+
+    const text =
+        lyrics.textContent.trimEnd();
+
+    /*
+     * Find the beginning of the last lyric word.
+     */
+    const splitAt =
+        text.lastIndexOf(" ");
+
+    if (splitAt < 0)
+    {
+        return false;
+    }
+
+    const firstLyrics =
+        text.substring(
+            0,
+            splitAt
+        ).trimEnd();
+
+    const secondLyrics =
+        text.substring(
+            splitAt
+        ).trimStart();
+
+    /*
+     * Don't create an empty first line.
+     */
+    if (!firstLyrics || !secondLyrics)
+    {
+        return false;
+    }
+
+    /*
+     * Mark the original block before splitting.
+     * splitBlock() will copy this state to both new blocks.
+     */
+    block.dataset.chordOverflowHandled =
+        "true";
+
+    /*
+     * Move the final lyric word and its chord material
+     * to a new line.
+     */
+    splitBlock(
+        block,
+        splitAt
+    );
+
+    return true;
+}
+
 
 
 //
