@@ -136,7 +136,7 @@ function wrapChordLyric(block)
       console.log(
           "WRAP TEST:",
       {
-          text: lyrics.textContent,
+          text: getLyricText(lyrics),
           width: lyrics.clientWidth,
           scrollWidth: lyrics.scrollWidth,
           font: style.font,
@@ -148,7 +148,7 @@ function wrapChordLyric(block)
     
 const wrap =
     browserWrapPosition(
-        lyrics.textContent,
+        getLyricText(lyrics),
         style,
         lyrics.clientWidth
     );
@@ -172,12 +172,26 @@ return wrapChordOverflow(block);
 
 }
 
-
-
 //
-// If the chords still overflow after normal lyric wrapping,
-// move the last lyric word and its chord material to a new block.
+// Return the actual lyric text without the line number.
 //
+
+function getLyricText(element)
+{
+    const clone =
+        element.cloneNode(true);
+
+    const lineNumber =
+        clone.querySelector(".line-number");
+
+    if (lineNumber)
+    {
+        lineNumber.remove();
+    }
+
+    return clone.textContent;
+}
+
 
 //
 // If the chords still overflow after normal lyric wrapping,
@@ -214,7 +228,7 @@ function wrapChordOverflow(block)
     }
 
     const text =
-        lyrics.textContent.trimEnd();
+        getLyricText(lyrics).trimEnd();
 
     /*
      * Find the beginning of the last lyric word.
@@ -338,7 +352,7 @@ function splitBlock(block, splitAt)
         block.querySelector(".lyrics");
 
     const lyrics =
-        lyricElement.textContent;
+        getLyricText(lyricElement);
 
     const chordText =
         chordElement.textContent;
@@ -396,11 +410,26 @@ function splitBlock(block, splitAt)
         }
     }
 
+    /*
+     * Keep the original line number.
+     * It belongs to the first block only.
+     */
+    const originalLineNumber =
+        block.querySelector(".line-number");
+
     const first =
         block.cloneNode(true);
 
     const second =
         block.cloneNode(true);
+
+    /*
+     * The second block is only a continuation of the
+     * original lyric line, so it must not have a number.
+     */
+    second
+        .querySelector(".line-number")
+        ?.remove();
 
     /*
      * Lyrics split at the exact browser-selected position.
@@ -415,6 +444,45 @@ function splitBlock(block, splitAt)
         lyrics.substring(
             splitAt
         ).trimStart();
+
+    /*
+     * Restore the line number to the first block.
+     *
+     * textContent above removes the original span, and
+     * cloneNode() does not preserve its click handler.
+     */
+    if (originalLineNumber)
+    {
+        const lineNumber =
+            document.createElement("span");
+
+        lineNumber.className =
+            "line-number";
+
+        lineNumber.textContent =
+            originalLineNumber.textContent;
+
+        lineNumber.dataset.line =
+            originalLineNumber.dataset.line;
+
+        lineNumber.addEventListener(
+            "click",
+            function ()
+            {
+                openNotesEditor(
+                    lineNumber.dataset.line
+                );
+
+                console.log(
+                    lineNumber.dataset.line
+                );
+            }
+        );
+
+        first
+            .querySelector(".lyrics")
+            .prepend(lineNumber);
+    }
 
     /*
      * Rebuild the chord contents while preserving
@@ -439,6 +507,7 @@ function splitBlock(block, splitAt)
         second
     );
 }
+
 
 //
 // Copy part of a chord element while preserving its HTML.
