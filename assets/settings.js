@@ -61,6 +61,19 @@ function attachStaticListeners()
             saveSettings
         );
     }
+    
+const stickyButtons =
+    document.querySelectorAll(
+        'input[name="section-stickiness"]'
+    );
+
+for (const button of stickyButtons)
+{
+    button.addEventListener(
+        "change",
+        saveSettings
+    );
+}
 
     const saveButton =
         document.getElementById(
@@ -74,6 +87,8 @@ function attachStaticListeners()
             saveSettings
         );
     }
+
+    
 }
 
 
@@ -136,6 +151,27 @@ function loadSettings()
     }
     
     
+const sectionStickiness =
+    localStorage.getItem(
+        "section-stickiness"
+    );
+
+if (sectionStickiness !== null)
+{
+    const radio =
+        document.querySelector(
+            'input[name="section-stickiness"][value="' +
+            sectionStickiness +
+            '"]'
+        );
+
+    if (radio)
+    {
+        radio.checked = true;
+    }
+}    
+
+
     const members =
         document.querySelectorAll("#band-members input[type='checkbox']");
 
@@ -185,6 +221,17 @@ localStorage.setItem(
 );
 
 applyTextSize(size);
+
+
+const sectionStickiness =
+    document.querySelector(
+        'input[name="section-stickiness"]:checked'
+    ).value;
+
+localStorage.setItem(
+    "section-stickiness",
+    sectionStickiness
+);
 
 
     

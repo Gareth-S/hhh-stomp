@@ -17,7 +17,7 @@
     --text:           #d8d6a8;
 
     --section:        #d6c15f;
-    --section-size:   1.25em;
+    --section-size:   1.2em;
 
     --chord:          #9fdc74;
 
@@ -39,7 +39,7 @@ body {
 
 /*    font-family: monospace;  */
     font-family: "DejaVu Sans Mono", monospace;
-    font-size: calc(1.1em * var(--scale));
+    font-size: calc(1.0rem * var(--scale));
     line-height: 1.4;
 
     background: var(--bg);
@@ -84,6 +84,7 @@ body {
 .chords {
     color: var(--chord);
     font-weight: bold;
+    font-size: 1.0rem;
     white-space: pre;
 }
 
@@ -91,14 +92,14 @@ body {
 
 .accidental {
     font: inherit;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 .line-number
 {
     color: var(--line-number);
-    font-size: 0.75em;
+    font-size: 0.75rem;
     font-weight: bold;
     text-align: right;
     
@@ -120,7 +121,7 @@ body {
 
     opacity: .6;
 
-    font-size: .8em;
+    font-size: .8rem;
 }
 
 .section-link:hover
@@ -155,7 +156,7 @@ body {
 
     margin-top: 0em;
     margin-bottom: 0.4em;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     text-align: left;    
     padding: 0.2em 1em;
 
@@ -334,7 +335,7 @@ a {
     background: var(--personal-bg);
     color: var(--personal-text);
 
-    font-size: 0.85em;
+    font-size: 0.7rem;
 
     padding: 0.2em 0.5em;
 
@@ -348,14 +349,19 @@ a {
 }
 
 .chord-lyric {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.2em;
 }
 
 .song-section h2 {
     color: var(--section);
     font-size: var(--section-size);
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;    
     font-weight: bold;
-    margin-top: 1.5rem;
+    margin-top: 1.0rem;
     margin-bottom: 0.75rem;
 }
 
@@ -374,9 +380,14 @@ header {
 
 .song-title {
     flex: 1;
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;  
     text-align: center;
     margin: 0;
-    font-size: 1.6em;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 
@@ -384,7 +395,7 @@ header {
 #prev-song,
 #next-song {
 
-    font-size: 2.0em;
+    font-size: 2.0rem;
     padding: 0.5em 1em;
     
 /*    text-decoration: none;  
@@ -444,7 +455,7 @@ header {
     min-height: 2.5em;
     padding: 0.3em 0.6em;
 
-    font-size: 3.0em;
+    font-size: 3.0rem;
     text-decoration: none;
 
 }
@@ -458,25 +469,24 @@ header {
 
 .bar-line {
     white-space: pre;
-    color: #bfbfbf;
+    color: var(--chord: );
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
 .blank-line {
-    height: 1em;
+    height: 1px;
 }
 
 
 #measure {
 
     position: absolute;
-
+    white-space: pre;
     opacity: 0.3;
-    top: 12em;
- 
-
+/*    top: 12em; */
     
     white-space: normal;
-
  
     font: inherit;
 
@@ -571,22 +581,22 @@ header {
 
 .preview-small
 {
-    font-size: 0.8em;
+    font-size: 0.8rem;
 }
 
 .preview-default
 {
-    font-size: 1.0em;
+    font-size: 1.0rem;
 }
 
 .preview-large
 {
-    font-size: 1.3em;
+    font-size: 1.3rem;
 }
 
 .preview-xlarge
 {
-    font-size: 1.7em;
+    font-size: 1.7rem;
 }
 
 
@@ -616,12 +626,12 @@ body
 .band-member
 {
     display: block;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.3rem;
 }
 
 .band-inline-note
 {
-    font-size: 0.75em;
+    font-size: 0.75rem;
     font-weight: bold;
 }
 
@@ -690,7 +700,7 @@ body
 {
     display: inline-block;
 
-    font-size: .75em;
+    font-size: .75rem;
 
     padding: .08em .35em;
 
@@ -841,24 +851,6 @@ body
 {
     padding: .3rem 0;
 }
-
-/*
-
-#save-note
-{
-    background: var(--accent-colour);
-
-    color: var(--background-colour);
-}
-
-#cancel-note
-{
-    background: transparent;
-
-    color: var(--text-colour);
-}
-
-*/
 
 
 .notes-table input,
@@ -1101,7 +1093,7 @@ body
  */
 .user-buttons button
 {
-    min-height: 3.5em;
+    min-height: 3.5rem;
 
     padding: 0.8em 1em;
 

@@ -161,11 +161,25 @@
 #all-songs
 {
     height: 13rem;
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;
+
+
 }
 
 #current-setlist
 {
     height: 31rem;
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;
+
+
 }
 
 
@@ -192,6 +206,13 @@
 .saved-setlist-entry span
 {
     text-align: left;
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;
+
+
 }
 
 /*

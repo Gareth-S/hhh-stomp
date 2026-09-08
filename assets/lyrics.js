@@ -55,6 +55,7 @@ document.addEventListener(
 
         initialiseSongNavigation();
         initialiseSwipeNavigation();
+        initialiseStickySections();
 
         enableWakeLock();
 
@@ -2114,4 +2115,103 @@ function initialiseSwipeNavigation()
             }
         }
     );
+}
+
+/*----------------------------------------------------------*/
+/* Sticky section scrolling                                 */
+/*----------------------------------------------------------*/
+
+let stickyScrollTimer = null;
+
+function initialiseStickySections()
+{
+    document.addEventListener(
+        "scroll",
+        function ()
+        {
+            clearTimeout(
+                stickyScrollTimer
+            );
+
+            stickyScrollTimer =
+                setTimeout(
+                    settleNearestSection,
+                    120
+                );
+        },
+        {
+            passive: true
+        }
+    );
+}
+
+
+function settleNearestSection()
+{
+    const sections =
+        document.querySelectorAll(
+            ".song-section h2"
+        );
+
+    if (sections.length === 0)
+    {
+        return;
+    }
+
+    
+const setting =
+    localStorage.getItem(
+        "section-stickiness"
+    );
+
+let stickyDistance = 50;
+
+if (setting === "off")
+{
+    stickyDistance = 0;
+}
+else if (setting === "aggressive")
+{
+    stickyDistance = 100;
+}
+
+    let nearest = null;
+    let nearestDistance =
+        Infinity;
+
+    for (const section of sections)
+    {
+        const distance =
+            Math.abs(
+                section.getBoundingClientRect().top
+            );
+
+        if (
+            distance < nearestDistance
+        )
+        {
+            nearest =
+                section;
+
+            nearestDistance =
+                distance;
+        }
+    }
+
+    /*
+     * Only snap when a section heading is already
+     * reasonably close to the top of the screen.
+     */
+    if (
+        nearest &&
+        nearestDistance <= stickyDistance
+    )
+    {
+        nearest.scrollIntoView(
+            {
+                behavior: "smooth",
+                block: "start"
+            }
+        );
+    }
 }
