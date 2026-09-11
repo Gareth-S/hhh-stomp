@@ -8,7 +8,7 @@
 
 document.addEventListener(
     "DOMContentLoaded",
-    function ()
+     async function ()
     {
         const songContainer =
             document.getElementById(
@@ -47,8 +47,8 @@ document.addEventListener(
         addLineNumbers();
         addSectionLinks();
 
-        loadBandNotes();
-        loadUserNotes();
+        await loadBandNotes();
+        await loadUserNotes();
 
         initialiseBeatButton();
         loadNotesEditor();
@@ -56,15 +56,229 @@ document.addEventListener(
         initialiseSongNavigation();
         initialiseSwipeNavigation();
         initialiseStickySections();
-
+        
         enableWakeLock();
 
         createMeasureDiv();
         wrapAllBlocks();
+        
+        autoScrollToggle =
+    document.getElementById(
+        "auto-scroll-toggle"
+    );
+    
+        autoScrollSpeedInput =
+    document.getElementById(
+        "auto-scroll-speed"
+    );
+
+    
+    if (autoScrollSpeedInput)
+    {
+    autoScrollSpeedInput.value = scrollSpeed;
+    }
+
+
+if (autoScrollToggle)
+{
+    autoScrollToggle.addEventListener(
+        "click",
+        function ()
+        {
+            if (autoScrollRunning)
+            {
+                pauseAutoScroll();
+            }
+            else
+            {
+                startAutoScroll();
+            }
+        }
+    );
+}
+     
+     if (autoScrollSpeedInput)
+{
+    autoScrollSpeedInput.addEventListener(
+        "change",
+        function ()
+        {
+            const value =
+                Number(
+                    autoScrollSpeedInput.value
+                );
+
+            if (
+                Number.isFinite(value) &&
+                value > 0
+            )
+            {
+                scrollSpeed = value;
+            }
+            else
+            {
+                updateScrollSpeedInput();
+            }
+        }
+    );
+
+document.getElementById(
+    "auto-scroll-faster"
+).addEventListener(
+    "click",
+    function ()
+    {
+        /*
+        console.log(
+            "PLUS CLICK",
+            scrollSpeed,
+            typeof scrollSpeed
+        );
+        */
+
+        scrollSpeed =
+            Number(scrollSpeed) + 2;
+
+        /*    
+        console.log(
+            "PLUS RESULT",
+            scrollSpeed,
+            typeof scrollSpeed
+        );
+        */
+
+        autoScrollSpeedInput.value =
+            scrollSpeed;
     }
 );
 
+
+document.getElementById(
+    "auto-scroll-slower"
+).addEventListener(
+    "click",
+    function (event)
+    {
+        event.preventDefault();
+
+        scrollSpeed =
+            Math.max(
+                1,
+                Number(scrollSpeed) - 2
+            );
+
+        autoScrollSpeedInput.value =
+            scrollSpeed;
+    }
+);
+
+
+}
+    
+/*
+ * Save scroll speed.
+ */
+
+
+ const autoScrollSave =
+    document.getElementById(
+        "auto-scroll-save"
+    );
+
+if (autoScrollSave)
+{
+    autoScrollSave.addEventListener(
+        "click",
+        async function ()
+        {
+            const value =
+                Number(
+                    autoScrollSpeedInput.value
+                );
+
+            if (
+                !Number.isFinite(value) ||
+                value <= 0
+            )
+            {
+                autoScrollSpeedInput.value =
+                    scrollSpeed;
+
+                return;
+            }
+
+            scrollSpeed =
+                value;
+
+            const data =
+            {
+                user: currentUser(),
+                filename: currentSongName(),
+                scrollSpeed: scrollSpeed
+            };
+
+            try
+            {
+                const response =
+                    await fetch(
+                        "../assets/save-scroll-speed.php",
+                        {
+                            method: "POST",
+                            headers:
+                            {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body:
+                                JSON.stringify(data)
+                        }
+                    );
+
+                if (!response.ok)
+                {
+                    throw new Error(
+                        "Could not save scroll speed"
+                    );
+                }
+
+                console.log(
+                    "Scroll speed saved:",
+                    scrollSpeed
+                );
+            }
+            catch (error)
+            {
+                console.log(error);
+            }
+        }
+    );
+}    
+        
+    }
+);
+
+
+
 let userNotes = null;
+
+let scrollSpeed = 30;
+
+let autoScrollPosition = 0;
+let autoScrollFrameId = null;
+let autoScrollLastTime = null;
+let autoScrollRunning = false;
+let autoScrollResumeTimer = null;
+let manualScrollPauseActive = false;
+
+let startX = 0;
+let startY = 0;
+let gestureDirection = null;
+
+let autoScrollToggle = null;
+let autoScrollSpeedInput = null;
+
+// startAutoScroll();
+
 
 // wrap
 
@@ -583,6 +797,7 @@ function setChordText(
         position =
             nodeEnd;
     }
+    
 }
 
 //
@@ -1122,6 +1337,18 @@ async function loadBandNotes()
             await response.json();
 
         console.log(songData);
+        
+        
+        // scrolling
+        
+scrollSpeed =
+      Number(songData.scrollSpeed ?? 30);
+
+console.log(
+    "Song scroll speed =",
+    scrollSpeed
+);
+
 
                
   //tempo call
@@ -1211,6 +1438,29 @@ async function loadUserNotes()
                 userNotes = notes;
             }
 
+// scrolling
+
+            
+ if (
+    member === currentUser() &&
+    notes.scrollSpeed !== undefined &&
+    notes.scrollSpeed !== null
+)
+{
+    scrollSpeed =
+         Number(notes.scrollSpeed);
+
+    console.log(
+        "User scroll speed =",
+        scrollSpeed
+    );
+}
+ 
+        if (autoScrollSpeedInput)
+        {
+            autoScrollSpeedInput.value = scrollSpeed;
+        }
+        
         
         
 //            console.log(notes);
@@ -1230,6 +1480,8 @@ async function loadUserNotes()
     }
         
 }
+
+
 
 function populateNotesEditor()
 {
@@ -2059,9 +2311,41 @@ function initialiseSwipeNavigation()
 
             startX = event.clientX;
             startY = event.clientY;
+            gestureDirection = null;
         }
     );
 
+document.addEventListener(
+    "pointermove",
+    event =>
+    {
+        if (event.pointerType !== "touch")
+        {
+            return;
+        }
+
+        const deltaX =
+            event.clientX - startX;
+
+        const deltaY =
+            event.clientY - startY;
+
+        if (
+            gestureDirection === null &&
+            Math.abs(deltaY) > 10 &&
+            Math.abs(deltaY) > Math.abs(deltaX)
+        )
+        {
+            gestureDirection = "vertical";
+        }
+
+        if (gestureDirection === "vertical")
+        {
+            pauseAutoScrollForManualScroll();
+        }
+    }
+);    
+    
     document.addEventListener(
         "pointerup",
         event =>
@@ -2077,18 +2361,27 @@ function initialiseSwipeNavigation()
             const deltaY =
                 event.clientY - startY;
 
+/*
+ * Vertical movement:
+ *
+ * This is a normal manual scroll rather
+ * than a horizontal song swipe.
+ */
+if (
+    Math.abs(deltaX) < 50 ||
+    Math.abs(deltaX) < Math.abs(deltaY) * 0.75
+)
+{
+    return;
+}
             /*
-             * Ignore short movements and vertical swipes.
+             * Horizontal movement:
+             *
+             * Leave auto-scroll alone here.
+             * The horizontal swipe changes song and
+             * the new page will start with auto-scroll
+             * OFF.
              */
-            if (
-                Math.abs(deltaX) < 50 ||
-                Math.abs(deltaX) < Math.abs(deltaY) * 0.75
-//                Math.abs(deltaX) <= Math.abs(deltaY)
-            )
-            {
-                return;
-            }
-
             if (deltaX < 0)
             {
                 const next =
@@ -2116,6 +2409,185 @@ function initialiseSwipeNavigation()
         }
     );
 }
+
+/*----------------------------------------------------------*/
+/* Automatic scrolling                                      */
+/*----------------------------------------------------------*/
+
+function startAutoScroll()
+{
+    if (autoScrollRunning)
+    {
+        return;
+    }
+
+    autoScrollRunning = true;
+
+    autoScrollPosition =
+        window.scrollY;
+
+    autoScrollLastTime = null;
+    
+    
+    if (autoScrollToggle)
+{
+    autoScrollToggle.textContent = "Ⅱ";
+}
+
+    autoScrollFrameId =
+        requestAnimationFrame(
+            autoScrollFrame
+        );
+}
+
+
+
+function pauseAutoScroll()
+{
+    autoScrollRunning = false;
+
+    if (autoScrollFrameId !== null)
+    {
+        cancelAnimationFrame(
+            autoScrollFrameId
+        );
+
+        autoScrollFrameId = null;
+    }
+
+    autoScrollLastTime = null;
+    
+    if (autoScrollToggle)
+{
+    autoScrollToggle.textContent = "▶";
+}
+
+
+}
+
+
+function autoScrollFrame(timestamp)
+{
+    if (!autoScrollRunning)
+    {
+        return;
+    }
+
+    if (autoScrollLastTime === null)
+    {
+        autoScrollLastTime = timestamp;
+    }
+
+    const elapsed =
+        timestamp -
+        autoScrollLastTime;
+
+    autoScrollLastTime =
+        timestamp;
+
+    autoScrollPosition +=
+        scrollSpeed *
+        elapsed /
+        1000;
+
+        
+//    autoScrollScrollEvent = true;
+
+    window.scrollTo(
+        0,
+        autoScrollPosition
+                );
+    
+    
+    if (
+        window.scrollY >=
+        document.documentElement.scrollHeight -
+        window.innerHeight -
+        1
+    )
+    {
+        pauseAutoScroll();
+        return;
+    }
+
+    autoScrollFrameId =
+        requestAnimationFrame(
+            autoScrollFrame
+        );
+}
+
+
+/*
+function pauseAutoScrollTemporarily()
+{
+    pauseAutoScroll();
+
+    clearTimeout(
+        autoScrollResumeTimer
+    );
+
+    autoScrollPausedUntil =
+        Date.now() + 5000;
+
+    autoScrollResumeTimer =
+        setTimeout(
+            function ()
+            {
+                autoScrollPausedUntil = 0;
+
+                startAutoScroll();
+            },
+            5000
+        );
+}
+*/
+
+
+function pauseAutoScrollForManualScroll()
+{
+    /*
+     * If auto-scroll is off and there is no
+     * existing manual-scroll pause, do nothing.
+     */
+    if (
+        !autoScrollRunning &&
+        !manualScrollPauseActive
+    )
+    {
+        return;
+    }
+
+    /*
+     * Stop auto-scroll immediately.
+     */
+    if (autoScrollRunning)
+    {
+        pauseAutoScroll();
+    }
+
+    manualScrollPauseActive = true;
+
+    /*
+     * Reset the five-second timer.
+     */
+    clearTimeout(
+        autoScrollResumeTimer
+    );
+
+    autoScrollResumeTimer =
+        setTimeout(
+            function ()
+            {
+                manualScrollPauseActive = false;
+
+                startAutoScroll();
+            },
+            3000
+        );
+}
+
+
+
 
 /*----------------------------------------------------------*/
 /* Sticky section scrolling                                 */
@@ -2213,5 +2685,15 @@ else if (setting === "aggressive")
                 block: "start"
             }
         );
+    }
+}
+
+
+function updateScrollSpeedInput()
+{
+    if (autoScrollSpeedInput)
+    {
+        autoScrollSpeedInput.value =
+            scrollSpeed;
     }
 }

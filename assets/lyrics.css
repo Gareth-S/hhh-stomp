@@ -92,7 +92,7 @@ body {
 
 .accidental {
     font: inherit;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
@@ -1188,3 +1188,48 @@ body
     }
 }
 
+
+#auto-scroll-controls
+{
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 4px 6px;
+
+    background: rgba(0, 0, 0, 0.15);
+
+    border-radius: 6px;
+
+    z-index: 1000;
+}
+
+#auto-scroll-controls button,
+#auto-scroll-controls input
+{
+    height: 32px;
+    box-sizing: border-box;
+}
+
+#auto-scroll-controls button
+{
+    min-width: 32px;
+
+    padding: 2px 6px;
+
+    font-size: 1rem;
+}
+
+#auto-scroll-speed
+{
+    width: 55px;
+
+    padding: 2px 4px;
+
+    text-align: center;
+}
