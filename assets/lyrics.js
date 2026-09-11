@@ -72,6 +72,26 @@ document.addEventListener(
         "auto-scroll-speed"
     );
 
+
+    const showAutoScrollControls =
+    localStorage.getItem(
+        "show-auto-scroll-controls"
+    );
+
+const autoScrollControls =
+    document.getElementById(
+        "auto-scroll-controls"
+    );
+
+if (
+    autoScrollControls &&
+    showAutoScrollControls !== "true"
+)
+{
+    autoScrollControls.style.display =
+        "none";
+}
+
     
     if (autoScrollSpeedInput)
     {

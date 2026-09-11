@@ -14,5 +14,6 @@
         "line-1": [
             "Go"
         ]
-    }
+    },
+    "scrollSpeed": 24
 }

@@ -3,8 +3,6 @@
 //
 // settings.js
 //
-// Version 0.2-band mebers
-//
 // hhh-stomp
 //
 
@@ -49,6 +47,14 @@ function attachStaticListeners()
             saveSettings
         );
 
+        
+        document
+    .getElementById("show-auto-scroll-controls")
+    .addEventListener(
+        "change",
+        saveSettings
+    );
+        
     const fontButtons =
         document.querySelectorAll(
             'input[name="fontsize"]'
@@ -186,6 +192,18 @@ if (sectionStickiness !== null)
             }
     }
 
+    
+    const showAutoScrollControls =
+    localStorage.getItem(
+        "show-auto-scroll-controls"
+    );
+
+document.getElementById(
+    "show-auto-scroll-controls"
+).checked =
+    showAutoScrollControls === "true";
+    
+    
 }
 
 function saveSettings()
@@ -233,6 +251,13 @@ localStorage.setItem(
     sectionStickiness
 );
 
+    
+    localStorage.setItem(
+    "show-auto-scroll-controls",
+    document.getElementById(
+        "show-auto-scroll-controls"
+    ).checked
+);
 
     
     const members =
@@ -245,6 +270,7 @@ localStorage.setItem(
             member.checked
             );
         }    
+    
     
 }
 
@@ -321,7 +347,7 @@ function populateBandMembers(members)
     
 }
 
-loadSettings();
+// loadSettings();
 
 
 
