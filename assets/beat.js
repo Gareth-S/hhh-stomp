@@ -8,6 +8,13 @@ let useMasterClock = false;
 let currentTempoBpm = 480;
 let currentTimeSignature = "4/4";
 
+ let beatAudioContext = null;
+
+let beatSoundA = null;
+let beatSoundB = null;
+
+let previousBeatTime = null;
+
 /*----------------------------------------------------------*/
 /* Clock Source                                              */
 /*----------------------------------------------------------*/
@@ -51,10 +58,10 @@ function configureBeatEngine(tempo)
 
         beatInterval = 60000 / tempo.bpm;
 
-        console.log(
-            "Beat interval =",
-            beatInterval
-                );
+        
+//        console.log( "Beat interval =", beatInterval);
+        
+        
     }
 
     if (tempo.timeSignature)
@@ -106,9 +113,16 @@ function initialiseBeatButton()
 
     button.addEventListener(
         "click",
-        function ()
+        async function ()
         {
             console.log("Tempo button clicked");
+            
+            await initialiseBeatAudio();
+            
+         //   testBeatSounds();
+            
+             // Keep the visual beat engine usable
+            // even if audio loading fails.
 
             startBeatEngine();
         }
@@ -124,9 +138,262 @@ function initialiseBeatButton()
     
 }
 
+// audio
+
+/*
+// test oscillator
+
+function initialiseBeatAudio()
+{
+    if (!beatAudioContext)
+    {
+        beatAudioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+    }
+
+    if (
+        beatAudioContext.state === "suspended"
+    )
+    {
+        beatAudioContext.resume();
+    }
+}
+
+*/
+
+// using wavs
+
+async function initialiseBeatAudio()
+{
+    if (!beatAudioContext)
+    {
+        beatAudioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+    }
+
+    if (
+        beatAudioContext.state === "suspended"
+    )
+    {
+        await beatAudioContext.resume();
+    }
+
+    if (
+        beatSoundA &&
+        beatSoundB
+    )
+    {
+        return;
+    }
+
+    const responseA =
+        await fetch(
+            "../assets/clicka.wav"
+        );
+
+    const responseB =
+        await fetch(
+            "../assets/clickb.wav"
+        );
+        
+        
+    if (!responseA.ok)
+    {
+        throw new Error(
+            "Could not load clicka.wav: " +
+            responseA.status
+        );
+    }
+
+    if (!responseB.ok)
+    {
+        throw new Error(
+            "Could not load clickb.wav: " +
+            responseB.status
+        );
+    }
+       
+
+    const bufferA =
+        await responseA.arrayBuffer();
+
+    const bufferB =
+        await responseB.arrayBuffer();
+        
+        
+//    console.log("clicka.wav bytes:", bufferA.byteLength);
+
+//    console.log("clickb.wav bytes:", bufferB.byteLength);
+
+        
+    beatSoundA =
+        await beatAudioContext.decodeAudioData(
+            bufferA
+        );
+
+//            console.log("clicka.wav decoded");
+
+        
+        
+    beatSoundB =
+        await beatAudioContext.decodeAudioData(
+            bufferB
+        );
+        
+//         console.log("clickb.wav decoded");
+}
+
+
+/*
+
+// test oscillator
+function playBeatSound(isDownbeat)
+{
+    if (!beatAudioContext)
+    {
+        return;
+    }
+
+    const oscillator =
+        beatAudioContext.createOscillator();
+
+    const gain =
+        beatAudioContext.createGain();
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.value =
+        isDownbeat ? 880 : 440;
+
+    gain.gain.setValueAtTime(
+        0.15,
+        beatAudioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        beatAudioContext.currentTime + 0.08
+    );
+
+    oscillator.connect(gain);
+    gain.connect(beatAudioContext.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        beatAudioContext.currentTime + 0.08
+    );
+}
+
+*/
+
+
+// using wavs
+function playBeatSound(isDownbeat)
+{
+    if (
+        !beatAudioContext ||
+        !beatSoundA ||
+        !beatSoundB
+    )
+    {
+        
+//        console.log("Beat sounds are not ready");
+    
+        return;
+    }
+
+//    console.log("Playing clicka.wav");
+
+    const source =
+        beatAudioContext.createBufferSource();
+
+    source.buffer =
+        isDownbeat
+            ? beatSoundA
+            : beatSoundB;
+
+    source.connect(
+        beatAudioContext.destination
+    );
+
+    source.start();
+}
+
+
+/*
+
+//test
+function testBeatSounds()
+{
+    if (
+        !beatAudioContext ||
+        !beatSoundA ||
+        !beatSoundB
+    )
+    {
+        console.log("Beat sounds are not ready");
+        return;
+    }
+
+    console.log("Playing clicka.wav");
+
+    const sourceA =
+        beatAudioContext.createBufferSource();
+
+    sourceA.buffer = beatSoundA;
+
+    sourceA.connect(
+        beatAudioContext.destination
+    );
+
+    sourceA.start();
+
+    setTimeout(
+        function ()
+        {
+            console.log("Playing clickb.wav");
+
+            const sourceB =
+                beatAudioContext.createBufferSource();
+
+            sourceB.buffer = beatSoundB;
+
+            sourceB.connect(
+                beatAudioContext.destination
+            );
+
+            sourceB.start();
+        },
+        1000
+    );
+}
+
+*/
+
 
 function nextBeat()
 {
+    
+    
+    const now =
+    performance.now();
+
+if (previousBeatTime !== null)
+{
+//    console.log("Time since previous beat:",(now - previousBeatTime).toFixed(1), "ms");
+}
+
+previousBeatTime =
+    now;
+    
+    
     currentBeat++;
 
     if (currentBeat > 3)
@@ -137,6 +404,12 @@ function nextBeat()
 
         barsRemaining--;
     }
+
+    playBeatSound( currentBeat === 0 );
+    
+ //   playBeatSound(false);
+//    playBeatSound(true);
+
 
     updateBeatDisplay();
     
@@ -253,6 +526,8 @@ function startBeatEngine()
     currentBar = 1;
 
     barsRemaining = countInBars;
+    
+    previousBeatTime = null;
 
     nextBeat();
 

@@ -407,7 +407,7 @@ def write_song_json(song: Song, json_path: str) -> None:
             "id": song.title,
             "title": song.title,
             "artist": "",
-            "version": "1.0",
+            "version": "1.1",
         },
         "tempo": {
             "bpm": 480,
