@@ -868,11 +868,18 @@ function renderInlineCue(member, text, lyricLine)
     const cue =
         document.createElement("div");
 
-    cue.className =
-        "cue user-cue inline-cue";
+cue.className =
+    member === currentUser()
+        ? "cue user-cue inline-cue"
+        : "cue user-cue inline-cue other-user-note";
+        
+    const authorPrefix =
+        member === currentUser()
+            ? ""
+            : "[" + member + "] ";
 
     cue.textContent =
-        "[" + member + "] " + text;
+        authorPrefix + text;
 
     const chordLine =
         lyricLine.previousElementSibling;
@@ -1056,14 +1063,19 @@ function insertSectionUserNotes(user, sections)
             const p =
                 document.createElement("p");
 
-            p.className =
-                "user-note";
+p.className =
+    user === currentUser()
+        ? "user-note"
+        : "user-note other-user-note";
+        
+        
+            const authorPrefix =
+                user === currentUser()
+                    ? ""
+                    : "[" + user + "] ";
 
             p.textContent =
-                "[" +
-                user +
-                "] " +
-                note;
+                authorPrefix + note;
 
             if (heading)
             {
@@ -1167,13 +1179,16 @@ function insertUserNotes(user, inline)
             continue;
         }
         
+        /*
   console.log(
     "RENDER INLINE:",
     user,
     line,
     inline[line]
 );      
-
+        */
+        
+    
         renderInlineCue(
             user,
             inline[line],
@@ -1238,16 +1253,23 @@ function insertTopUserNotes(user, notes)
         const p =
             document.createElement("p");
 
-        p.className =
-            "user-note";
+p.className =
+    user === currentUser()
+        ? "user-note"
+        : "user-note other-user-note";
+        
+        
+        const authorPrefix =
+            user === currentUser()
+                ? ""
+                : "[" + user + "] ";
 
         p.textContent =
-            "[" + user + "] " + note;
+            authorPrefix + note;
 
         container.appendChild(p);
     }
 }
-
 
 //
 // Add line numbers to every lyric line.
@@ -1378,7 +1400,7 @@ console.log(
             configureBeatEngine(songData.tempo);
         }           
 
-        startBeatEngine();
+        // startBeatEngine();  // Manual activation only  
         
         insertBandNotes(songData.songNotes);
         insertSectionBandNotes(songData.sections);
@@ -1447,12 +1469,7 @@ async function loadUserNotes()
                 
             console.log("LOADED NOTES FOR:", member, notes);
             
-            console.log(
-    "Tom/Gareth JSON:",
-    member,
-    notes
-);
-                
+            
         if (member === currentUser())
             {
                 userNotes = notes;

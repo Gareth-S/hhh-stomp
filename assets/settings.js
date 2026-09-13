@@ -102,6 +102,23 @@ for (const button of stickyButtons)
         );
     }
 
+    document
+    .getElementById("clear-user-link")
+    .addEventListener(
+        "click",
+        function(event)
+        {
+            event.preventDefault();
+
+            localStorage.removeItem(
+                "current-user"
+            );
+
+            window.location.href =
+                "index.html";
+        }
+    );
+    
     
 }
 

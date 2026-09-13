@@ -92,7 +92,7 @@ body {
 
 .accidental {
     font: inherit;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-weight: bold;
 }
 
@@ -639,7 +639,7 @@ body
 
 .song-notes
 {
-    margin: 0 0 1.2em 0;
+    margin: 0 0 1.0em 0;
 }
 
 .band-note
@@ -672,7 +672,7 @@ body
 {
     display: inline-block;
 
-    background: #59643a;
+    background: #006400;
 
     color: white;
 
@@ -696,11 +696,21 @@ body
     white-space: pre-line;
 }
 
+
+
 .cue
 {
     display: inline-block;
 
     font-size: .75rem;
+
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;
+
+
 
     padding: .08em .35em;
 
@@ -720,13 +730,26 @@ body
 
 .user-cue
 {
-    background: #59643a;
+    background: #006400;
 
     color: white;
 
     font-weight: normal;
+    
+    font-family:
+        Arial,
+        "DejaVu Sans",
+        "Liberation Sans",
+        sans-serif;
 
     margin-left: 1em;
+}
+
+.other-user-note {
+    
+    background: #59643a;
+    color:  #aaa;
+    
 }
 
 

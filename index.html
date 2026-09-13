@@ -8,16 +8,28 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Song2HTML</title>
+    <title>HhH Stomp</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <script src="assets/lyrics.js"></script> 
+<script>
+    const user =
+        currentUser();
+
+    if (user)
+    {
+        window.location.href =
+            "setlists.html";
+    }
+</script>
 
     <link rel="stylesheet" href="assets/lyrics.css" >
     
     <script defer src="assets/index.js"></script>    
     <script defer src="assets/common.js"></script>    
-    
 
 </head>
 
