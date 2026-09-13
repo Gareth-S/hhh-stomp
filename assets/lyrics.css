@@ -307,7 +307,7 @@ body {
         inset 0 0 0 14px var(--tempo-on);
 
     transition:
-        box-shadow .04s linear;
+        box-shadow .02s linear;
 }
 
 

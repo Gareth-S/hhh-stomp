@@ -47,6 +47,14 @@ function attachStaticListeners()
             saveSettings
         );
 
+    
+     document
+    .getElementById("beat-sound-enabled")
+    .addEventListener(
+        "change",
+        saveSettings
+    );   
+        
         
         document
     .getElementById("show-auto-scroll-controls")
@@ -156,6 +164,17 @@ function loadSettings()
         }
     }
     
+    const beatSoundEnabled =
+    localStorage.getItem(
+        "song2html_beat_sound_enabled"
+    ) === "true";
+
+document.getElementById(
+    "beat-sound-enabled"
+).checked =
+    beatSoundEnabled;
+    
+    
     
 const sectionStickiness =
     localStorage.getItem(
@@ -226,6 +245,12 @@ function saveSettings()
     document.getElementById("big-tempo").checked
         
     );  
+
+    localStorage.setItem(
+    "song2html_beat_sound_enabled",
+    document.getElementById("beat-sound-enabled").checked
+    );
+
     
 
 const size =

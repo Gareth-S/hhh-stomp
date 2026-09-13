@@ -88,95 +88,95 @@
     <hr>
 
     <h2>
-
         Text Size
-
     </h2>
 
    <table class="settings-table" border=0>
-
 <tr>
     <td>
-        <input type="radio" name="fontsize" value="small">
-    </td>
-    <td style="font-size:0.85rem">Small</td>
-</tr>
 
+    <input type="radio" name="fontsize" value="small" id="size-small">
+    
+    </td>
+    
+    <td style="font-size:0.85rem">
+    
+    <label for="size-small">Small</label>
+    
+    </td>
+</tr>
 <tr>
     <td>
-        <input
-            type="radio" name="fontsize" value="default" checked>
-    </td>
-    <td  style="font-size:1rem">Default</td>
-</tr>
 
-<tr>
-    <td>
-        <input
-            type="radio" name="fontsize" value="large">
+    <input type="radio" name="fontsize" value="default" id="size-default" checked">
     </td>
-    <td  style="font-size:1.20rem">Large</td>
-</tr>
-
-<tr>
-    <td>
-        <input
-            type="radio" name="fontsize" value="xlarge">
-    </td>
-    <td  style="font-size:1.40rem">Extra Large</td>
-</tr>
+    <td  style="font-size:1rem">
+    
+   <label for="size-default"> Default</label>
    
+   </td>
+</tr>
+<tr>
+    <td>
+
+    <input type="radio" name="fontsize" value="large" id="size-large">
+    
+    </td>
+    <td  style="font-size:1.20rem">
+    
+    <label for="size-large">Large</label>
+    
+    </td>
+</tr>
+<tr>
+    <td>
+    
+        <input type="radio" name="fontsize" value="xlarge" id="size-extralarge">
+        
+    </td>
+    <td  style="font-size:1.40rem">
+    
+    <label for="size-extralarge">Extra Large</label>
+    
+    </td>
+</tr>
     </table> 
     
     
     <hr>
 
     <h2>
-
         Display
-
     </h2>
 
 <table class="settings-table">
-
 <tr>
-
     <td>
 
-        <input
-            type="checkbox"
-            id="show-chords"
-            checked
-        >
+        <input type="checkbox" id="show-chords" checked>
 
     </td>
-
     <td>
-
+    
+ <label for="show-chords">
         Show chords
-
+ </label>
+ 
     </td>
-
 </tr>
-
-
 <tr>
-
     <td>
 
-        <input
-            type="checkbox"
-            id="show-line-numbers"
-        >
+        <input type="checkbox" id="show-line-numbers">
 
     </td>
-
     <td>
 
+    <label for="show-line-numbers">
         Show line numbers
-
+    </label>
+    
     </td>
-
 </tr>
 </table>
 
@@ -213,27 +213,37 @@
  <table class="settings-table">
 
 <tr>
-
     <td>
-  <label>
 
         <input
             type="checkbox"
             id="big-tempo">
-           
-            
-            <label>
-
+                       
     </td>
 
     <td>
-
+    
+    <label for="big-tempo">
         Big Tempo
+    </label>
 
     </td>
 
 </tr>
-
+<tr>
+    <td>
+  
+            <input type="checkbox" id="beat-sound-enabled" >   
+            
+    </td>
+    <td>
+    
+    <label for="beat-sound-enabled">
+        Tempo Sound
+    </label>
+    
+    </td>
+</tr>
 </table>
 
 

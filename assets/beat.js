@@ -15,6 +15,16 @@ let beatSoundB = null;
 
 let previousBeatTime = null;
 
+let nextBeatTime = 0;
+let schedulerTimer = null;
+
+const schedulerInterval = 25;
+const scheduleAheadTime = 0.1;
+
+let scheduledBeat = 0;
+let scheduledBar = 1;
+let scheduledBarsRemaining = 0;
+
 /*----------------------------------------------------------*/
 /* Clock Source                                              */
 /*----------------------------------------------------------*/
@@ -101,8 +111,7 @@ function configureBeatEngine(tempo)
 
 function initialiseBeatButton()
 {
-    const button =
-        document.getElementById("tempo-button");
+    const button = document.getElementById("tempo-button");
 
     console.log("Button =", button);
 
@@ -247,12 +256,14 @@ async function initialiseBeatAudio()
         );
         
 //         console.log("clickb.wav decoded");
+        
+        
 }
 
 
 /*
 
-// test oscillator
+// test oscillator using setInterval()
 function playBeatSound(isDownbeat)
 {
     if (!beatAudioContext)
@@ -294,7 +305,9 @@ function playBeatSound(isDownbeat)
 */
 
 
-// using wavs
+/*
+
+// using wavs and using setInterval()
 function playBeatSound(isDownbeat)
 {
     if (
@@ -326,6 +339,8 @@ function playBeatSound(isDownbeat)
     source.start();
 }
 
+
+*/
 
 /*
 
@@ -377,6 +392,150 @@ function testBeatSounds()
 
 */
 
+// using wavs & web audio
+function playBeatSound(
+    isDownbeat,
+    scheduledTime
+)
+
+{
+    /*
+     * Tempo sound is muted by default.
+     * Sound is enabled only when the
+     * Settings checkbox has been checked.
+     */
+
+    const beatSoundEnabled =
+        localStorage.getItem(
+            "song2html_beat_sound_enabled"
+        ) === "true";
+
+    if (!beatSoundEnabled)
+    {
+        return;
+    }
+
+
+    if (
+        !beatAudioContext ||
+        !beatSoundA ||
+        !beatSoundB
+    )
+    {
+        return;
+    }
+
+    const source =
+        beatAudioContext.createBufferSource();
+
+    source.buffer =
+        isDownbeat
+            ? beatSoundA
+            : beatSoundB;
+
+    source.connect(
+        beatAudioContext.destination
+    );
+
+    
+     source.start(
+        scheduledTime
+    );
+    
+    
+}
+
+function scheduleBeat()
+{
+    if (
+        !beatAudioContext ||
+        scheduledBarsRemaining <= 0
+    )
+    {
+        return;
+    }
+
+    const beatDuration =
+        60 / currentTempoBpm;
+
+    while (
+        nextBeatTime <
+        beatAudioContext.currentTime +
+        scheduleAheadTime
+    )
+    {
+        const isDownbeat =
+            scheduledBeat === 0;
+
+        playBeatSound(
+            isDownbeat,
+            nextBeatTime
+        );
+
+        scheduledBeat++;
+
+        if (scheduledBeat > 3)
+        {
+            scheduledBeat = 0;
+
+            scheduledBar++;
+
+            scheduledBarsRemaining--;
+        }
+
+        nextBeatTime += beatDuration;
+    }
+}
+
+function nextBeat()
+{
+    const now =
+        performance.now();
+
+    if (previousBeatTime !== null)
+    {
+         //    console.log("Time since previous beat:",(now - previousBeatTime).toFixed(1), "ms");
+     }
+
+    previousBeatTime =
+        now;
+
+    currentBeat++;
+
+    if (currentBeat > 3)
+    {
+        currentBeat = 0;
+
+        currentBar++;
+
+        barsRemaining--;
+    }
+
+    updateBeatDisplay();
+
+    if (barsRemaining <= 0)
+    {
+        clearInterval(beatTimer);
+
+        beatTimer = null;
+
+        if (schedulerTimer)
+        {
+            clearInterval(schedulerTimer);
+
+            schedulerTimer = null;
+        }
+
+        showTempoStatus();
+
+        console.log("Count-in complete");
+
+        return;
+    }
+}
+
+
+/*
 
 function nextBeat()
 {
@@ -405,7 +564,7 @@ previousBeatTime =
         barsRemaining--;
     }
 
-    playBeatSound( currentBeat === 0 );
+ //   playBeatSound( currentBeat === 0 );
     
  //   playBeatSound(false);
 //    playBeatSound(true);
@@ -433,12 +592,49 @@ previousBeatTime =
         console.log("READY");
 
         */
-        
+        /*
         
         return;
     }
 }
 
+*/
+        
+        
+/*
+// duplicate
+
+function scheduleBeat()
+{
+    if (
+        !beatAudioContext
+    )
+    {
+        return;
+    }
+
+    const beatDuration =
+        60 / currentTempoBpm;
+
+    while (
+        nextBeatTime <
+        beatAudioContext.currentTime +
+        scheduleAheadTime
+    )
+    {
+        const isDownbeat =
+            currentBeat === 0;
+
+        playBeatSound(
+            isDownbeat,
+            nextBeatTime
+        );
+
+        nextBeatTime += beatDuration;
+    }
+}
+
+*/
 
 function updateBeatDisplay()
 {
@@ -516,6 +712,12 @@ function startBeatEngine()
         clearInterval(beatTimer);
     }
 
+    if (schedulerTimer)
+    {
+        clearInterval(schedulerTimer);
+    }
+
+
     /*
     document.getElementById("tempo-status").textContent = "";
     */
@@ -528,6 +730,27 @@ function startBeatEngine()
     barsRemaining = countInBars;
     
     previousBeatTime = null;
+    
+    
+        /*
+    Reset the audio scheduler.
+    */
+
+    scheduledBeat = 0;
+
+    scheduledBar = 1;
+
+    scheduledBarsRemaining =
+        countInBars;
+
+    nextBeatTime =
+        beatAudioContext.currentTime +
+        0.05;
+
+    /*
+    Start the visual/count-in engine.
+    */
+
 
     nextBeat();
 
@@ -536,6 +759,18 @@ function startBeatEngine()
             nextBeat,
             beatInterval
         );
+        
+    
+     /*
+    Start the Web Audio scheduler.
+    */
+
+    schedulerTimer =
+        setInterval(
+            scheduleBeat,
+            schedulerInterval
+        );
+
 }
 
 
