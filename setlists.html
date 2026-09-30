@@ -92,6 +92,12 @@
     <section class="song-list-group">
 
         <h2>All Songs</h2>
+       
+       <div class="song-count">
+    Songs available: <span id="song-count">...</span>
+       </div>
+        
+        
 
         <div id="all-songs" class="song-list"> </div>
 
@@ -107,14 +113,47 @@
     </section>
 
 
-    <div class="song-list-buttons">
+<div id="setlist-controls">
 
+
+    <button
+        type="button"
+        id="setlist-controls-toggle">
+        ▼
+    </button>
+    
+
+    <div class="song-list-buttons">
+    
+    
+Best leave this to <span id="bandleader"></span>  <p></p>
+        
+<!--        
         <button
-            type="button" id="save-setlist">
+            type="button"
+            id="save2clip"
+            class="bandleader-button">
+            save2clip
+        </button>
+-->
+       
+        <button
+            type="button"
+            id="save-setlist">
             Save Setlist
         </button>
+        
+        
+        <button
+            type="button"
+            id="share-setlist">
+            Share Setlist
+        </button>
+
 
     </div>
+
+</div>
 
     
     <div class="saved-setlists">
@@ -139,7 +178,14 @@
         </nav>
 
 </footer>
-                            <p align="center"> <small>HhH 2026 - v0.7</small></p>
+
+          
+          
+
+                            <p align="center"> <small><svg class="power-symbol"
+    viewBox="0 0 24 24" aria-label="Power">
+    <path d="M12 3.2v8.3"/>
+    <path d="M7.05 6.95a7 7 0 1 0 9.9 0"/></svg> HhH 2026</small></p>
 
             </div>
         </div>

@@ -1,12 +1,12 @@
 {
     "song": {
-        "id": "Call Me The Breeze",
-        "title": "Call Me The Breeze",
+        "id": "Roll Over Beethoven",
+        "title": "Roll Over Beethoven",
         "artist": "",
-        "version": "1.0"
+        "version": "1.1"
     },
     "tempo": {
-        "bpm": 86,
+        "bpm": 480,
         "timeSignature": "4/4",
         "countInBars": 4
     }

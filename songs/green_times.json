@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "Green Onion / Let The Good Times Roll",
+        "title": "Green Onion / Let The Good Times Roll",
+        "artist": "",
+        "version": "1.1"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

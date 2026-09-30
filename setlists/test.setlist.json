@@ -1,24 +1,16 @@
 {
     "songs": [
         {
-            "title": "00 Break",
+            "title": "00-break",
             "file": "songs/00-Break.html?source=setlist&index=0"
         },
         {
-            "title": "A Fool for Your Stockings",
-            "file": "songs/Fool_for_Your_Stockings.html?source=setlist&index=1"
+            "title": "00-break",
+            "file": "songs/00-Break.html?source=setlist&index=1"
         },
         {
-            "title": "00 Break",
+            "title": "00-break",
             "file": "songs/00-Break.html?source=setlist&index=2"
-        },
-        {
-            "title": "After Midnight",
-            "file": "songs/After_Midnight.html?source=setlist&index=3"
-        },
-        {
-            "title": "00 Break",
-            "file": "songs/00-Break.html?source=setlist&index=4"
         }
     ]
 }

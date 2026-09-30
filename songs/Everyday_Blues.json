@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "Every Day I Have The Blues",
+        "title": "Every Day I Have The Blues",
+        "artist": "",
+        "version": "1.1"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}

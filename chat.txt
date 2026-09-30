@@ -1,0 +1,55 @@
+                const response =
+                    await fetch(
+                        "../assets/save-scroll-speed.php",
+                        {
+                            method: "POST",
+                            headers:
+                            {
+--
+const response =
+    await fetch(
+        filename,
+        {
+            cache: "no-cache"
+        }
+    );
+--
+ //       const response =
+ //           await fetch("tiny.json");
+
+        if (!response.ok)
+        {
+ //           console.log("json not found");
+            return;
+--
+            const response =
+                await fetch(
+                    filename,
+            {
+            cache: "no-cache"
+            }
+            );
+--
+                    const response =
+                        await fetch(
+                            "../assets/save-notes.php",
+                            {
+                                method: "POST",
+
+                                headers:
+--
+    const response =
+        await fetch(
+            "../assets/catalogue.json?ts=" +
+            Date.now()
+        );
+
+    if (!response.ok)
+--
+        const response =
+            await fetch(
+                "../assets/current.setlist.json?ts=" +
+                Date.now()
+            );
+
+        if (!response.ok)

@@ -1,0 +1,33 @@
+{
+    "files": [
+        "./assets/DejaVuSansMono.ttf",
+        "./assets/all.setlists.json",
+        "./assets/band.json",
+        "./assets/beat.js",
+        "./assets/catalogue.json",
+        "./assets/clicka.wav",
+        "./assets/clickb.wav",
+        "./assets/common.js",
+        "./assets/cpt.png",
+        "./assets/current.setlist.json",
+        "./assets/favicon.ico",
+        "./assets/icon-192x192.png",
+        "./assets/icon-512x512.png",
+        "./assets/index.js",
+        "./assets/list-setlists.php",
+        "./assets/lyrics.css",
+        "./assets/lyrics.js",
+        "./assets/notes-editor.html",
+        "./assets/pwa-fetch.js",
+        "./assets/setlists.css",
+        "./assets/setlists.js",
+        "./assets/settings.js",
+        "./assets/sortable.min.js",
+        "./assets/update.json",
+        "./index.html",
+        "./manifest.json",
+        "./setlists.html",
+        "./settings.html",
+        "./sw.js"
+    ]
+}

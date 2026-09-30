@@ -51,7 +51,46 @@ $filename =
     strtolower($user) .
     ".json";
     
-    
+ /*
+ * Preserve the existing scroll speed.
+ */
+$existingScrollSpeed = null;
+
+if (file_exists($filename))
+{
+    $existingData =
+        json_decode(
+            file_get_contents($filename),
+            true
+        );
+
+    if (
+        is_array($existingData) &&
+        array_key_exists(
+            "scrollSpeed",
+            $existingData
+        )
+    )
+    {
+        $existingScrollSpeed =
+            $existingData["scrollSpeed"];
+    }
+}
+
+if ($existingScrollSpeed !== null)
+{
+    $data["scrollSpeed"] =
+        $existingScrollSpeed;
+}
+
+$result =
+    file_put_contents(
+        $filename,
+        json_encode(
+            $data,
+            JSON_PRETTY_PRINT
+        )
+    );   
     
 $result =
     file_put_contents(

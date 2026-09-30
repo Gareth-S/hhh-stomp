@@ -1,0 +1,37 @@
+{
+    "user": "Gareth",
+    "filename": "treat_me",
+    "songNotes": [],
+    "sections": {
+        "section-1": [
+            "Blues"
+        ],
+        "section-2": [
+            "Rock and Roll"
+        ],
+        "section-3": [
+            "Soul"
+        ],
+        "section-4": [
+            "R & R"
+        ],
+        "section-5": [
+            "Soul"
+        ],
+        "section-6": [
+            "Blues"
+        ],
+        "section-7": [
+            "R & R"
+        ],
+        "section-8": [
+            "Soul"
+        ]
+    },
+    "inline": {
+        "line-20": [
+            "Chromatic"
+        ]
+    },
+    "scrollSpeed": 14
+}

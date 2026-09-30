@@ -1,10 +1,10 @@
 {
-    "band": "Band A",
+    "band": "Sweet Water",
     "bandleader": "Gareth",
     "members": [
-        "Gareth",
         "Tom",
-        "Dick",
-        "Sally"
+        "Gareth",
+        "Sally",
+        "Dick"
     ]
 }

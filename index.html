@@ -10,9 +10,9 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>HhH Stomp</title>
-    
-    <link rel="manifest" href="manifest.json">
+    <title>HhH Stomp - Lyric Engine</title>
+        
+    <link rel="manifest" href="./manifest.json">
     
     <script src="assets/lyrics.js"></script> 
 <script>
@@ -39,22 +39,17 @@
     <main id="welcome-page">
 
         <h1 class="welcome-title">
-            Welcome
+            Boot Leggers
         </h1>
 
 
         <section class="welcome-text">
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-            </p>
 
             <p>
-                Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.
+                This is VERY much in testing mode at the moment. <br>
+                There are a few known bugs I'm working on (nothing harmful) but if you come accross
+                any inconsistancies, errors, or you have ideas to improve please let me know.
             </p>
 
         </section>
@@ -76,9 +71,88 @@
              -->
 
         </div>
+        
+          <section class="done-text">
+         
+          <h5>v1.2</h5>
+      
+        </section>
 
+               <hr> 
+          
+         <section class="done-text">
+         
+          
+           <h5><svg class="power-symbol"
+    viewBox="0 0 24 24" aria-label="Power">
+    <path d="M12 3.2v8.3"/>
+    <path d="M7.05 6.95a7 7 0 1 0 9.9 0"/></svg> HhH 2026</h5>
+    
+        <pre>
+        Core functionality
+
+ Catalogue generated from songs
+ Alphabetical catalogue
+ Current setlist
+ Drag catalogue → setlist
+ Reordering setlist
+ Delete individual setlist entries
+ Duplicate songs allowed/highlighted
+ Save current setlist
+ Load previously saved setlists
+ User defaults
+ Personal song notes
+ Previous/next song swipe navigation
+ Catalogue/setlist navigation source preserved
+ Cache-busting for current setlist
+ Add screen wake lock for song pages
+ Help popup
+ Theme handling
+ Mobile-friendly panes
+ Touch-friendly drag handles
+ Footer navigation touch targets
+ Tempo displays
+ Tempo audio
+ Scrolling snaps to section
+ Scrolling speed per song per user
+ Index redirect &amp; User reset
+ Break now shows setlist count
+ Installable as Progressive Web App (PWA) for offline use.
+ 
+
+        Gateway
+
+ Welcome page
+ band.json drives users
+ Bandleader recorded
+ Current user stored in localStorage
+ User defaults applied automatically
+ Gateway → setlists
+ PWA for offline use
+        </pre>
+        
+        
+</section>
+
+
+        
+        
+        
     </main>
-
+    
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+            .then(registration => {
+                console.log("Service worker registered:", registration.scope);
+            })
+            .catch(error => {
+                console.error("Service worker registration failed:", error);
+            });
+    });
+}
+</script>
 
 </body>
 

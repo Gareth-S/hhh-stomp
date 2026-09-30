@@ -31,17 +31,36 @@
     --accent-colour:  #d6c15f;
 }
 
+@font-face {
+    font-family: "SongTestMono";
+    
+    src: url("DejaVuSansMono.ttf") format("truetype");  
+
+    /*
+    src: url("BravuraText") format("opentype");
+    
+    */
+
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 body {
     margin: 0;
     padding: 0;
 
-/*    font-family: monospace;  */
+/*    font-family: monospace; 
     font-family: "DejaVu Sans Mono", monospace;
+*/
+
+    font-family: "SongTestMono";
+
     font-size: calc(1.0rem * var(--scale));
     line-height: 1.4;
 
+    text-shadow: 4px 2px 6px rgba(0, 0, 0, 0.5);
+    
     background: var(--bg);
     color: var(--text);
     
@@ -82,6 +101,7 @@ body {
 
 
 .chords {
+    font-family: "SongTestMono";
     color: var(--chord);
     font-weight: bold;
     font-size: 1.0rem;
@@ -91,8 +111,9 @@ body {
 /* check to make sure it works again */
 
 .accidental {
-    font: inherit;
-    font-size: 1.0rem;
+    font-family: "SongTestMono";
+    color: var(--chord);
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
@@ -1250,9 +1271,50 @@ body
 
 #auto-scroll-speed
 {
-    width: 55px;
+    width: 32px;
 
     padding: 2px 4px;
 
     text-align: center;
 }
+
+#auto-scroll-toggle
+{
+    width: 60px;
+}
+
+#scroll-speed-saved
+{
+    display: none;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(
+        -50%,
+        -50%
+    );
+
+    padding: 0.5rem 1rem;
+
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+
+    border-radius: 0.3rem;
+
+    font-size: 1rem;
+
+    z-index: 1000;
+}
+
+.power-symbol {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+

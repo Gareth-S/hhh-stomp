@@ -1,0 +1,13 @@
+{
+    "song": {
+        "id": "Riot In Cell Block Number Nine",
+        "title": "Riot In Cell Block Number Nine",
+        "artist": "",
+        "version": "1.1"
+    },
+    "tempo": {
+        "bpm": 480,
+        "timeSignature": "4/4",
+        "countInBars": 4
+    }
+}
